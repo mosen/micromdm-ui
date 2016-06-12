@@ -12,8 +12,9 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
-        <Navigation />
-        {this.props.children}
+        <Navigation>
+          {this.props.children}
+        </Navigation>
       </div>
     );
   }

@@ -105,8 +105,10 @@ module.exports = {
       'foundation.util.mediaQuery': 'foundation-sites/js/foundation.util.mediaQuery',
       'foundation.util.motion': 'foundation-sites/js/foundation.util.motion',
       'foundation.util.nest': 'foundation-sites/js/foundation.util.nest',
+      'foundation.util.triggers': 'foundation-sites/js/foundation.util.triggers',
       'foundation.dropdownMenu': 'foundation-sites/js/foundation.dropdownMenu',
-      'foundation.responsiveToggle': 'foundation-sites/js/foundation.responsiveToggle'
+      'foundation.responsiveToggle': 'foundation-sites/js/foundation.responsiveToggle',
+      'foundation.offcanvas': 'foundation-sites/js/foundation.offcanvas'
     }
   }
 };

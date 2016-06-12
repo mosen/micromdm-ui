@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
 import {
   ResponsiveNavigation,
@@ -6,17 +7,18 @@ import {
   TopBarRight,
   Menu,
   MenuItem,
-  MenuText
+  MenuText,
+  MenuIcon,
+  TitleBar,
+  TitleBarTitle,
+  Icon
 } from 'react-foundation';
 import $ from 'jquery';
 import {Foundation} from 'foundation.core';
-import 'foundation.util.keyboard';
-import 'foundation.util.box';
-import 'foundation.util.nest';
 import 'foundation.util.mediaQuery';
+import 'foundation.util.triggers';
 import 'foundation.util.motion';
-import 'foundation.dropdownMenu';
-import 'foundation.responsiveToggle';
+import 'foundation.offcanvas';
 
 const propTypes = {
   isAuthenticated: PropTypes.bool,
@@ -27,29 +29,26 @@ const propTypes = {
 class Navigation extends Component {
 
   componentDidMount () {
-    const rightMenu = $(this.refs.navbar).find('.rightMenu');
-    this._menu = new Foundation.DropdownMenu(rightMenu, {});
+    this._offcanvas = new Foundation.OffCanvas($(this._el), {});
   }
 
   componentWillUnmount () {
-    this._menu.destroy();
+    this._offcanvas.destroy();
   }
 
   componentWillReceiveProps () {
-    this._menu._init();
+    this._offcanvas && this._offcanvas._init();
   }
 
   render () {
     const {
-      isAuthenticated,
-      user
     } = this.props;
 
     const navigationOptions = [
-      <MenuItem key='devices'><Link to='/devices'>Devices</Link></MenuItem>,
-      <MenuItem key='profiles'><Link to='/profiles'>Profiles</Link></MenuItem>,
-      <MenuItem key='applications'><Link to='/applications'>Applications</Link></MenuItem>,
-      <MenuItem key='workflows'><Link to='/workflows'>Workflows</Link></MenuItem>
+      <MenuItem key='devices'><Link to='/devices'><Icon name='fi-mobile' />{' '}Devices</Link></MenuItem>,
+      <MenuItem key='profiles'><Link to='/profiles'><Icon name='fi-widget' />{' '}Profiles</Link></MenuItem>,
+      <MenuItem key='applications'><Link to='/applications'><Icon name='fi-page' />{' '}Applications</Link></MenuItem>,
+      <MenuItem key='workflows'><Link to='/workflows'><Icon name='fi-list-thumbnails' />{' '}Workflows</Link></MenuItem>
     ];
 
     const adminMenu = (
@@ -61,21 +60,18 @@ class Navigation extends Component {
     );
 
     return (
-      <ResponsiveNavigation className='navbar' ref='navbar'>
-        <TopBarLeft>
-          <Menu>
-            {isAuthenticated && navigationOptions}
-          </Menu>
-        </TopBarLeft>
-        <TopBarRight>
-          <Menu isDropdown className='rightMenu' data-dropdown-menu>
-            {adminMenu}
-            <MenuItem>
-              {!isAuthenticated ? <Link to='/login'>Log in</Link> : <Link to='/logout'>Log out</Link>}
-            </MenuItem>
-          </Menu>
-        </TopBarRight>
-      </ResponsiveNavigation>
+      <div className='off-canvas-wrapper' ref={(c) => { this._el = c; }}>
+        <div className='off-canvas-wrapper-inner' data-off-canvas-wrapper-inner>
+          <div className='off-canvas position-left reveal-for-large' id='leftMenu' data-off-canvas>
+            <Menu isVertical>
+              {navigationOptions}
+            </Menu>
+          </div>
+          <div className='off-canvas-content' data-off-canvas-content>
+            {this.props.children}
+          </div>
+        </div>
+      </div>
     );
   }
 }

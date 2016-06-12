@@ -7,16 +7,18 @@ import {syncHistoryWithStore} from 'react-router-redux';
 
 import configureStore from './store/configureStore';
 
-const initialState = { auth: { token: sessionStorage.getItem('auth.token') } };
+const initialState = {};
 const store = configureStore(initialState);
 const history = syncHistoryWithStore(browserHistory, store);
 
 import App from './containers/App';
+import Devices from './containers/Devices';
 
 render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
+        <Route path='/devices' component={Devices} />
       </Route>
     </Router>
   </Provider>,

@@ -4,7 +4,6 @@ import {apiMiddleware} from 'redux-api-middleware';
 
 import rootReducer from '../reducers';
 
-
 export default function configureStore (initialState) {
   const store = createStore(
     rootReducer,
