@@ -1,24 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
-import {
-  ResponsiveNavigation,
-  TopBarLeft,
-  TopBarRight,
-  Menu,
-  MenuItem,
-  MenuText,
-  MenuIcon,
-  TitleBar,
-  TitleBarTitle,
-  Icon
-} from 'react-foundation';
-import $ from 'jquery';
-import {Foundation} from 'foundation.core';
-import 'foundation.util.mediaQuery';
-import 'foundation.util.triggers';
-import 'foundation.util.motion';
-import 'foundation.offcanvas';
+import Paper from 'material-ui/Paper';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import Devices from 'material-ui/svg-icons/device/devices';
+import SettingsApplications from 'material-ui/svg-icons/action/settings-applications';
+import ContentLink from 'material-ui/svg-icons/content/link';
+import Divider from 'material-ui/Divider';
+import ContentCopy from 'material-ui/svg-icons/content/content-copy';
+import Apps from 'material-ui/svg-icons/navigation/apps';
+import Delete from 'material-ui/svg-icons/action/delete';
+import FontIcon from 'material-ui/FontIcon';
 
 const propTypes = {
   isAuthenticated: PropTypes.bool,
@@ -28,50 +21,20 @@ const propTypes = {
 
 class Navigation extends Component {
 
-  componentDidMount () {
-    this._offcanvas = new Foundation.OffCanvas($(this._el), {});
-  }
-
-  componentWillUnmount () {
-    this._offcanvas.destroy();
-  }
-
-  componentWillReceiveProps () {
-    // this._offcanvas && this._offcanvas._init();
-  }
-
   render () {
     const {
     } = this.props;
 
-    const navigationOptions = [
-      <MenuItem key='devices'><Link to='/devices'><Icon name='fi-tablet-portrait' /> <span>Devices</span></Link></MenuItem>,
-      <MenuItem key='profiles'><Link to='/profiles'><Icon name='fi-widget' /> <span>Profiles</span></Link></MenuItem>,
-      <MenuItem key='applications'><Link to='/applications'><Icon name='fi-page' /><span>Applications</span></Link></MenuItem>,
-      <MenuItem key='workflows'><Link to='/workflows'><Icon name='fi-list-thumbnails' /><span>Workflows</span></Link></MenuItem>
-    ];
-
-    const adminMenu = (
-      <MenuItem key='admin'><Link to='#'>Admin</Link>
-        <Menu>
-          <MenuItem key='users'><Link to='/users'>Users</Link></MenuItem>
-        </Menu>
-      </MenuItem>
-    );
-
     return (
-      <div className='off-canvas-wrapper' ref={(c) => { this._el = c; }}>
-        <div className='off-canvas-wrapper-inner' data-off-canvas-wrapper-inner>
-          <div className='off-canvas position-left reveal-for-large' id='leftMenu' data-off-canvas>
-            <Menu isVertical>
-              <MenuText>MicroMDM</MenuText>
-              {navigationOptions}
-            </Menu>
-          </div>
-          <div className='off-canvas-content' data-off-canvas-content>
-            {this.props.children}
-          </div>
-        </div>
+      <div>
+        <Paper>
+          <Menu>
+            <MenuItem primaryText='Devices' leftIcon={<Devices />} />
+            <MenuItem primaryText='Profiles' leftIcon={<SettingsApplications />} />
+            <MenuItem primaryText='Workflows' leftIcon={<Devices />} />
+            <MenuItem primaryText='Applications' leftIcon={<Apps />} />
+          </Menu>
+        </Paper>
       </div>
     );
   }

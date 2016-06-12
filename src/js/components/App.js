@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {deepOrange500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Navigation from './Navigation';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -19,6 +20,7 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>
+          <Navigation />
           {this.props.children}
         </div>
       </MuiThemeProvider>
