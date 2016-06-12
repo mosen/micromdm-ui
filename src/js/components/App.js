@@ -1,7 +1,13 @@
 import React, {Component, PropTypes} from 'react';
+import {deepOrange500} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import Navigation from './Navigation';
-import '../../sass/app.scss';
+const muiTheme = getMuiTheme({
+  palette: {
+    accent1Color: deepOrange500
+  }
+});
 
 const propTypes = {
   children: PropTypes.object
@@ -11,11 +17,11 @@ class App extends Component {
 
   render () {
     return (
-      <div className='App'>
-        <Navigation>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div className='App'>
           {this.props.children}
-        </Navigation>
-      </div>
+        </div>
+      </MuiThemeProvider>
     );
   }
 

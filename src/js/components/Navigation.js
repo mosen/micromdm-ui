@@ -37,7 +37,7 @@ class Navigation extends Component {
   }
 
   componentWillReceiveProps () {
-    this._offcanvas && this._offcanvas._init();
+    // this._offcanvas && this._offcanvas._init();
   }
 
   render () {
@@ -45,10 +45,10 @@ class Navigation extends Component {
     } = this.props;
 
     const navigationOptions = [
-      <MenuItem key='devices'><Link to='/devices'><Icon name='fi-mobile' />{' '}Devices</Link></MenuItem>,
-      <MenuItem key='profiles'><Link to='/profiles'><Icon name='fi-widget' />{' '}Profiles</Link></MenuItem>,
-      <MenuItem key='applications'><Link to='/applications'><Icon name='fi-page' />{' '}Applications</Link></MenuItem>,
-      <MenuItem key='workflows'><Link to='/workflows'><Icon name='fi-list-thumbnails' />{' '}Workflows</Link></MenuItem>
+      <MenuItem key='devices'><Link to='/devices'><Icon name='fi-tablet-portrait' /> <span>Devices</span></Link></MenuItem>,
+      <MenuItem key='profiles'><Link to='/profiles'><Icon name='fi-widget' /> <span>Profiles</span></Link></MenuItem>,
+      <MenuItem key='applications'><Link to='/applications'><Icon name='fi-page' /><span>Applications</span></Link></MenuItem>,
+      <MenuItem key='workflows'><Link to='/workflows'><Icon name='fi-list-thumbnails' /><span>Workflows</span></Link></MenuItem>
     ];
 
     const adminMenu = (
@@ -64,6 +64,7 @@ class Navigation extends Component {
         <div className='off-canvas-wrapper-inner' data-off-canvas-wrapper-inner>
           <div className='off-canvas position-left reveal-for-large' id='leftMenu' data-off-canvas>
             <Menu isVertical>
+              <MenuText>MicroMDM</MenuText>
               {navigationOptions}
             </Menu>
           </div>

@@ -80,13 +80,6 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         loader: 'url?limit=8192'
-      },
-      {
-        test: /(foundation\.core)/,
-        loader: 'imports?jQuery=jquery!exports?foundation=jQuery.fn.foundation,Foundation=window.Foundation'
-      },
-      {
-        test: /foundation-sites\/js/, loader: 'imports?$=jquery,jQuery=jquery'
       }
     ]
   },
@@ -96,19 +89,5 @@ module.exports = {
       allChunks: true
     })
   ],
-  postcss: [autoprefixer],
-  resolve: {
-    alias: {
-      'foundation.core': 'foundation-sites/js/foundation.core',
-      'foundation.util.keyboard': 'foundation-sites/js/foundation.util.keyboard',
-      'foundation.util.box': 'foundation-sites/js/foundation.util.box',
-      'foundation.util.mediaQuery': 'foundation-sites/js/foundation.util.mediaQuery',
-      'foundation.util.motion': 'foundation-sites/js/foundation.util.motion',
-      'foundation.util.nest': 'foundation-sites/js/foundation.util.nest',
-      'foundation.util.triggers': 'foundation-sites/js/foundation.util.triggers',
-      'foundation.dropdownMenu': 'foundation-sites/js/foundation.dropdownMenu',
-      'foundation.responsiveToggle': 'foundation-sites/js/foundation.responsiveToggle',
-      'foundation.offcanvas': 'foundation-sites/js/foundation.offcanvas'
-    }
-  }
+  postcss: [autoprefixer]
 };
