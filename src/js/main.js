@@ -17,13 +17,20 @@ const store = configureStore(initialState);
 const history = syncHistoryWithStore(browserHistory, store);
 
 import App from './containers/App';
+
+import Applications from './containers/Applications';
 import Devices from './containers/Devices';
+import Profiles from './containers/Profiles';
+import Workflows from './containers/Workflows';
 
 render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
         <Route path='/devices' component={Devices} />
+        <Route path='/applications' component={Applications} />
+        <Route path='/profiles' component={Profiles} />
+        <Route path='/workflows' component={Workflows} />
       </Route>
     </Router>
   </Provider>,

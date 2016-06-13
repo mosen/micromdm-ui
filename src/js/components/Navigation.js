@@ -29,7 +29,7 @@ class Navigation extends Component {
     };
 
     const pushApps = () => {
-      browserHistory.push('/apps');
+      browserHistory.push('/applications');
     };
 
     return (
@@ -37,7 +37,7 @@ class Navigation extends Component {
         <Tab label='DEVICES' icon={<Devices />} onActive={pushDevices} value='/devices' />
         <Tab label='PROFILES' icon={<SettingsApplications />} onActive={pushProfiles} value='/profiles' />
         <Tab label='WORKFLOWS' icon={<Devices />} onActive={pushWorkflows} value='/workflows' />
-        <Tab label='APPS' icon={<Apps />} onActive={pushApps} value='/apps' />
+        <Tab label='APPS' icon={<Apps />} onActive={pushApps} value='/applications' />
       </Tabs>
     );
   }
