@@ -5,11 +5,11 @@ import SettingsApplications from 'material-ui/svg-icons/action/settings-applicat
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
-const propTypes = {
-  location: PropTypes.string.isRequired
-};
-
 class Navigation extends Component {
+
+  static propTypes = {
+    location: PropTypes.object.isRequired
+  };
 
   render () {
     const {
@@ -42,8 +42,6 @@ class Navigation extends Component {
     );
   }
 }
-
-Navigation.PropTypes = propTypes;
 
 export default Navigation;
 

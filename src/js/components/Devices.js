@@ -1,12 +1,12 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 
-const propTypes = {
-  index: PropTypes.func.isRequired,
-  children: PropTypes.object
-};
-
 class Devices extends Component {
+
+  static propTypes = {
+    index: PropTypes.func.isRequired,
+    children: PropTypes.object
+  };
 
   componentWillMount () {
     this.props.index();
@@ -21,7 +21,5 @@ class Devices extends Component {
   }
 
 }
-
-Devices.propTypes = propTypes;
 
 export default Devices;

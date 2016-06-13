@@ -13,7 +13,7 @@ const muiTheme = getMuiTheme({
 class App extends Component {
 
   static propTypes = {
-    location: PropTypes.string
+    location: PropTypes.object
   };
 
   render () {

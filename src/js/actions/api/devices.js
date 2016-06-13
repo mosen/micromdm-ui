@@ -2,6 +2,7 @@
 
 import {CALL_API} from 'redux-api-middleware';
 import {REDUX_NS, JSON_HEADERS} from '../constants';
+import {ENDPOINT} from '../../config';
 
 const NS = REDUX_NS.concat('devices/');
 
@@ -12,7 +13,7 @@ export const INDEX_FAILURE = NS.concat('INDEX_FAILURE');
 export function index () {
   return {
     [CALL_API]: {
-      endpoint: '/management/v1/devices',
+      endpoint: ENDPOINT.concat('/management/v1/devices'),
       method: 'GET',
       types: [
         INDEX_REQUEST,
