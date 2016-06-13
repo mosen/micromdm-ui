@@ -10,17 +10,17 @@ const muiTheme = getMuiTheme({
   }
 });
 
-const propTypes = {
-  children: PropTypes.object
-};
-
 class App extends Component {
+
+  static propTypes = {
+    location: PropTypes.string
+  };
 
   render () {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>
-          <Navigation />
+          <Navigation location={this.props.location} />
           {this.props.children}
         </div>
       </MuiThemeProvider>
@@ -28,7 +28,5 @@ class App extends Component {
   }
 
 }
-
-App.propTypes = propTypes;
 
 export default App;

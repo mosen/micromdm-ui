@@ -24,6 +24,7 @@ module.exports = {
             development: {
               plugins: [
                 'transform-class-properties',
+                'transform-object-rest-spread',
                 ['react-transform', {
                   transforms: [{
                     transform: 'react-transform-hmr',

@@ -8,8 +8,10 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-function mapStateToProps (state) {
-  return state;
+function mapStateToProps (state, ownProps) {
+  return {
+    ...ownProps
+  };
 }
 
 export default connect(

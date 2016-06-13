@@ -1,41 +1,44 @@
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
-import {Link} from 'react-router';
-import Paper from 'material-ui/Paper';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import {browserHistory} from 'react-router';
 import Devices from 'material-ui/svg-icons/device/devices';
 import SettingsApplications from 'material-ui/svg-icons/action/settings-applications';
-import ContentLink from 'material-ui/svg-icons/content/link';
-import Divider from 'material-ui/Divider';
-import ContentCopy from 'material-ui/svg-icons/content/content-copy';
 import Apps from 'material-ui/svg-icons/navigation/apps';
-import Delete from 'material-ui/svg-icons/action/delete';
-import FontIcon from 'material-ui/FontIcon';
+import {Tabs, Tab} from 'material-ui/Tabs';
 
 const propTypes = {
-  isAuthenticated: PropTypes.bool,
-  user: PropTypes.object,
-  router: PropTypes.object
+  location: PropTypes.string.isRequired
 };
 
 class Navigation extends Component {
 
   render () {
     const {
+      location
     } = this.props;
 
+    const pushDevices = () => {
+      browserHistory.push('/devices');
+    };
+
+    const pushProfiles = () => {
+      browserHistory.push('/profiles');
+    };
+
+    const pushWorkflows = () => {
+      browserHistory.push('/workflows');
+    };
+
+    const pushApps = () => {
+      browserHistory.push('/apps');
+    };
+
     return (
-      <div>
-        <Paper>
-          <Menu>
-            <MenuItem primaryText='Devices' leftIcon={<Devices />} />
-            <MenuItem primaryText='Profiles' leftIcon={<SettingsApplications />} />
-            <MenuItem primaryText='Workflows' leftIcon={<Devices />} />
-            <MenuItem primaryText='Applications' leftIcon={<Apps />} />
-          </Menu>
-        </Paper>
-      </div>
+      <Tabs value={location.pathname}>
+        <Tab label='DEVICES' icon={<Devices />} onActive={pushDevices} value='/devices' />
+        <Tab label='PROFILES' icon={<SettingsApplications />} onActive={pushProfiles} value='/profiles' />
+        <Tab label='WORKFLOWS' icon={<Devices />} onActive={pushWorkflows} value='/workflows' />
+        <Tab label='APPS' icon={<Apps />} onActive={pushApps} value='/apps' />
+      </Tabs>
     );
   }
 }
