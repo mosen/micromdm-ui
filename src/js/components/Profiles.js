@@ -3,10 +3,12 @@ import React, {Component, PropTypes} from 'react';
 
 class Profiles extends Component {
 
-  static propTypes = {};
+  static propTypes = {
+    index: PropTypes.func.isRequired
+  };
 
   componentWillMount () {
-
+    this.props.index();
   }
 
   render () {

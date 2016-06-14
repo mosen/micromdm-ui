@@ -18,7 +18,7 @@ export default function devices (state = initialState, action) {
     case actions.INDEX_SUCCESS:
       return Object.assign({}, state, {
         loading: false,
-        items: {}
+        items: action.payload
       });
 
     case actions.INDEX_FAILURE:

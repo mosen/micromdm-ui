@@ -13,7 +13,7 @@ export const INDEX_FAILURE = NS.concat('INDEX_FAILURE');
 export function index () {
   return {
     [CALL_API]: {
-      endpoint: ENDPOINT.concat('/management/v1/devices'),
+      endpoint: `${ENDPOINT}/management/v1/devices`,
       method: 'GET',
       types: [
         INDEX_REQUEST,
@@ -32,7 +32,7 @@ export const READ_FAILURE = NS.concat('READ_FAILURE');
 export function read (uuid) {
   return {
     [CALL_API]: {
-      endpoint: `/management/v1/devices/${uuid}`,
+      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}`,
       method: 'GET',
       types: [
         READ_REQUEST,
@@ -51,7 +51,7 @@ export const PUSH_FAILURE = NS.concat('PUSH_FAILURE');
 export function push (udid) {
   return {
     [CALL_API]: {
-      endpoint: `/management/v1/devices/${udid}/push`,
+      endpoint: `${ENDPOINT}/management/v1/devices/${udid}/push`,
       method: 'POST',
       types: [
         PUSH_REQUEST,
@@ -70,7 +70,7 @@ export const DEP_FETCH_FAILURE = NS.concat('DEP_FETCH_FAILURE');
 export function depFetch () {
   return {
     [CALL_API]: {
-      endpoint: '/management/v1/devices/fetch',
+      endpoint: `${ENDPOINT}/management/v1/devices/fetch`,
       method: 'POST',
       types: [
         DEP_FETCH_REQUEST,
@@ -89,7 +89,7 @@ export const ASSIGN_WORKFLOW_FAILURE = NS.concat('ASSIGN_WORKFLOW_FAILURE');
 export function assignWorkflow (uuid, workflowUuid) {
   return {
     [CALL_API]: {
-      endpoint: '/management/v1/devices/${uuid}',
+      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}`,
       method: 'PATCH',
       types: [
         ASSIGN_WORKFLOW_REQUEST,

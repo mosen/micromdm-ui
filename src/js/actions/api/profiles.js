@@ -4,6 +4,7 @@ import {CALL_API} from 'redux-api-middleware';
 import {REDUX_NS, JSON_HEADERS} from '../constants';
 
 const NS = REDUX_NS.concat('profiles/');
+import {ENDPOINT} from '../../config';
 
 export const INDEX_REQUEST = NS.concat('INDEX_REQUEST');
 export const INDEX_SUCCESS = NS.concat('INDEX_SUCCESS');
@@ -12,7 +13,7 @@ export const INDEX_FAILURE = NS.concat('INDEX_FAILURE');
 export function index () {
   return {
     [CALL_API]: {
-      endpoint: '/management/v1/profiles',
+      endpoint: `${ENDPOINT}/management/v1/profiles`,
       method: 'GET',
       types: [
         INDEX_REQUEST,
@@ -31,7 +32,7 @@ export const READ_FAILURE = NS.concat('READ_FAILURE');
 export function read (uuid) {
   return {
     [CALL_API]: {
-      endpoint: `/management/v1/profiles/${uuid}`,
+      endpoint: `${ENDPOINT}/management/v1/profiles/${uuid}`,
       method: 'GET',
       types: [
         READ_REQUEST,
@@ -50,7 +51,7 @@ export const DESTROY_FAILURE = NS.concat('DESTROY_FAILURE');
 export function destroy (uuid) {
   return {
     [CALL_API]: {
-      endpoint: `/management/v1/profiles/${uuid}`,
+      endpoint: `${ENDPOINT}/management/v1/profiles/${uuid}`,
       method: 'DELETE',
       types: [
         DESTROY_REQUEST,
@@ -69,7 +70,7 @@ export const CREATE_FAILURE = NS.concat('CREATE_FAILURE');
 export function create (payloadIdentifier, payloadData) {
   return {
     [CALL_API]: {
-      endpoint: '/management/v1/profiles',
+      endpoint: `${ENDPOINT}/management/v1/profiles`,
       method: 'POST',
       types: [
         CREATE_REQUEST,
