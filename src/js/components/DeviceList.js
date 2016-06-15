@@ -34,13 +34,38 @@ class DeviceList extends Component {
 
   static propTypes = {
     loading: PropTypes.bool,
-    items: PropTypes.array
+    items: PropTypes.array,
+    onSelectionChange: PropTypes.func.isRequired
   };
+
+  constructor (props) {
+    super(props);
+
+    this.handleRowSelection = this.handleRowSelection.bind(this);
+  }
+
+  handleRowSelection (selection) {
+    switch (selection) {
+      case 'all':
+        this.props.onSelectionChange(this.props.items);
+        break;
+      case 'none':
+        this.props.onSelectionChange([]);
+        break;
+      default:
+        const selectedItems = selection.map((itemIndex) => {
+          return this.props.items[itemIndex];
+        });
+
+        this.props.onSelectionChange(selectedItems);
+    }
+  }
 
   render () {
     const {
       items,
-      loading
+      loading,
+      selection
     } = this.props;
 
     return (
@@ -50,6 +75,7 @@ class DeviceList extends Component {
           fixedFooter
           selectable
           multiSelectable
+          onRowSelection={this.handleRowSelection}
         >
           <TableHeader
             displaySelectAll
@@ -71,7 +97,7 @@ class DeviceList extends Component {
             stripedRows={false}
           >
             {items.map((row, index) => (
-              <TableRow key={index} selected={row.selected}>
+              <TableRow key={index} selected={selection.indexOf(row.uuid) !== -1}>
                 <TableRowColumn className='DeviceColumn'><Avatar icon={<HelpOutline />} size={30} style={style} /></TableRowColumn>
                 <TableRowColumn>{row.uuid}</TableRowColumn>
                 <TableRowColumn>{row.udid}</TableRowColumn>

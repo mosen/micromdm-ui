@@ -1,12 +1,16 @@
 'use strict';
 
 import * as actions from '../actions/api/devices';
+import * as uiActions from '../actions/ui/devices';
 
 const initialState = {
   items: [],
   loading: false,
   error: false,
-  errorDetails: null
+  errorDetails: null,
+  selection: [],
+  selectionMenuVisible: false,
+  selectionMenuAnchor: null
 };
 
 export default function devices (state = initialState, action) {
@@ -36,6 +40,17 @@ export default function devices (state = initialState, action) {
         loading: false,
         error: true,
         errorDetails: action.payload
+      });
+
+    case uiActions.CHANGE_SELECTION:
+      return Object.assign({}, state, {
+        selection: action.payload.map((item) => { return item.uuid; })
+      });
+
+    case uiActions.SELECTION_MENU_VISIBLE:
+      return Object.assign({}, state, {
+        selectionMenuVisible: action.payload.visible,
+        selectionMenuAnchor: action.payload.anchorElement
       });
     default:
       return state;
