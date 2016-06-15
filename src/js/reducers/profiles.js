@@ -1,12 +1,14 @@
 'use strict';
 
 import * as actions from '../actions/api/profiles';
+import * as uiActions from '../actions/ui/profiles';
 
 const initialState = {
   items: [],
   loading: false,
   error: false,
-  errorDetails: null
+  errorDetails: null,
+  selection: []
 };
 
 export default function profiles (state = initialState, action) {
@@ -49,6 +51,11 @@ export default function profiles (state = initialState, action) {
       return Object.assign({}, state, {
         error: true,
         errorDetails: action.payload
+      });
+
+    case uiActions.CHANGE_SELECTION:
+      return Object.assign({}, state, {
+        selection: action.payload.map((item) => { return item.payload_identifier; })
       });
 
     default:

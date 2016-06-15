@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
 import './Upload.scss';
 
@@ -80,13 +81,15 @@ class Upload extends Component {
 
     return (
       <form className='Upload'>
-        <div
-          className={dropTargetClassnames}
-          onDragOver={this.handleDragOver}
-          onDrop={this.handleDrop}
-          onDragLeave={this.handleDragLeave}
-        >Drop your .mobileConfig file(s) here
-        </div>
+        <Paper>
+          <div
+            className={dropTargetClassnames}
+            onDragOver={this.handleDragOver}
+            onDrop={this.handleDrop}
+            onDragLeave={this.handleDragLeave}
+          >Drop your .mobileConfig file(s) here
+          </div>
+        </Paper>
         <ul>
           {fileList}
         </ul>
