@@ -1,5 +1,6 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
+import Upload from './Upload';
 
 class Profiles extends Component {
 
@@ -11,10 +12,14 @@ class Profiles extends Component {
     this.props.index();
   }
 
+  handleChangeFiles (fileList) {
+    console.dir(fileList);
+  }
+
   render () {
     return (
       <div className='Profiles'>
-        Profiles
+        <Upload onChangeFiles={this.handleChangeFiles} />
       </div>
     );
   }

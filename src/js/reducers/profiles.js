@@ -1,6 +1,6 @@
 'use strict';
 
-import * as actions from '../actions/api/devices';
+import * as actions from '../actions/api/profiles';
 
 const initialState = {
   items: [],
@@ -22,7 +22,6 @@ export default function devices (state = initialState, action) {
           loading: true
         });
       }
-
     case actions.INDEX_SUCCESS:
       return Object.assign({}, state, {
         loading: false,

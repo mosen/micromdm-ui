@@ -3,6 +3,7 @@ import {deepOrange500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Navigation from './Navigation';
+import '../../sass/app.scss';
 
 const muiTheme = getMuiTheme({
   palette: {
