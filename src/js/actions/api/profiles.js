@@ -2,6 +2,7 @@
 
 import {CALL_API} from 'redux-api-middleware';
 import {REDUX_NS, JSON_HEADERS} from '../constants';
+import base64js from 'base64-js';
 
 const NS = REDUX_NS.concat('profiles/');
 import {ENDPOINT} from '../../config';
@@ -83,5 +84,49 @@ export function create (payloadIdentifier, payloadData) {
         'payload_data': payloadData
       })
     }
+  };
+}
+
+// This is a meta-action that returns a thunk and executes all the steps required to upload a profile.
+export const UPLOAD = NS.concat('UPLOAD');
+export const UPLOAD_READING = NS.concat('UPLOAD_READING');
+export const UPLOAD_ENCODED = NS.concat('UPLOAD_ENCODED');
+export const UPLOAD_FAILURE = NS.concat('UPLOAD_FAILURE');
+
+/**
+ * Encode and upload a mobileConfig profile.
+ *
+ * @param {File} file A file
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/File
+ */
+export function upload (file) {
+  return (dispatch, getState) => {
+    const reader = new FileReader();
+
+    reader.onload = (contents) => {
+      try {
+        const encodedContents = base64js.fromByteArray(contents);
+
+        dispatch({
+          type: UPLOAD_ENCODED,
+          payload: encodedContents
+        });
+
+        dispatch(create(file.name, encodedContents));
+      } catch (e) {
+        dispatch({
+          type: UPLOAD_FAILURE,
+          error: true,
+          payload: e
+        });
+      }
+    };
+
+    dispatch({
+      type: UPLOAD_READING,
+      payload: file
+    });
+
+    reader.readAsArrayBuffer(file);
   };
 }

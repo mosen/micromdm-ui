@@ -1,11 +1,15 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
-import Upload from './Upload';
+import Upload from '../containers/Upload';
+import ProfileList from './ProfileList';
 
 class Profiles extends Component {
 
   static propTypes = {
-    index: PropTypes.func.isRequired
+    index: PropTypes.func.isRequired,
+    upload: PropTypes.func.isRequired,
+
+    profiles: PropTypes.object.isRequired
   };
 
   componentWillMount () {
@@ -17,9 +21,15 @@ class Profiles extends Component {
   }
 
   render () {
+    const {
+      upload,
+      profiles
+    } = this.props;
+
     return (
       <div className='Profiles'>
-        <Upload onChangeFiles={this.handleChangeFiles} />
+        <Upload id='ProfilesUpload' onChangeFiles={this.handleChangeFiles} upload={upload} />
+        <ProfileList items={profiles.items} loading={profiles.loading} />
       </div>
     );
   }

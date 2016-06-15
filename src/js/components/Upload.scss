@@ -1,6 +1,14 @@
 .DropTarget {
+  height: 200px;
+  text-align: center;
+  line-height: 200px;
   font-size: 200%;
   font-family: Roboto, sans-serif;
   font-weight: bold;
   color: gray;
+  background-color: #eeeeee;
+}
+
+.DropTargetOver {
+  background-color: green;
 }

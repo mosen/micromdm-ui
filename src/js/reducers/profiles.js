@@ -9,7 +9,7 @@ const initialState = {
   errorDetails: null
 };
 
-export default function devices (state = initialState, action) {
+export default function profiles (state = initialState, action) {
   switch (action.type) {
     case actions.INDEX_REQUEST:
       if (action.error) {
@@ -36,6 +36,21 @@ export default function devices (state = initialState, action) {
         error: true,
         errorDetails: action.payload
       });
+
+    case actions.CREATE_REQUEST:
+      return Object.assign({}, state, {
+        loading: true
+      });
+    case actions.CREATE_SUCCESS:
+      return Object.assign({}, state, {
+        items: state.items.concat(action.payload)
+      });
+    case actions.CREATE_FAILURE:
+      return Object.assign({}, state, {
+        error: true,
+        errorDetails: action.payload
+      });
+
     default:
       return state;
   }
