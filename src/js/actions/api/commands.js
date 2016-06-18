@@ -2,6 +2,7 @@
 
 import {CALL_API} from 'redux-api-middleware';
 import {REDUX_NS, JSON_HEADERS} from '../constants';
+import {ENDPOINT} from '../../config';
 
 const NS = REDUX_NS.concat('commands/');
 
@@ -12,7 +13,7 @@ export const CREATE_FAILURE = NS.concat('CREATE_FAILURE');
 export function create (data) {
   return {
     [CALL_API]: {
-      endpoint: '/mdm/commands',
+      endpoint: `${ENDPOINT}/mdm/commands`,
       method: 'POST',
       types: [
         CREATE_REQUEST,

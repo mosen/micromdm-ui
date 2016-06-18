@@ -9,6 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
 
 import DeviceList from './DeviceList';
+import { deviceInformation } from '../actions/util/command';
 
 class Devices extends Component {
 
@@ -19,6 +20,9 @@ class Devices extends Component {
     ui: PropTypes.shape({
       changeSelection: PropTypes.func.isRequired,
       setSelectionMenuVisible: PropTypes.func.isRequired
+    }),
+    cmd: PropTypes.shape({
+      create: PropTypes.func.isRequired
     }),
     devices: PropTypes.object.isRequired,
     selectionMenuVisible: PropTypes.bool.isRequired,
@@ -39,6 +43,7 @@ class Devices extends Component {
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleTouchTapSelectionMenu = this.handleTouchTapSelectionMenu.bind(this);
     this.handleSelectionMenuClose = this.handleSelectionMenuClose.bind(this);
+    this.handleTouchTapQueryMenuItem = this.handleTouchTapQueryMenuItem.bind(this);
   }
 
   componentWillMount () {
@@ -56,6 +61,31 @@ class Devices extends Component {
     this.setState({ // For some reason you cannot pass the element through redux state tree
       anchorEl: evt.currentTarget
     });
+  }
+
+  handleTouchTapQueryMenuItem (evt) {
+    evt.preventDefault();
+
+    const {
+      devices: {
+        items,
+        selection
+      }
+    } = this.props;
+
+    const selectedDevices = items.filter(function (device) {
+      return selection.indexOf(device.uuid) !== -1;
+    });
+
+    const commands = selectedDevices.map(function (device) {
+      return deviceInformation(device.udid);
+    });
+
+    commands.forEach((command) => {
+      this.props.cmd.create(command);
+    });
+
+    this.props.ui.setSelectionMenuVisible(false, null);
   }
 
   handleSelectionMenuClose () {
@@ -90,7 +120,7 @@ class Devices extends Component {
               targetOrigin={{horizontal: 'left', vertical: 'top'}}
               onRequestClose={this.handleSelectionMenuClose}
             >
-              <Menu>
+              <Menu onItemTouchTap={this.handleTouchTapQueryMenuItem}>
                 <MenuItem primaryText='All information' />
                 <MenuItem primaryText='Capacity available' />
                 <MenuItem primaryText='Total capacity' />
