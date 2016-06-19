@@ -86,3 +86,4 @@ export function deviceInformation (udid, queries = []) {
     queries
   };
 }
+

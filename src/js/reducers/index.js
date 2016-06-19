@@ -6,6 +6,7 @@ import api from './api';
 import devices from './devices';
 import profiles from './profiles';
 import uploads from './uploads';
+import workflows from './workflows';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   api,
   devices,
   profiles,
-  uploads
+  uploads,
+  workflows
 });
 
 export default rootReducer;

@@ -1,5 +1,7 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import Add from 'material-ui/svg-icons/content/add';
 
 class Workflows extends Component {
 
@@ -14,7 +16,7 @@ class Workflows extends Component {
   render () {
     return (
       <div className='Workflows'>
-        Workflows
+        <RaisedButton label='Add' primary icon={<Add />} />
       </div>
     );
   }
