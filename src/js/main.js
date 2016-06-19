@@ -22,6 +22,7 @@ import Applications from './containers/Applications';
 import Devices from './containers/Devices';
 import Profiles from './containers/Profiles';
 import Workflows from './containers/Workflows';
+import EditWorkflow from './containers/EditWorkflow';
 
 render(
   <Provider store={store}>
@@ -31,6 +32,8 @@ render(
         <Route path='/applications' component={Applications} />
         <Route path='/profiles' component={Profiles} />
         <Route path='/workflows' component={Workflows} />
+        <Route path='/workflows/add' component={EditWorkflow} />
+        <Route path='/workflows/edit/:uuid' component={EditWorkflow} />
       </Route>
     </Router>
   </Provider>,

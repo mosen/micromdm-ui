@@ -3,7 +3,7 @@
 import * as actions from '../actions/ui/uploads';
 
 const initialState = {
-  files: [],
+  files: {},
   isOver: false
 };
 
