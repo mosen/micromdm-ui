@@ -39,7 +39,6 @@ export default function workflows (state = initialState, action) {
         error: true,
         errorDetails: action.payload
       });
-    
     default:
       return state;
   }
