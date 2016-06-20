@@ -25,9 +25,11 @@ export default function profiles (state = initialState, action) {
         });
       }
     case actions.INDEX_SUCCESS:
+      const profiles = action.payload || [];
+
       return Object.assign({}, state, {
         loading: false,
-        items: action.payload,
+        items: profiles,
         error: false,
         errorDetails: null
       });

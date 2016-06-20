@@ -3,10 +3,12 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import EditWorkflow from '../components/EditWorkflow';
 import * as uiActions from '../actions/ui/workflow';
+import * as actions from '../actions/api/workflows';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ui: bindActionCreators(uiActions, dispatch)
+    ui: bindActionCreators(uiActions, dispatch),
+    api: bindActionCreators(actions, dispatch)
   };
 };
 

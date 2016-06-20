@@ -28,9 +28,11 @@ export default function devices (state = initialState, action) {
       }
 
     case actions.INDEX_SUCCESS:
+      const devices = action.payload || [];
+
       return Object.assign({}, state, {
         loading: false,
-        items: action.payload,
+        items: devices,
         error: false,
         errorDetails: null
       });

@@ -26,7 +26,6 @@ export function create (workflowData) {
   };
 }
 
-// Does not exist yet
 export const INDEX_REQUEST = NS.concat('INDEX_REQUEST');
 export const INDEX_SUCCESS = NS.concat('INDEX_SUCCESS');
 export const INDEX_FAILURE = NS.concat('INDEX_FAILURE');

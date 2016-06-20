@@ -1,6 +1,7 @@
 'use strict';
 
 import * as actions from '../actions/ui/workflow';
+import * as apiActions from '../actions/api/workflows';
 
 const initialState = {
   loading: false,
@@ -51,6 +52,25 @@ export default function workflow (state = initialState, action) {
       return Object.assign({}, state, {
         profiles
       });
+    case actions.CHANGE_NAME_INPUT:
+      return Object.assign({}, state, {
+        name: action.payload
+      });
+
+    case apiActions.CREATE_REQUEST:
+      return Object.assign({}, state, {
+        loading: true
+      });
+    case apiActions.CREATE_SUCCESS:
+      return Object.assign({}, state, {
+        uuid: action.payload.uuid
+      });
+    case apiActions.CREATE_FAILURE:
+      return Object.assign({}, state, {
+        error: true,
+        errorDetails: action.payload
+      });
+
     default:
       return state;
   }

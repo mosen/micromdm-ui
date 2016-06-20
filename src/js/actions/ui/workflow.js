@@ -92,3 +92,12 @@ export function removeWorkflow (workflow) {
     payload: workflow
   };
 }
+
+export const CHANGE_NAME_INPUT = NS.concat('CHANGE_NAME_INPUT');
+
+export function changeNameInput (value) {
+  return {
+    type: CHANGE_NAME_INPUT,
+    payload: value
+  };
+}

@@ -27,15 +27,23 @@ const actionStyle = {
 class EditWorkflow extends Component {
 
   static propTypes = {
+    api: PropTypes.shape({
+      create: PropTypes.func.isRequired
+    }),
     ui: PropTypes.shape({
       pickApplicationsVisible: PropTypes.func,
       pickProfilesVisible: PropTypes.func,
       pickWorkflowsVisible: PropTypes.func,
       drawerVisible: PropTypes.func,
       addProfile: PropTypes.func,
-      removeProfile: PropTypes.func
+      removeProfile: PropTypes.func,
+      changeNameInput: PropTypes.func
     }),
-    workflow: PropTypes.object
+    name: PropTypes.string,
+    workflow: PropTypes.object,
+    profiles: PropTypes.array.isRequired,
+    applications: PropTypes.array.isRequired,
+    workflows: PropTypes.array.isRequired
   };
 
   constructor (props) {
@@ -46,6 +54,8 @@ class EditWorkflow extends Component {
     this.handleIncludedItemTouchTap = this.handleIncludedItemTouchTap.bind(this);
     this.handleCloseDrawerTouchTap = this.handleCloseDrawerTouchTap.bind(this);
     this.handleRemoveProfile = this.handleRemoveProfile.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
   }
 
   componentWillMount () {
@@ -78,6 +88,23 @@ class EditWorkflow extends Component {
     const profileIdentifier = removeButton.value;
 
     this.props.ui.removeProfile(profileIdentifier);
+  }
+
+  handleSave (evt) {
+    evt.preventDefault();
+
+    const workflow = {
+      'name': this.props.workflow.name,
+      'profiles': this.props.workflow.profiles,
+      'applications': this.props.workflow.applications,
+      'included_workflows': this.props.workflow.workflows
+    };
+
+    this.props.api.create(workflow);
+  }
+
+  handleNameChange (evt) {
+    this.props.ui.changeNameInput(evt.currentTarget.value);
   }
 
   render () {
@@ -118,9 +145,12 @@ class EditWorkflow extends Component {
         <Card>
           <CardHeader
             title='New Workflow'
+            subtitle={workflow.uuid}
           />
           <List>
             <ListItem><TextField
+              ref={(f) => this._name = f}
+              onChange={this.handleNameChange}
               hintText='Workflow name (required)'
             />
             </ListItem>
@@ -152,7 +182,7 @@ class EditWorkflow extends Component {
               onTouchTap={this.handleIncludedItemTouchTap}
             />
           </List>
-          <FlatButton label='Save'/>
+          <FlatButton label='Save' onTouchTap={this.handleSave} />
         </Card>
 
         <Drawer width={400} openSecondary open={workflow.drawerOpen}>

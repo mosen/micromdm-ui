@@ -24,9 +24,11 @@ export default function workflows (state = initialState, action) {
         });
       }
     case actions.INDEX_SUCCESS:
+      const workflows = action.payload || []; // Can return null body
+
       return Object.assign({}, state, {
         loading: false,
-        items: action.payload,
+        items: workflows,
         error: false,
         errorDetails: null
       });
@@ -37,21 +39,7 @@ export default function workflows (state = initialState, action) {
         error: true,
         errorDetails: action.payload
       });
-
-    case actions.CREATE_REQUEST:
-      return Object.assign({}, state, {
-        loading: true
-      });
-    case actions.CREATE_SUCCESS:
-      return Object.assign({}, state, {
-        items: state.items.concat(action.payload)
-      });
-    case actions.CREATE_FAILURE:
-      return Object.assign({}, state, {
-        error: true,
-        errorDetails: action.payload
-      });
-
+    
     default:
       return state;
   }
