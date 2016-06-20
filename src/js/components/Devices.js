@@ -7,6 +7,7 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
+import CloudUpload from 'material-ui/svg-icons/file/cloud-upload';
 
 import DeviceList from './DeviceList';
 import { deviceInformation } from '../actions/util/command';
@@ -15,7 +16,8 @@ class Devices extends Component {
 
   static propTypes = {
     api: PropTypes.shape({
-      index: PropTypes.func.isRequired
+      index: PropTypes.func.isRequired,
+      push: PropTypes.func.isRequired
     }),
     ui: PropTypes.shape({
       changeSelection: PropTypes.func.isRequired,
@@ -44,6 +46,7 @@ class Devices extends Component {
     this.handleTouchTapSelectionMenu = this.handleTouchTapSelectionMenu.bind(this);
     this.handleSelectionMenuClose = this.handleSelectionMenuClose.bind(this);
     this.handleTouchTapQueryMenuItem = this.handleTouchTapQueryMenuItem.bind(this);
+    this.handleTouchTapSelectionPush = this.handleTouchTapSelectionPush.bind(this);
   }
 
   componentWillMount () {
@@ -60,6 +63,29 @@ class Devices extends Component {
     this.props.ui.setSelectionMenuVisible(true, evt.currentTarget);
     this.setState({ // For some reason you cannot pass the element through redux state tree
       anchorEl: evt.currentTarget
+    });
+  }
+
+  getSelectedDevices () {
+    const {
+      devices: {
+        items,
+        selection
+      }
+    } = this.props;
+
+    return items.filter(function (device) {
+      return selection.indexOf(device.uuid) !== -1;
+    });
+  }
+
+  handleTouchTapSelectionPush (evt) {
+    evt.preventDefault();
+
+    const devices = this.getSelectedDevices();
+
+    devices.forEach((device) => {
+      this.props.api.push(device.udid);
     });
   }
 
@@ -112,6 +138,11 @@ class Devices extends Component {
               onTouchTap={this.handleTouchTapSelectionMenu}
               label='Query'
               icon={<AutoRenew />}
+            />
+            <RaisedButton
+              onTouchTap={this.handleTouchTapSelectionPush}
+              label='Push'
+              icon={<CloudUpload />}
             />
             <Popover
               open={selectionMenuVisible}
