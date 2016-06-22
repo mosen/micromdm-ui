@@ -1,8 +1,8 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
+import FlatButton from 'material-ui/FlatButton';
 import GetApp from 'material-ui/svg-icons/action/get-app';
-
 import {
   Table,
   TableBody,
@@ -14,15 +14,6 @@ import {
 } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import {
-  blue300,
-  indigo900,
-  orange200,
-  deepOrange300,
-  pink400,
-  purple500,
-} from 'material-ui/styles/colors';
-
 import './ProfileList.scss';
 
 const style = {margin: 5};
@@ -32,6 +23,7 @@ class ProfileList extends Component {
   static propTypes = {
     loading: PropTypes.bool,
     items: PropTypes.array,
+    selection: PropTypes.array,
     onSelectionChange: PropTypes.func.isRequired
   };
 
@@ -98,7 +90,7 @@ class ProfileList extends Component {
                 <TableRow key={index} selected={selection.indexOf(row.payload_identifier) !== -1}>
                   <TableRowColumn>{row.payload_identifier}</TableRowColumn>
                   <TableRowColumn>{row.profile_uuid}</TableRowColumn>
-                  <TableRowColumn className='ActionColumn'><GetApp /></TableRowColumn>
+                  <TableRowColumn className='ActionColumn'><FlatButton label='Download' labelPosition='before' primary icon={<GetApp />} /></TableRowColumn>
                 </TableRow>
               ))}
             </TableBody>

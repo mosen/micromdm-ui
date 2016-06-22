@@ -112,7 +112,7 @@ class DeviceList extends Component {
           >
             {items.map((row, index) => (
               <TableRow key={index} selected={selection.indexOf(row.uuid) !== -1}>
-                <TableRowColumn className='DeviceColumn'><Avatar icon={iconForProductName(row.product_name)} size={30} style={style} /></TableRowColumn>
+                <TableRowColumn className='DeviceColumn'>{iconForProductName(row.product_name)}</TableRowColumn>
                 <TableRowColumn>{row.serial_number}</TableRowColumn>
                 <TableRowColumn>{row.os_version}</TableRowColumn>
                 <TableRowColumn>{row.last_checkin && moment(row.last_checkin).local().fromNow()}</TableRowColumn>
