@@ -8,6 +8,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
 import CloudUpload from 'material-ui/svg-icons/file/cloud-upload';
+import Snackbar from 'material-ui/Snackbar';
 
 import DeviceList from './DeviceList';
 import { deviceInformation } from '../actions/util/command';
@@ -27,6 +28,7 @@ class Devices extends Component {
       create: PropTypes.func.isRequired
     }),
     devices: PropTypes.object.isRequired,
+    commands: PropTypes.object.isRequired,
     selectionMenuVisible: PropTypes.bool.isRequired,
     selectionMenuAnchor: PropTypes.element
   };
@@ -120,6 +122,7 @@ class Devices extends Component {
 
   render () {
     const {
+      commands,
       devices,
       selectionMenuVisible
     } = this.props;
@@ -172,6 +175,12 @@ class Devices extends Component {
           items={devices.items}
           selection={devices.selection}
           onSelectionChange={this.handleSelectionChange}
+        />}
+
+        {false && <Snackbar
+          open={commands.success}
+          message='Successfully sent command to device(s).'
+          autoHideDuration={4000}
         />}
       </div>
     );

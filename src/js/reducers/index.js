@@ -4,6 +4,7 @@ import {routerReducer} from 'react-router-redux';
 
 import api from './api';
 import applications from './applications';
+import commands from './commands';
 import devices from './devices';
 import profiles from './profiles';
 import uploads from './uploads';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   api,
   applications,
+  commands,
   devices,
   profiles,
   uploads,

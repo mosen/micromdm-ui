@@ -16,7 +16,10 @@ export function create (data) {
       endpoint: `${ENDPOINT}/mdm/commands`,
       method: 'POST',
       types: [
-        CREATE_REQUEST,
+        {
+          type: CREATE_REQUEST,
+          payload: (action, state) => (data)
+        },
         CREATE_SUCCESS,
         CREATE_FAILURE
       ],

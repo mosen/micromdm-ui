@@ -18,7 +18,8 @@ function mapStateToProps (state) {
   return {
     devices: state.devices,
     selectionMenuVisible: state.devices.selectionMenuVisible,
-    selecitonMenuAnchor: state.devices.selectionMenuAnchor
+    selectionMenuAnchor: state.devices.selectionMenuAnchor,
+    commands: state.commands
   };
 }
 

@@ -1,5 +1,6 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
+import moment from 'moment';
 import Avatar from 'material-ui/Avatar';
 import PhoneIphone from 'material-ui/svg-icons/hardware/phone-iphone';
 import TabletMac from 'material-ui/svg-icons/hardware/tablet-mac';
@@ -29,6 +30,19 @@ import {
 import './DeviceList.scss';
 
 const style = {margin: 5};
+
+// Fetch an SVG icon depending on the product name
+const iconForProductName = function (productName) {
+  if (productName.indexOf('iPhone') !== -1) {
+    return <PhoneIphone />;
+  } else if (productName.indexOf('iMac') !== -1) {
+    return <DesktopMac />;
+  } else if (productName.indexOf('iPad') !== -1) {
+    return <TabletMac />;
+  } else {
+    return <HelpOutline />;
+  }
+};
 
 class DeviceList extends Component {
 
@@ -84,9 +98,9 @@ class DeviceList extends Component {
           >
             <TableRow>
               <TableHeaderColumn className='DeviceColumnHeader'>Device</TableHeaderColumn>
-              <TableHeaderColumn>UUID</TableHeaderColumn>
-              <TableHeaderColumn>UDID</TableHeaderColumn>
               <TableHeaderColumn>Serial</TableHeaderColumn>
+              <TableHeaderColumn>OS</TableHeaderColumn>
+              <TableHeaderColumn>Last Seen</TableHeaderColumn>
             </TableRow>
           </TableHeader>
 
@@ -98,10 +112,10 @@ class DeviceList extends Component {
           >
             {items.map((row, index) => (
               <TableRow key={index} selected={selection.indexOf(row.uuid) !== -1}>
-                <TableRowColumn className='DeviceColumn'><Avatar icon={<HelpOutline />} size={30} style={style} /></TableRowColumn>
-                <TableRowColumn>{row.uuid}</TableRowColumn>
-                <TableRowColumn>{row.udid}</TableRowColumn>
+                <TableRowColumn className='DeviceColumn'><Avatar icon={iconForProductName(row.product_name)} size={30} style={style} /></TableRowColumn>
                 <TableRowColumn>{row.serial_number}</TableRowColumn>
+                <TableRowColumn>{row.os_version}</TableRowColumn>
+                <TableRowColumn>{row.last_checkin && moment(row.last_checkin).local().fromNow()}</TableRowColumn>
               </TableRow>
             ))}
           </TableBody>
