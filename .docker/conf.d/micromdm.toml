@@ -1,0 +1,7 @@
+[template]
+src = "micromdm.conf.tmpl"
+dest = "/etc/nginx/conf.d/micromdm.conf"
+keys = [
+    "/micromdm/ui/port",
+    "/micromdm/ui/servername",
+]

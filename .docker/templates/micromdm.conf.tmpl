@@ -1,0 +1,6 @@
+server {
+  listen       {{getv "/micromdm/ui/port"}};
+  server_name  "{{getv "/micromdm/ui/servername"}}";
+  root         /usr/share/nginx/html;
+  index        index.html;
+}
