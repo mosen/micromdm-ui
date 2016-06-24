@@ -16,3 +16,5 @@ const timeoutScheduler = (store) => (next) => (action) => {
     clearTimeout(timeoutId);
   };
 };
+
+export default timeoutScheduler;

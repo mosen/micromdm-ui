@@ -2,10 +2,12 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import App from '../components/App';
+import * as snackbarActions from '../actions/ui/snackbar';
 
 const mapDispatchToProps = (dispatch) => {
-  // return bindActionCreators(actions, dispatch);
-  return {};
+  return {
+    snackbarActions: bindActionCreators(snackbarActions, dispatch)
+  };
 };
 
 function mapStateToProps (state, ownProps) {

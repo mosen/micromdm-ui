@@ -5,12 +5,14 @@ import Devices from '../components/Devices';
 import * as actions from '../actions/api/devices';
 import * as uiActions from '../actions/ui/devices';
 import * as cmdActions from '../actions/api/commands';
+import * as snackbarActions from '../actions/ui/snackbar';
 
 const mapDispatchToProps = (dispatch) => {
   return {
     api: bindActionCreators(actions, dispatch),
     ui: bindActionCreators(uiActions, dispatch),
-    cmd: bindActionCreators(cmdActions, dispatch)
+    cmd: bindActionCreators(cmdActions, dispatch),
+    snackbar: bindActionCreators(snackbarActions, dispatch)
   };
 };
 

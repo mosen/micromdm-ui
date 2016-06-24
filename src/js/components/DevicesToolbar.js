@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
 import CloudUpload from 'material-ui/svg-icons/file/cloud-upload';
 import CheckBox from 'material-ui/svg-icons/toggle/check-box';
@@ -100,6 +101,9 @@ class DevicesToolbar extends Component {
           >
             <Menu onItemTouchTap={this.handleTouchTapQueryMenuItem}>
               <MenuItem primaryText='Query All information' />
+              <Divider />
+              <MenuItem primaryText='Start AirPlay Mirroring' />
+              <MenuItem primaryText='Stop AirPlay Mirroring' />
             </Menu>
           </Popover>
         </ToolbarGroup>

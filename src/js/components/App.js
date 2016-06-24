@@ -16,13 +16,23 @@ class App extends Component {
 
   static propTypes = {
     location: PropTypes.object,
-    snackbar: PropTypes.object
+    snackbar: PropTypes.object,
+    snackbarActions: PropTypes.shape({
+      hideSnackbar: PropTypes.func.isRequired
+    })
   };
 
   render () {
     const {
-      snackbar
+      snackbar,
+      snackbarActions: {
+        hideSnackbar
+      }
     } = this.props;
+
+    const onSnackbarRequestClose = () => {
+      hideSnackbar(0);
+    };
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -33,6 +43,7 @@ class App extends Component {
             open
             message={snackbar.message}
             autoHideDuration={4000}
+            onRequestClose={onSnackbarRequestClose}
           />}
         </div>
       </MuiThemeProvider>

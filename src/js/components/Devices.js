@@ -11,7 +11,8 @@ class Devices extends Component {
   static propTypes = {
     api: PropTypes.shape({
       index: PropTypes.func.isRequired,
-      push: PropTypes.func.isRequired
+      push: PropTypes.func.isRequired,
+      destroy: PropTypes.func.isRequired
     }),
     ui: PropTypes.shape({
       changeSelection: PropTypes.func.isRequired,
@@ -19,6 +20,9 @@ class Devices extends Component {
     }),
     cmd: PropTypes.shape({
       create: PropTypes.func.isRequired
+    }),
+    snackbar: PropTypes.shape({
+      showSnackbar: PropTypes.func.isRequired
     }),
     devices: PropTypes.object.isRequired,
     commands: PropTypes.object.isRequired,
@@ -74,6 +78,7 @@ class Devices extends Component {
     });
 
     this.props.ui.setSelectionMenuVisible(false, null);
+    this.props.snackbar.showSnackbar(`Created new command(s) for ${selection.length} device(s).`);
   }
 
   getSelectedDevices () {
@@ -95,6 +100,7 @@ class Devices extends Component {
     devices.forEach((device) => {
       this.props.api.push(device.udid);
     });
+    this.props.snackbar.showSnackbar(`Pushed queued commands for ${devices.length} device(s).`);
   }
 
   handleDeleteAction () {
@@ -115,7 +121,6 @@ class Devices extends Component {
 
   render () {
     const {
-      commands,
       devices,
       selectionMenuVisible
     } = this.props;
