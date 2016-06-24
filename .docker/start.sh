@@ -72,18 +72,13 @@ if [ "$print_usage" != 0 ] ; then
 	exit 0
 fi
 
-# Build confd command line
-declare -a confd_options
+
 # Options that should always be set to something
-confd_options=(
-	"-backend" "$backend" \
-	"-interval" "$interval" \
-	"-prefix" "$prefix" \
-	"-scheme" "$scheme" \
-	)
+confd_options="-backend ${backend} -interval ${interval} -prefix {$prefix} -scheme {$scheme}"
+
 # Optional arguments
 if [ -n "$client_ca_keys" ] ; then
-	confd_options+=( "-client-ca-keys" "$client_ca_keys" )
+	confd_options = "${confd_options} -client-ca-keys ${client_ca_keys}"
 fi
 if [ -n "$client_cert" ] ; then
 	confd_options+=( "-client-cert" "$client_cert" )
