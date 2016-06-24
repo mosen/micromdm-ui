@@ -106,7 +106,7 @@ class DeviceList extends Component {
 
           <TableBody
             displayRowCheckbox
-            deselectOnClickaway
+            deselectOnClickaway={false}
             showRowHover
             stripedRows={false}
           >

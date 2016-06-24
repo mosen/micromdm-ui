@@ -8,6 +8,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
 import CloudUpload from 'material-ui/svg-icons/file/cloud-upload';
+import CheckBox from 'material-ui/svg-icons/toggle/check-box';
 
 class DevicesToolbar extends Component {
 
@@ -16,6 +17,7 @@ class DevicesToolbar extends Component {
     onActionMenuClose: PropTypes.func.isRequired,
     onPushAction: PropTypes.func.isRequired,
     onQueryAction: PropTypes.func.isRequired,
+    onDeleteAction: PropTypes.func.isRequired,
     selection: PropTypes.array.isRequired,
     selectionMenuVisible: PropTypes.bool
   };
@@ -29,6 +31,7 @@ class DevicesToolbar extends Component {
 
     this.handleTouchTapSelectionMenu = this.handleTouchTapSelectionMenu.bind(this);
     this.handleTouchTapSelectionPush = this.handleTouchTapSelectionPush.bind(this);
+    this.handleTouchTapSelectionDelete = this.handleTouchTapSelectionDelete.bind(this);
     this.handleSelectionMenuClose = this.handleSelectionMenuClose.bind(this);
     this.handleTouchTapQueryMenuItem = this.handleTouchTapQueryMenuItem.bind(this);
   }
@@ -56,26 +59,32 @@ class DevicesToolbar extends Component {
     this.props.onQueryAction(evt);
   }
 
+  handleTouchTapSelectionDelete (evt) {
+    evt.preventDefault();
+    this.props.onDeleteAction(evt);
+  }
+
   render () {
     const {
       selection,
       selectionMenuVisible
     } = this.props;
 
-    const canDelete = selection.length > 0;
+    const isItemsSelected = selection.length > 0;
     const selectionText = `${selection.length} Selected Item(s)`;
 
     return (
       <Toolbar>
         <ToolbarGroup firstChild>
-          <FlatButton label='Delete' secondary disabled={!canDelete} />
+          <FlatButton label='Delete' secondary disabled={!isItemsSelected} onTouchTap={this.handleTouchTapSelectionDelete} />
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarTitle text={selectionText} />
           <RaisedButton
+            disabled={!isItemsSelected}
             onTouchTap={this.handleTouchTapSelectionMenu}
-            label='Query'
-            icon={<AutoRenew />}
+            label='Action'
+            icon={<CheckBox />}
           />
           <RaisedButton
             onTouchTap={this.handleTouchTapSelectionPush}
@@ -90,16 +99,7 @@ class DevicesToolbar extends Component {
             onRequestClose={this.handleSelectionMenuClose}
           >
             <Menu onItemTouchTap={this.handleTouchTapQueryMenuItem}>
-              <MenuItem primaryText='All information' />
-              <MenuItem primaryText='Capacity available' />
-              <MenuItem primaryText='Total capacity' />
-              <MenuItem primaryText='Hostname' />
-              <MenuItem primaryText='Local hostname' />
-              <MenuItem primaryText='Model' />
-              <MenuItem primaryText='Model name' />
-              <MenuItem primaryText='Operating system version' />
-              <MenuItem primaryText='Product name' />
-              <MenuItem primaryText='Serial number' />
+              <MenuItem primaryText='Query All information' />
             </Menu>
           </Popover>
         </ToolbarGroup>

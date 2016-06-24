@@ -44,6 +44,25 @@ export function read (uuid) {
   };
 }
 
+export const DESTROY_REQUEST = NS.concat('DESTROY_REQUEST');
+export const DESTROY_SUCCESS = NS.concat('DESTROY_SUCCESS');
+export const DESTROY_FAILURE = NS.concat('DESTROY_FAILURE');
+
+export function destroy (uuid) {
+  return {
+    [CALL_API]: {
+      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}`,
+      method: 'DELETE',
+      types: [
+        DESTROY_REQUEST,
+        DESTROY_SUCCESS,
+        DESTROY_FAILURE
+      ],
+      headers: JSON_HEADERS
+    }
+  };
+}
+
 export const PUSH_REQUEST = NS.concat('PUSH_REQUEST');
 export const PUSH_SUCCESS = NS.concat('PUSH_SUCCESS');
 export const PUSH_FAILURE = NS.concat('PUSH_FAILURE');

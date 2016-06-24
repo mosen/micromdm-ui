@@ -1,7 +1,6 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 
-import Snackbar from 'material-ui/Snackbar';
 import DeviceList from './DeviceList';
 import DevicesToolbar from './DevicesToolbar';
 
@@ -41,6 +40,7 @@ class Devices extends Component {
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleQueryAction = this.handleQueryAction.bind(this);
     this.handlePushAction = this.handlePushAction.bind(this);
+    this.handleDeleteAction = this.handleDeleteAction.bind(this);
     this.hideActionMenu = this.hideActionMenu.bind(this);
     this.showActionMenu = this.showActionMenu.bind(this);
   }
@@ -97,6 +97,14 @@ class Devices extends Component {
     });
   }
 
+  handleDeleteAction () {
+    const devices = this.getSelectedDevices();
+
+    devices.forEach((device) => {
+      this.props.api.destroy(device.udid);
+    });
+  }
+
   hideActionMenu () {
     this.props.ui.setSelectionMenuVisible(false, null);
   }
@@ -121,18 +129,13 @@ class Devices extends Component {
           selectionMenuVisible={selectionMenuVisible}
           onPushAction={this.handlePushAction}
           onQueryAction={this.handleQueryAction}
+          onDeleteAction={this.handleDeleteAction}
         />
         {!devices.error && <DeviceList
           loading={devices.loading}
           items={devices.items}
           selection={devices.selection}
           onSelectionChange={this.handleSelectionChange}
-        />}
-
-        {false && <Snackbar
-          open={commands.success}
-          message='Successfully sent command to device(s).'
-          autoHideDuration={4000}
         />}
       </div>
     );

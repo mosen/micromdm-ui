@@ -7,6 +7,7 @@ import applications from './applications';
 import commands from './commands';
 import devices from './devices';
 import profiles from './profiles';
+import notifications from './notifications';
 import uploads from './uploads';
 import workflows from './workflows';
 import workflow from './workflow';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   commands,
   devices,
   profiles,
+  notifications,
   uploads,
   workflow,
   workflows

@@ -10,7 +10,8 @@ const mapDispatchToProps = (dispatch) => {
 
 function mapStateToProps (state, ownProps) {
   return {
-    ...ownProps
+    ...ownProps,
+    snackbar: state.notifications.snackbar
   };
 }
 
