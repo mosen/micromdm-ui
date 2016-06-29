@@ -4,7 +4,7 @@ import React, {Component, PropTypes} from 'react';
 import DeviceList from './DeviceList';
 import DevicesToolbar from './DevicesToolbar';
 
-import { deviceInformation } from '../actions/util/command';
+import { commandFactory } from '../actions/util/command';
 
 class Devices extends Component {
 
@@ -12,7 +12,8 @@ class Devices extends Component {
     api: PropTypes.shape({
       index: PropTypes.func.isRequired,
       push: PropTypes.func.isRequired,
-      destroy: PropTypes.func.isRequired
+      destroy: PropTypes.func.isRequired,
+      depFetch: PropTypes.func.isRequired
     }),
     ui: PropTypes.shape({
       changeSelection: PropTypes.func.isRequired,
@@ -45,6 +46,7 @@ class Devices extends Component {
     this.handleQueryAction = this.handleQueryAction.bind(this);
     this.handlePushAction = this.handlePushAction.bind(this);
     this.handleDeleteAction = this.handleDeleteAction.bind(this);
+    this.handleFetchDEPAction = this.handleFetchDEPAction.bind(this);
     this.hideActionMenu = this.hideActionMenu.bind(this);
     this.showActionMenu = this.showActionMenu.bind(this);
   }
@@ -57,7 +59,7 @@ class Devices extends Component {
     this.props.ui.changeSelection(selection);
   }
 
-  handleQueryAction () {
+  handleQueryAction (commandType) {
     const {
       devices: {
         items,
@@ -70,7 +72,7 @@ class Devices extends Component {
     });
 
     const commands = selectedDevices.map(function (device) {
-      return deviceInformation(device.udid);
+      return commandFactory(commandType)(device.udid);
     });
 
     commands.forEach((command) => {
@@ -111,6 +113,10 @@ class Devices extends Component {
     });
   }
 
+  handleFetchDEPAction () {
+    this.props.api.depFetch();
+  }
+
   hideActionMenu () {
     this.props.ui.setSelectionMenuVisible(false, null);
   }
@@ -135,6 +141,7 @@ class Devices extends Component {
           onPushAction={this.handlePushAction}
           onQueryAction={this.handleQueryAction}
           onDeleteAction={this.handleDeleteAction}
+          onFetchDEPAction={this.handleFetchDEPAction}
         />
         {!devices.error && <DeviceList
           loading={devices.loading}

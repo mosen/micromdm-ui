@@ -1,18 +1,6 @@
 'use strict';
 
-// DeviceInformation
-// InstallApplication
-// InstallProfile
-// AccountConfiguration
-// ScheduleOSUpdateScan
-
-export const IOS_QUERIES = [
-
-];
-
-export const OSX_QUERIES = [
-
-];
+import * as MDM from '../../constants/mdm';
 
 const ALL_QUERIES = [
   'UDID',
@@ -85,5 +73,61 @@ export function deviceInformation (udid, queries = []) {
     'udid': udid,
     queries
   };
+}
+
+export function profileList (udid) {
+  return {
+    'request_type': 'ProfileList',
+    'udid': udid
+  };
+}
+
+export function availableOSUpdates (udid) {
+  return {
+    'request_type': 'AvailableOSUpdates',
+    'udid': udid
+  };
+}
+
+export function securityInfo (udid) {
+  return {
+    'request_type': 'SecurityInfo',
+    'udid': udid
+  };
+}
+
+export function certificateList (udid) {
+  return {
+    'request_type': 'CertificateList',
+    'udid': udid
+  };
+}
+
+export function OSUpdateStatus (udid) {
+  return {
+    'request_type': 'OSUpdateStatus',
+    'udid': udid
+  };
+}
+
+// Command is an action creator factory which takes a symbol representing an MDM command type and returns
+// an action creator.
+export function commandFactory (commandType) {
+  switch (commandType) {
+    case MDM.DEVICE_INFO:
+      return deviceInformation;
+    case MDM.PROFILE_LIST:
+      return profileList;
+    case MDM.AVAILABLE_OS_UPDATES:
+      return availableOSUpdates;
+    case MDM.SECURITY_INFO:
+      return securityInfo;
+    case MDM.CERTIFICATE_LIST:
+      return certificateList;
+    case MDM.OS_UPDATE_STATUS:
+      return OSUpdateStatus;
+    default:
+      return null;
+  }
 }
 

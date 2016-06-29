@@ -33,6 +33,10 @@ const style = {margin: 5};
 
 // Fetch an SVG icon depending on the product name
 const iconForProductName = function (productName) {
+  if (productName === undefined) {
+    return <HelpOutline />;
+  }
+
   if (productName.indexOf('iPhone') !== -1) {
     return <PhoneIphone />;
   } else if (productName.indexOf('iMac') !== -1) {

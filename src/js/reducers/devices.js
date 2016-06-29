@@ -44,6 +44,16 @@ export default function devices (state = initialState, action) {
         errorDetails: action.payload
       });
 
+    case actions.PUSH_SUCCESS:
+      if (action.payload.error) {
+        return Object.assign({}, state, {
+          error: true,
+          errorDetails: action.payload.status
+        });
+      } else {
+        return state;
+      }
+
     case uiActions.CHANGE_SELECTION:
       return Object.assign({}, state, {
         selection: action.payload.map((item) => { return item.uuid; })

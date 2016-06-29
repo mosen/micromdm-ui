@@ -9,7 +9,9 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
 import CloudUpload from 'material-ui/svg-icons/file/cloud-upload';
+import CloudDownload from 'material-ui/svg-icons/file/cloud-download';
 import CheckBox from 'material-ui/svg-icons/toggle/check-box';
+import * as MDM from '../constants/mdm';
 
 class DevicesToolbar extends Component {
 
@@ -19,6 +21,7 @@ class DevicesToolbar extends Component {
     onPushAction: PropTypes.func.isRequired,
     onQueryAction: PropTypes.func.isRequired,
     onDeleteAction: PropTypes.func.isRequired,
+    onFetchDEPAction: PropTypes.func.isRequired,
     selection: PropTypes.array.isRequired,
     selectionMenuVisible: PropTypes.bool
   };
@@ -35,6 +38,7 @@ class DevicesToolbar extends Component {
     this.handleTouchTapSelectionDelete = this.handleTouchTapSelectionDelete.bind(this);
     this.handleSelectionMenuClose = this.handleSelectionMenuClose.bind(this);
     this.handleTouchTapQueryMenuItem = this.handleTouchTapQueryMenuItem.bind(this);
+    this.handleTouchTapFetchDEP = this.handleTouchTapFetchDEP.bind(this);
   }
 
   handleTouchTapSelectionMenu (evt) {
@@ -55,14 +59,21 @@ class DevicesToolbar extends Component {
     this.props.onActionMenuClose();
   }
 
-  handleTouchTapQueryMenuItem (evt) {
+  handleTouchTapQueryMenuItem (evt, menuItem, index) {
     evt.preventDefault();
-    this.props.onQueryAction(evt);
+    const commandType = menuItem.props.value;
+
+    this.props.onQueryAction(commandType);
   }
 
   handleTouchTapSelectionDelete (evt) {
     evt.preventDefault();
     this.props.onDeleteAction(evt);
+  }
+
+  handleTouchTapFetchDEP (evt) {
+    evt.preventDefault();
+    this.props.onFetchDEPAction(evt);
   }
 
   render () {
@@ -72,15 +83,18 @@ class DevicesToolbar extends Component {
     } = this.props;
 
     const isItemsSelected = selection.length > 0;
-    const selectionText = `${selection.length} Selected Item(s)`;
 
     return (
       <Toolbar>
         <ToolbarGroup firstChild>
           <FlatButton label='Delete' secondary disabled={!isItemsSelected} onTouchTap={this.handleTouchTapSelectionDelete} />
+          <RaisedButton
+            onTouchTap={this.handleTouchTapFetchDEP}
+            label='Fetch DEP'
+            icon={<CloudDownload />}
+          />
         </ToolbarGroup>
         <ToolbarGroup>
-          <ToolbarTitle text={selectionText} />
           <RaisedButton
             disabled={!isItemsSelected}
             onTouchTap={this.handleTouchTapSelectionMenu}
@@ -100,10 +114,13 @@ class DevicesToolbar extends Component {
             onRequestClose={this.handleSelectionMenuClose}
           >
             <Menu onItemTouchTap={this.handleTouchTapQueryMenuItem}>
-              <MenuItem primaryText='Query All information' />
+              <MenuItem primaryText='Query All information' value={MDM.DEVICE_INFO} />
               <Divider />
-              <MenuItem primaryText='Start AirPlay Mirroring' />
-              <MenuItem primaryText='Stop AirPlay Mirroring' />
+              <MenuItem primaryText='List Profiles' value={MDM.PROFILE_LIST} />
+              <MenuItem primaryText='Security Info' value={MDM.SECURITY_INFO} />
+              <MenuItem primaryText='List Certificates' value={MDM.CERTIFICATE_LIST} />
+              <MenuItem primaryText='OS Update Status' value={MDM.OS_UPDATE_STATUS} />
+              <MenuItem primaryText='Available Updates' value={MDM.AVAILABLE_OS_UPDATES} />
             </Menu>
           </Popover>
         </ToolbarGroup>
