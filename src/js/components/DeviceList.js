@@ -1,12 +1,11 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 import moment from 'moment';
-import Avatar from 'material-ui/Avatar';
-import PhoneIphone from 'material-ui/svg-icons/hardware/phone-iphone';
-import TabletMac from 'material-ui/svg-icons/hardware/tablet-mac';
-import LaptopMac from 'material-ui/svg-icons/hardware/laptop-mac';
-import DesktopMac from 'material-ui/svg-icons/hardware/desktop-mac';
-import HelpOutline from 'material-ui/svg-icons/action/help-outline';
+import {browserHistory} from 'react-router';
+
+import FlatButton from 'material-ui/FlatButton';
+import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import ProductIcon from './ProductIcon';
 
 import {
   Table,
@@ -19,34 +18,15 @@ import {
 } from 'material-ui/Table';
 
 import {
-  blue300,
-  indigo900,
-  orange200,
-  deepOrange300,
-  pink400,
-  purple500,
+  cyan500,
+  cyan800
 } from 'material-ui/styles/colors';
 
 import './DeviceList.scss';
 
 const style = {margin: 5};
 
-// Fetch an SVG icon depending on the product name
-const iconForProductName = function (productName) {
-  if (productName === undefined) {
-    return <HelpOutline />;
-  }
-
-  if (productName.indexOf('iPhone') !== -1) {
-    return <PhoneIphone />;
-  } else if (productName.indexOf('iMac') !== -1) {
-    return <DesktopMac />;
-  } else if (productName.indexOf('iPad') !== -1) {
-    return <TabletMac />;
-  } else {
-    return <HelpOutline />;
-  }
-};
+const detailButtonStyle = {margin: 3};
 
 class DeviceList extends Component {
 
@@ -60,6 +40,7 @@ class DeviceList extends Component {
     super(props);
 
     this.handleRowSelection = this.handleRowSelection.bind(this);
+    this.handleDetailClick = this.handleDetailClick.bind(this);
   }
 
   handleRowSelection (selection) {
@@ -77,6 +58,12 @@ class DeviceList extends Component {
 
         this.props.onSelectionChange(selectedItems);
     }
+  }
+
+  handleDetailClick (evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    browserHistory.push(evt.currentTarget.href);
   }
 
   render () {
@@ -105,6 +92,7 @@ class DeviceList extends Component {
               <TableHeaderColumn>Serial</TableHeaderColumn>
               <TableHeaderColumn>OS</TableHeaderColumn>
               <TableHeaderColumn>Last Seen</TableHeaderColumn>
+              <TableHeaderColumn>Detail</TableHeaderColumn>
             </TableRow>
           </TableHeader>
 
@@ -116,10 +104,20 @@ class DeviceList extends Component {
           >
             {items.map((row, index) => (
               <TableRow key={index} selected={selection.indexOf(row.uuid) !== -1}>
-                <TableRowColumn className='DeviceColumn'>{iconForProductName(row.product_name)}</TableRowColumn>
+                <TableRowColumn className='DeviceColumn'><ProductIcon name={row.product_name} /></TableRowColumn>
                 <TableRowColumn>{row.serial_number}</TableRowColumn>
                 <TableRowColumn>{row.os_version}</TableRowColumn>
                 <TableRowColumn>{row.last_checkin && moment(row.last_checkin).local().fromNow()}</TableRowColumn>
+                <TableRowColumn>
+                  <FlatButton
+                    hoverColor={cyan500}
+                    icon={<KeyboardArrowRight />}
+                    style={detailButtonStyle}
+                    href={`/devices/${row.uuid}`}
+                    linkButton
+                    onClick={this.handleDetailClick}
+                    />
+                </TableRowColumn>
               </TableRow>
             ))}
           </TableBody>

@@ -2,6 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import {browserHistory} from 'react-router';
 
 // Device View Page
 class Device extends Component {
@@ -14,6 +15,10 @@ class Device extends Component {
 
   componentWillMount () {
     this.props.api.read(this.props.params.uuid);
+  }
+
+  handleClickBack (evt) {
+    browserHistory.push('/devices');
   }
 
   render () {
@@ -33,7 +38,7 @@ class Device extends Component {
           Device Detail
         </CardText>
         <CardActions>
-          <FlatButton label='Back' />
+          <FlatButton label='Back' onClick={this.handleClickBack} />
         </CardActions>
       </Card>
     );
