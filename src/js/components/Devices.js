@@ -115,6 +115,7 @@ class Devices extends Component {
 
   handleFetchDEPAction () {
     this.props.api.depFetch();
+    this.props.snackbar.showSnackbar('Started fetching DEP device(s), this may take a short while.');
   }
 
   hideActionMenu () {
