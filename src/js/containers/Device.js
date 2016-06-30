@@ -1,6 +1,7 @@
 'use strict';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 import Device from '../components/Device';
 import * as actions from '../actions/api/devices';
 import * as snackbarActions from '../actions/ui/snackbar';
@@ -18,7 +19,9 @@ function mapStateToProps (state) {
   };
 }
 
+const routedDevice = withRouter(Device);
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Device);
+)(routedDevice);

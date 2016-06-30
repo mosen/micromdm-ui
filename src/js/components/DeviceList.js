@@ -66,6 +66,14 @@ class DeviceList extends Component {
     browserHistory.push(evt.currentTarget.href);
   }
 
+  makeShowDetailHandler (uuid) {
+    return (evt) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      browserHistory.push(`/devices/${uuid}`);
+    };
+  }
+
   render () {
     const {
       items,
@@ -115,7 +123,7 @@ class DeviceList extends Component {
                     style={detailButtonStyle}
                     href={`/devices/${row.uuid}`}
                     linkButton
-                    onClick={this.handleDetailClick}
+                    onClick={this.makeShowDetailHandler(row.uuid)}
                     />
                 </TableRowColumn>
               </TableRow>

@@ -7,6 +7,12 @@ import {browserHistory} from 'react-router';
 // Device View Page
 class Device extends Component {
 
+  constructor (props) {
+    super(props);
+
+    this.handleClickBack = this.handleClickBack.bind(this);
+  }
+
   static propTypes = {
     api: PropTypes.shape({
       read: PropTypes.func.isRequired
@@ -18,7 +24,7 @@ class Device extends Component {
   }
 
   handleClickBack (evt) {
-    browserHistory.push('/devices');
+    this.props.router.goBack();
   }
 
   render () {
