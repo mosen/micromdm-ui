@@ -64,14 +64,14 @@ class ProfileList extends Component {
           <Table
             fixedHeader
             fixedFooter
-            selectable
+            selectable={items.length > 0}
             multiSelectable
             onRowSelection={this.handleRowSelection}
           >
             <TableHeader
               displaySelectAll
               adjustForCheckbox
-              enableSelectAll
+              enableSelectAll={items.length > 0}
             >
               <TableRow>
                 <TableHeaderColumn>Identifier</TableHeaderColumn>
@@ -86,6 +86,11 @@ class ProfileList extends Component {
               showRowHover
               stripedRows={false}
             >
+              {items.length === 0 &&
+                <TableRow selectable={false}>
+                  <TableRowColumn colSpan='3'>There are no profiles available.</TableRowColumn>
+                </TableRow>
+              }
               {items.map((row, index) => (
                 <TableRow key={index} selected={selection.indexOf(row.payload_identifier) !== -1}>
                   <TableRowColumn>{row.payload_identifier}</TableRowColumn>

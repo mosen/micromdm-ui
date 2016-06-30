@@ -121,6 +121,14 @@ class DeviceList extends Component {
               </TableRow>
             ))}
           </TableBody>
+
+          <TableFooter>
+            <TableRow>
+              <TableRowColumn colSpan='5'>
+                Devices
+              </TableRowColumn>
+            </TableRow>
+          </TableFooter>
         </Table>
       </div>
     );

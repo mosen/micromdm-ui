@@ -1,9 +1,9 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 import {browserHistory} from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
-import Add from 'material-ui/svg-icons/content/add';
+
 import WorkflowList from './WorkflowList';
+import WorkflowsToolbar from './WorkflowsToolbar';
 
 class Workflows extends Component {
 
@@ -15,16 +15,20 @@ class Workflows extends Component {
   constructor (props) {
     super(props);
 
-    this.handleAddTouchTap = this.handleAddTouchTap.bind(this);
+    this.handleAddAction = this.handleAddAction.bind(this);
+    this.handleDeleteAction = this.handleDeleteAction.bind(this);
   }
 
   componentWillMount () {
     this.props.index();
   }
 
-  handleAddTouchTap (evt) {
-    evt.preventDefault();
+  handleAddAction (evt) {
     browserHistory.push('/workflows/add');
+  }
+
+  handleDeleteAction (evt) {
+
   }
 
   handleSelectionChange (selection) {
@@ -38,8 +42,11 @@ class Workflows extends Component {
 
     return (
       <div className='Workflows'>
-        <RaisedButton label='Add' primary icon={<Add />} onTouchTap={this.handleAddTouchTap} />
-
+        <WorkflowsToolbar
+          selection={workflows.selection}
+          onAddAction={this.handleAddAction}
+          onDeleteAction={this.handleDeleteAction}
+        />
         <WorkflowList
           items={workflows.items}
           loading={workflows.loading}

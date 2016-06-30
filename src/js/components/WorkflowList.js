@@ -20,6 +20,7 @@ class WorkflowList extends Component {
   static propTypes = {
     loading: PropTypes.bool,
     items: PropTypes.array,
+    selection: PropTypes.array,
     onSelectionChange: PropTypes.func.isRequired
   };
 
@@ -57,43 +58,43 @@ class WorkflowList extends Component {
       <div className='WorkflowList'>
         {loading && <CircularProgress />}
         {!loading &&
-        <Table
-          fixedHeader
-          fixedFooter
-          selectable
-          multiSelectable
-          onRowSelection={this.handleRowSelection}
-        >
-          <TableHeader
-            displaySelectAll
-            adjustForCheckbox
-            enableSelectAll
+          <Table
+            fixedHeader
+            fixedFooter
+            selectable
+            multiSelectable
+            onRowSelection={this.handleRowSelection}
           >
-            <TableRow>
-              <TableHeaderColumn>UUID</TableHeaderColumn>
-              <TableHeaderColumn>name</TableHeaderColumn>
-              <TableHeaderColumn>Profiles</TableHeaderColumn>
-              <TableHeaderColumn>Apps</TableHeaderColumn>
-              <TableHeaderColumn>Workflows</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-
-          <TableBody
-            displayRowCheckbox
-            deselectOnClickaway
-            showRowHover
-            stripedRows={false}
-          >
-            {items.map((row, index) => (
-              <TableRow key={index} selected={selection.indexOf(row.payload_identifier) !== -1}>
-                <TableRowColumn>{row.uuid}</TableRowColumn>
-                <TableRowColumn>{row.name}</TableRowColumn>
-                <TableRowColumn>{row.profiles.length}</TableRowColumn>
-                <TableRowColumn>{row.applications && row.applications.length}</TableRowColumn>
-                <TableRowColumn>{row.included_workflows && row.included_workflows.length}</TableRowColumn>
+            <TableHeader
+              displaySelectAll
+              adjustForCheckbox
+              enableSelectAll
+            >
+              <TableRow>
+                <TableHeaderColumn>UUID</TableHeaderColumn>
+                <TableHeaderColumn>name</TableHeaderColumn>
+                <TableHeaderColumn>Profiles</TableHeaderColumn>
+                <TableHeaderColumn>Apps</TableHeaderColumn>
+                <TableHeaderColumn>Workflows</TableHeaderColumn>
               </TableRow>
-            ))}
-          </TableBody>
+            </TableHeader>
+
+            <TableBody
+              displayRowCheckbox
+              deselectOnClickaway
+              showRowHover
+              stripedRows={false}
+            >
+              {items.map((row, index) => (
+                <TableRow key={index} selected={selection.indexOf(row.payload_identifier) !== -1}>
+                  <TableRowColumn>{row.uuid}</TableRowColumn>
+                  <TableRowColumn>{row.name}</TableRowColumn>
+                  <TableRowColumn>{row.profiles.length}</TableRowColumn>
+                  <TableRowColumn>{row.applications && row.applications.length}</TableRowColumn>
+                  <TableRowColumn>{row.included_workflows && row.included_workflows.length}</TableRowColumn>
+                </TableRow>
+              ))}
+            </TableBody>
         </Table>
         }
       </div>
