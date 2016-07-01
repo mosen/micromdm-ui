@@ -27,22 +27,26 @@ export default class WorkflowDrawer extends Component {
     const {items} = this.props;
 
     return (
-      <List>
-        <ListItem><h3>Workflows</h3></ListItem>
-        {items.length > 0 && items.map((item) => {
-          return <ListItem
-            key={item.payload_identifier}
-            primaryText={item.payload_identifier}
-            secondaryText={item.profile_uuid}
-            leftIcon={<Add />}
-            onTouchTap={this.handleTouchTapItem}
-            value={item}
-          />;
-        })}
-        {!items || items.length === 0 &&
-        <p>There are currently no workflows.</p>
-        }
-      </List>
+      <div>
+        <div className='mui-padded'>
+          <h3>Workflows</h3>
+        </div>
+        <List>
+          {!items || items.length === 0 &&
+            <ListItem disabled primaryText='There are no workflows available' />
+          }
+          {items.length > 0 && items.map((item) => {
+            return <ListItem
+              key={item.payload_identifier}
+              primaryText={item.payload_identifier}
+              secondaryText={item.profile_uuid}
+              leftIcon={<Add />}
+              onTouchTap={this.handleTouchTapItem}
+              value={item}
+            />;
+          })}
+        </List>
+      </div>
     );
   }
 

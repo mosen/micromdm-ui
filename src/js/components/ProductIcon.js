@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+
 import PhoneIphone from 'material-ui/svg-icons/hardware/phone-iphone';
 import TabletMac from 'material-ui/svg-icons/hardware/tablet-mac';
 import LaptopMac from 'material-ui/svg-icons/hardware/laptop-mac';
@@ -20,17 +21,17 @@ class ProductIcon extends Component {
       name
     } = this.props;
 
-    var icon = <HelpOutline />;
-
     if (name.indexOf('iPhone') !== -1) {
-      icon = <PhoneIphone />;
+      return <PhoneIphone />;
     } else if (name.indexOf('iMac') !== -1) {
-      icon = <DesktopMac />;
+      return <DesktopMac />;
     } else if (name.indexOf('iPad') !== -1) {
-      icon = <TabletMac />;
+      return <TabletMac />;
+    } else if (name.indexOf('MacBook') !== -1) {
+      return <LaptopMac />;
     }
 
-    return icon;
+    return <HelpOutline />;
   }
 }
 

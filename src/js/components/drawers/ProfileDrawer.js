@@ -27,22 +27,26 @@ export default class ProfileDrawer extends Component {
     const { items } = this.props;
 
     return (
-      <List>
-        <ListItem><h3>Profiles</h3></ListItem>
-        {items.length > 0 && items.map((item) => {
-          return <ListItem
-            key={item.payload_identifier}
-            primaryText={item.payload_identifier}
-            secondaryText={item.profile_uuid}
-            leftIcon={<Add />}
-            onTouchTap={this.handleTouchTapItem}
-            value={item}
-          />;
-        })}
-        {!items || items.length === 0 &&
-          <p>There are currently no profiles.</p>
-        }
-      </List>
+      <div>
+        <div className='mui-padded'>
+          <h3>Profiles</h3>
+        </div>
+        <List>
+          {!items || items.length === 0 &&
+            <ListItem disabled primaryText='There are no profiles available' />
+          }
+          {items.length > 0 && items.map((item) => {
+            return <ListItem
+              key={item.payload_identifier}
+              primaryText={item.payload_identifier}
+              secondaryText={item.profile_uuid}
+              leftIcon={<Add />}
+              onTouchTap={this.handleTouchTapItem}
+              value={item}
+            />;
+          })}
+        </List>
+      </div>
     );
   }
 

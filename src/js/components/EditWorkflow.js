@@ -163,7 +163,6 @@ class EditWorkflow extends Component {
               secondaryText='Click here to add a profile to this workflow.'
               leftAvatar={<Avatar icon={<Add />} />}
               onTouchTap={this.handleProfilesItemTouchTap}
-              style={actionStyle}
             />
             <Divider inset/>
             <Subheader>Applications</Subheader>

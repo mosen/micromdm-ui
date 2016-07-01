@@ -5,6 +5,7 @@ import {routerReducer} from 'react-router-redux';
 import api from './api';
 import applications from './applications';
 import commands from './commands';
+import device from './device';
 import devices from './devices';
 import profiles from './profiles';
 import notifications from './notifications';
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   api,
   applications,
   commands,
+  device,
   devices,
   profiles,
   notifications,
