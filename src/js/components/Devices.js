@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 
 import DeviceList from './DeviceList';
 import DevicesToolbar from './DevicesToolbar';
+import ErrorDialog from './ErrorDialog';
 
 import { commandFactory } from '../actions/util/command';
 
@@ -28,7 +29,10 @@ class Devices extends Component {
     devices: PropTypes.object.isRequired,
     commands: PropTypes.object.isRequired,
     selectionMenuVisible: PropTypes.bool.isRequired,
-    selectionMenuAnchor: PropTypes.element
+    selectionMenuAnchor: PropTypes.element,
+    error: PropTypes.bool.isRequired,
+    errorDetails: PropTypes.object,
+    errorDialogOpen: PropTypes.bool
   };
 
   static defaultProps = {
@@ -49,6 +53,7 @@ class Devices extends Component {
     this.handleFetchDEPAction = this.handleFetchDEPAction.bind(this);
     this.hideActionMenu = this.hideActionMenu.bind(this);
     this.showActionMenu = this.showActionMenu.bind(this);
+    this.handleCloseError = this.handleCloseError.bind(this);
   }
 
   componentWillMount () {
@@ -63,7 +68,9 @@ class Devices extends Component {
     const {
       devices: {
         items,
-        selection
+        selection,
+        error,
+        errorDetails
       }
     } = this.props;
 
@@ -126,11 +133,27 @@ class Devices extends Component {
     this.props.ui.setSelectionMenuVisible(true, null);
   }
 
+  handleCloseError () {
+    this.props.ui.setErrorDialogVisible(false);
+  }
+
   render () {
     const {
       devices,
-      selectionMenuVisible
+      selectionMenuVisible,
+      error,
+      errorDetails,
+      errorDialogOpen
     } = this.props;
+
+    let errorDialog = '';
+
+    if (error) {
+      const message = `The list of devices could not be fetched. Additional information:
+      ${errorDetails.name}: ${errorDetails.message}.
+      Please check your MicroMDM connection settings and verify that your MicroMDM server is reachable.`;
+      errorDialog = <ErrorDialog title='Cannot fetch devices' message={message} open={errorDialogOpen} onClose={this.handleCloseError} />;
+    }
 
     return (
       <div className='Devices'>
@@ -144,12 +167,13 @@ class Devices extends Component {
           onDeleteAction={this.handleDeleteAction}
           onFetchDEPAction={this.handleFetchDEPAction}
         />
-        {!devices.error && <DeviceList
+        {!error && <DeviceList
           loading={devices.loading}
           items={devices.items}
           selection={devices.selection}
           onSelectionChange={this.handleSelectionChange}
         />}
+        {errorDialog}
       </div>
     );
   }

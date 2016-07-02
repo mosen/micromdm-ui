@@ -8,6 +8,7 @@ const initialState = {
   loading: false,
   error: false,
   errorDetails: null,
+  errorDialogOpen: false,
   selection: [],
   selectionMenuVisible: false,
   selectionMenuAnchor: null
@@ -19,7 +20,8 @@ export default function devices (state = initialState, action) {
       if (action.error) {
         return Object.assign({}, state, {
           error: true,
-          errorDetails: action.payload
+          errorDetails: action.payload,
+          errorDialogOpen: true
         });
       } else {
         return Object.assign({}, state, {
@@ -41,8 +43,12 @@ export default function devices (state = initialState, action) {
       return Object.assign({}, state, {
         loading: false,
         error: true,
-        errorDetails: action.payload
+        errorDetails: action.payload,
+        errorDialogOpen: true
       });
+
+    case actions.PUSH_REQUEST:
+      return state;
 
     case actions.PUSH_SUCCESS:
       if (action.payload.error) {
@@ -54,6 +60,13 @@ export default function devices (state = initialState, action) {
         return state;
       }
 
+    case actions.PUSH_FAILURE:
+      return Object.assign({}, state, {
+        error: true,
+        errorDetails: action.payload,
+        errorDialogOpen: true
+      });
+
     case uiActions.CHANGE_SELECTION:
       return Object.assign({}, state, {
         selection: action.payload.map((item) => { return item.uuid; })
@@ -64,6 +77,12 @@ export default function devices (state = initialState, action) {
         selectionMenuVisible: action.payload.visible,
         selectionMenuAnchor: action.payload.anchorElement
       });
+
+    case uiActions.ERROR_DIALOG_VISIBLE:
+      return Object.assign({}, state, {
+        errorDialogOpen: action.isVisible
+      });
+
     default:
       return state;
   }

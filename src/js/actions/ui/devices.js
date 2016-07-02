@@ -23,3 +23,14 @@ export function setSelectionMenuVisible (isVisible = true, anchorElement) {
     }
   };
 }
+
+export const ERROR_DIALOG_VISIBLE = NS.concat('ERROR_DIALOG_VISIBLE');
+
+export function setErrorDialogVisible (isVisible = true) {
+  return {
+    type: ERROR_DIALOG_VISIBLE,
+    payload: {
+      visible: isVisible
+    }
+  };
+}

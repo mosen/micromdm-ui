@@ -21,6 +21,9 @@ function mapStateToProps (state) {
     devices: state.devices,
     selectionMenuVisible: state.devices.selectionMenuVisible,
     selectionMenuAnchor: state.devices.selectionMenuAnchor,
+    error: state.devices.error,
+    errorDetails: state.devices.errorDetails,
+    errorDialogOpen: state.devices.errorDialogOpen,
     commands: state.commands
   };
 }

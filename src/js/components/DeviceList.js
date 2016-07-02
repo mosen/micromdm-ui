@@ -6,6 +6,7 @@ import {browserHistory} from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import ProductIcon from './ProductIcon';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import {
   Table,
@@ -83,6 +84,7 @@ class DeviceList extends Component {
 
     return (
       <div className='DeviceList'>
+        {loading && <CircularProgress />}
         <Table
           fixedHeader
           fixedFooter

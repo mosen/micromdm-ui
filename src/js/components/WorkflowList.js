@@ -1,17 +1,15 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
 
 import {
   Table,
   TableBody,
-  TableFooter,
   TableHeader,
   TableHeaderColumn,
   TableRow,
   TableRowColumn
 } from 'material-ui/Table';
-import CircularProgress from 'material-ui/CircularProgress';
+import Loading from './Loading';
 
 import './WorkflowList.scss';
 
@@ -56,7 +54,7 @@ class WorkflowList extends Component {
 
     return (
       <div className='WorkflowList'>
-        {loading && <CircularProgress />}
+        {loading && <Loading message='Fetching workflows' />}
         {!loading &&
           <Table
             fixedHeader
@@ -95,7 +93,7 @@ class WorkflowList extends Component {
                 </TableRow>
               ))}
             </TableBody>
-        </Table>
+          </Table>
         }
       </div>
     );

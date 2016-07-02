@@ -1,22 +1,19 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import GetApp from 'material-ui/svg-icons/action/get-app';
 import {
   Table,
   TableBody,
-  TableFooter,
   TableHeader,
   TableHeaderColumn,
   TableRow,
   TableRowColumn
 } from 'material-ui/Table';
-import CircularProgress from 'material-ui/CircularProgress';
+
+import Loading from './Loading';
 
 import './ProfileList.scss';
-
-const style = {margin: 5};
 
 class ProfileList extends Component {
 
@@ -59,7 +56,7 @@ class ProfileList extends Component {
 
     return (
       <div className='ProfileList'>
-        {loading && <CircularProgress />}
+        {loading && <Loading message='Fetching profiles' />}
         {!loading &&
           <Table
             fixedHeader

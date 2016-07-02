@@ -17,7 +17,8 @@ export default function profiles (state = initialState, action) {
       if (action.error) {
         return Object.assign({}, state, {
           error: true,
-          errorDetails: action.payload
+          errorDetails: action.payload,
+          loading: false
         });
       } else {
         return Object.assign({}, state, {

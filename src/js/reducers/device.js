@@ -6,7 +6,7 @@ import * as apiActions from '../actions/api/devices';
 const initialState = {
   loading: false,
   error: false,
-  errorDetail: null,
+  errorDetails: null,
   attributes: {}
 };
 
@@ -20,7 +20,7 @@ export default function device (state = initialState, action) {
       return Object.assign({}, state, {
         loading: false,
         error: true,
-        errorDetail: action.payload
+        errorDetails: action.payload
       });
     case apiActions.READ_SUCCESS:
       return Object.assign({}, state, {
