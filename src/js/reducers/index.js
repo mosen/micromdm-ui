@@ -7,11 +7,12 @@ import applications from './applications';
 import commands from './commands';
 import device from './device';
 import devices from './devices';
-import profiles from './profiles';
+import login from './login';
 import notifications from './notifications';
+import profiles from './profiles';
 import uploads from './uploads';
-import workflows from './workflows';
 import workflow from './workflow';
+import workflows from './workflows';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -21,8 +22,9 @@ const rootReducer = combineReducers({
   commands,
   device,
   devices,
-  profiles,
+  login,
   notifications,
+  profiles,
   uploads,
   workflow,
   workflows

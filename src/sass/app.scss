@@ -1,3 +1,5 @@
+@import 'settings';
+
 body {
   margin: 0;
   font-family: Roboto, sans-serif;
@@ -15,4 +17,43 @@ body {
 .mui-padded {
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.Header {
+  background-color: $primary-color;
+  line-height: 22px;
+
+  ul {
+    list-style: none;
+    margin: 0 10px;
+    padding: 0;
+
+
+    li {
+      display: block;
+      float: left;
+
+      h1,h2,h3,h4,h5 {
+        margin-top: 12px;
+        margin-bottom: 12px;
+      }
+    }
+
+  }
+
+}
+
+.Header::after {
+  display: block;
+  visibility: hidden;
+  clear: both;
+  content: " ";
+}
+
+.HeaderLeft {
+  float: left;
+}
+
+.HeaderRight {
+  float: right;
 }

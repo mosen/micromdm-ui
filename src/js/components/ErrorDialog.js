@@ -31,7 +31,7 @@ class ErrorDialog extends Component {
     const {
       open,
       title,
-      message,
+      children,
       actions
     } = this.props;
 
@@ -52,7 +52,7 @@ class ErrorDialog extends Component {
         open={open}
         actions={errorActions}
       >
-        {message}
+        {children}
       </Dialog>
     );
   }

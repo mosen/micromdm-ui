@@ -148,7 +148,7 @@ class EditWorkflow extends Component {
             subtitle={workflow.uuid}
           />
           <List>
-            <ListItem><TextField
+            <ListItem disabled><TextField
               ref={(f) => this._name = f}
               onChange={this.handleNameChange}
               hintText='Workflow name (required)'

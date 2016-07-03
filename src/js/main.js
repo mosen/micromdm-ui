@@ -24,11 +24,13 @@ import Profiles from './containers/Profiles';
 import Workflows from './containers/Workflows';
 import EditWorkflow from './containers/EditWorkflow';
 import Device from './containers/Device';
+import Login from './containers/Login';
 
 render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
+        <Route path='/login' component={Login} />
         <Route path='/devices' component={Devices} />
         <Route path='/devices/:uuid' component={Device} />
         <Route path='/applications' component={Applications} />

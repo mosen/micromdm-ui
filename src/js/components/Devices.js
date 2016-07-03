@@ -149,10 +149,15 @@ class Devices extends Component {
     let errorDialog = '';
 
     if (error) {
-      const message = `The list of devices could not be fetched. Additional information:
-      ${errorDetails.name}: ${errorDetails.message}.
-      Please check your MicroMDM connection settings and verify that your MicroMDM server is reachable.`;
-      errorDialog = <ErrorDialog title='Cannot fetch devices' message={message} open={errorDialogOpen} onClose={this.handleCloseError} />;
+      errorDialog = <ErrorDialog title='Cannot fetch devices' open={errorDialogOpen} onClose={this.handleCloseError}>
+        <p>The list of devices could not be fetched.</p>
+        <p>Please check your MicroMDM connection settings and verify that your MicroMDM server is reachable.</p>
+        <p>Additional information is provided below</p>
+        <code>
+          Error: {errorDetails.name}<br />
+          Message: {errorDetails.message}
+        </code>
+      </ErrorDialog>;
     }
 
     return (
