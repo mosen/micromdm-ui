@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-register --recursive ./test",
     "storybook": "start-storybook -p 9001"
   },
   "author": "",
@@ -58,6 +58,7 @@
   "devDependencies": {
     "@kadira/storybook": "^1.36.0",
     "babel-eslint": "^6.0.4",
+    "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.4.2",
     "cheerio": "^0.20.0",
