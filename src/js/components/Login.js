@@ -3,8 +3,6 @@ import React, {Component, PropTypes} from 'react';
 import LoginForm from '../forms/LoginForm';
 import Dialog from 'material-ui/Dialog';
 
-import './Login.scss';
-
 class Login extends Component {
 
   static propTypes = {
