@@ -3,6 +3,8 @@ import React, {Component, PropTypes} from 'react';
 import LoginForm from '../forms/LoginForm';
 import Dialog from 'material-ui/Dialog';
 
+import './Login.scss';
+
 class Login extends Component {
 
   static propTypes = {
@@ -21,7 +23,8 @@ class Login extends Component {
     return (
       <Dialog
         onRequestClose={this.handleClose}
-        title='Connect to MicroMDM'
+        title='MicroMDM'
+        contentClassName='Login'
         open
       >
         <LoginForm onSubmit={this.handleSubmit} />

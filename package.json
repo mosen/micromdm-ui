@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 9001"
   },
   "author": "",
   "license": "MIT",
@@ -55,6 +56,7 @@
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
+    "@kadira/storybook": "^1.36.0",
     "babel-eslint": "^6.0.4",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.4.2",
