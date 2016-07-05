@@ -17,10 +17,10 @@ module.exports = function (config) {
     ],
     frameworks: ['mocha'],
     files: [
-      'test/components/**/*Test.js'
+      '../test/**/*Test.js'
     ],
     preprocessors: {
-      'test/**/*Test.js': [
+      '../test/**/*Test.js': [
         'webpack', 'sourcemap'
       ]
     },

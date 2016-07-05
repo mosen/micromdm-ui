@@ -1,7 +1,6 @@
-import path from 'path';
 import React from 'react';
 import {Provider} from 'react-redux';
-import {render, mount, shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import chai, {expect} from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

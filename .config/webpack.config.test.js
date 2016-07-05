@@ -1,10 +1,8 @@
-const devConfig = require('./webpack.config');
+const devConfig = require('./webpack.config.dev');
 
 const config = Object.assign({}, devConfig, {
   devtool: 'source-map',
-  output: {},
-  devServer: null,
-  postcss: null
+  output: null
 });
 
 module.exports = config;
