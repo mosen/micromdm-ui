@@ -3,7 +3,6 @@
 import * as actions from '../actions/ui/login';
 
 const initialState = {
-  endpoint: '',
   formVisible: false
 };
 

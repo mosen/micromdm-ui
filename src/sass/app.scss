@@ -21,6 +21,7 @@ body {
 
 .Header {
   background-color: $primary-color;
+  color: $alternate-text-color;
   line-height: 22px;
 
   ul {
@@ -56,4 +57,13 @@ body {
 
 .HeaderRight {
   float: right;
+}
+
+.Login > div {
+  padding-left: 40%;
+  background-image: url('images/logo.png');
+  background-repeat: no-repeat;
+  background-color: rgb(70, 94, 168);
+  background-position: -50px -50px;
+  background-size: 40%;
 }

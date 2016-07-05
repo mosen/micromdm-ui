@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {browserHistory} from 'react-router';
-import {deepOrange500} from 'material-ui/styles/colors';
+import * as colors from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from './Header';
 import Snackbar from 'material-ui/Snackbar';
@@ -10,7 +10,10 @@ import '../../sass/app.scss';
 
 const muiTheme = getMuiTheme({
   palette: {
-    accent1Color: deepOrange500
+    primary2Color: colors.blue800,
+    primary1Color: colors.lightBlueA400,
+    primary3Color: colors.cyan500,
+    accent1Color: colors.cyan500
   }
 });
 

@@ -1,6 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
-import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -21,42 +19,32 @@ class LoginForm extends Component {
     fields: PropTypes.shape({
       endpoint: PropTypes.string
     }).isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired
   };
 
-  handleSave (evt) {
-    evt.preventDefault();
+  onChangeEndpoint = (evt) => {
+    this.setState({ endpoint: evt.currentTarget.value });
+  };
 
-    const form = ReactDOM.findDOMNode(this);
-    form.submit();
-  }
+  handleSubmit = (evt) => {
+    evt.preventDefault();
+    const values = this.state;
+    this.props.onSubmit(values);
+  };
 
   render () {
-    const {
-      fields: {
-        endpoint
-      },
-      handleSubmit
-    } = this.props;
-
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <div>
           <TextField
-            hintText='MicroMDM URL'
-            {...endpoint}
+            onChange={this.onChangeEndpoint}
+            hintText='https://localhost:8443/'
           />
+          <FlatButton label='Connect' onClick={this.handleSubmit} />
         </div>
-        <FlatButton label='Save' onClick={this.handleSave} />
       </form>
     );
   }
 }
 
-const LoginReduxForm = reduxForm({
-  form: 'login',
-  fields: ['endpoint'],
-  validate
-})(LoginForm);
-
-export default LoginReduxForm;
+export default LoginForm;

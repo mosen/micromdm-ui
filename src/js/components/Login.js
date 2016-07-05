@@ -6,15 +6,19 @@ import Dialog from 'material-ui/Dialog';
 class Login extends Component {
 
   static propTypes = {
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
+    setEndpoint: PropTypes.func.isRequired,
+    ui: PropTypes.shape({
+      setLoginDialogVisible: PropTypes.func.isRequired
+    })
   };
 
   handleClose = () => {
-
+    this.props.ui.setLoginDialogVisible(false);
   };
 
   handleSubmit = (values) => {
-
+    this.props.setEndpoint(values.endpoint);
   };
 
   render () {
