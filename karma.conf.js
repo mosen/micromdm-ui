@@ -1,9 +1,9 @@
-const webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.config.test');
 
-module.exports = function(config) {
+module.exports = function (config) {
   'use strict';
+
   config.set({
-    basePath: '.',
     browsers: [
       'Safari'
     ],
@@ -11,15 +11,23 @@ module.exports = function(config) {
       'karma-webpack',
       'karma-sourcemap-loader',
       'karma-mocha',
-      'karma-safari-launcher'
+      'karma-coverage',
+      'karma-safari-launcher',
+      'karma-phantomjs-launcher'
     ],
     frameworks: ['mocha'],
     files: [
-      'test/**/*Test.js'
+      'test/components/**/*Test.js'
     ],
     preprocessors: {
-      'test/**/*Test.js': ['webpack', 'sourcemap']
+      'test/**/*Test.js': [
+        'webpack', 'sourcemap'
+      ]
     },
-    webpack: webpackConfig
+    webpack: Object.assign({}, webpackConfig, {
+      externals: {
+        cheerio: 'window'
+      }
+    })
   });
 };

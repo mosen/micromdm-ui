@@ -1,3 +1,4 @@
+import path from 'path';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {render, mount, shallow} from 'enzyme';

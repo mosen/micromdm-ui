@@ -9,5 +9,7 @@ chai.use(chaiEnzyme());
 /*global describe it*/
 describe('<Header />', () => {
   'use strict';
-
+  it('does stuff', () => {
+    const wrapper = shallow(<Header />);
+  });
 });
