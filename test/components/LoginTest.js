@@ -29,6 +29,7 @@ describe('<Login />', () => {
       </MuiThemeProvider>
     );
 
+    expect(wrapper).to.contain(<Login open={false} />);
     expect(wrapper.find('.Login')).to.have.style('visibility', 'hidden');
   });
 });

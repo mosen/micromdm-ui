@@ -37,8 +37,16 @@ module.exports = {
                 }]
               ]
             },
+            test: {
+              plugins: [
+                'transform-class-properties',
+                'transform-object-rest-spread'
+              ]
+            },
             production: {
               plugins: [
+                'transform-class-properties',
+                'transform-object-rest-spread',
                 'transform-react-remove-prop-types',
                 'transform-react-constant-elements'
               ]

@@ -25,8 +25,13 @@ module.exports = function (config) {
       ]
     },
     webpack: Object.assign({}, webpackConfig, {
+      entry: undefined,
       externals: {
-        cheerio: 'window'
+        // Required to make enzyme work with webpack
+        cheerio: 'window',
+        'react/addons': true,
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true
       }
     })
   });
