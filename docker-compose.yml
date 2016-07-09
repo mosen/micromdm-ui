@@ -44,7 +44,14 @@ services:
       - ./.env
 
   ui:
-    context: .
-    build: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - mdm
+    ports:
+      - "8085:80"
+    env_file:
+      - ./.docker/ui_defaults.env
+      - ./.env
+
