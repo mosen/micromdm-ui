@@ -10,7 +10,7 @@ const config = Object.assign({}, productionConfig, {
   },
   output: {
     path: path.join(__dirname, '..', 'public'),
-    filename: 'js/[name].bundle.js',
+    filename: 'js/[name].dev.bundle.js',
     publicPath: 'http://localhost:4000/'
   }
 });
