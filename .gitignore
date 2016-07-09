@@ -40,3 +40,7 @@ jspm_packages
 
 # docker-compose environment overrides
 .env
+
+# certificates
+ca.key
+ca.pem
