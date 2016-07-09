@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>AccessRights</key>
+			<integer>8191</integer>
+			<key>CheckInURL</key>
+			<string>https://micromdm.local:6443/mdm/checkin</string>
+			<key>CheckOutWhenRemoved</key>
+			<true/>
+			<key>IdentityCertificateUUID</key>
+			<string>FILL-IDENTITY-PAYLOAD-UUID-HERE</string>
+			<key>PayloadDescription</key>
+			<string>Configures Mobile Device Management (Example)</string>
+			<key>PayloadDisplayName</key>
+			<string>Device Management</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.mdm.00000000-1111-2222-3333-000000000002</string>
+			<key>PayloadOrganization</key>
+			<string>MicroMDM</string>
+			<key>PayloadType</key>
+			<string>com.apple.mdm</string>
+			<key>PayloadUUID</key>
+			<string>00000000-1111-2222-3333-000000000001</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>ServerCapabilities</key>
+			<array>
+				<string>com.apple.mdm.per-user-connections</string>
+			</array>
+			<key>ServerURL</key>
+			<string>https://micromdm.local:6443/mdm/connect</string>
+			<key>Topic</key>
+			<string>FILL-PUSH-CERT-TOPIC-HERE</string>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>Allows the server to manage your device. (Example)</string>
+	<key>PayloadDisplayName</key>
+	<string>Remote Management</string>
+	<key>PayloadIdentifier</key>
+	<string>com.apple.mgmt.External.00000000-1111-2222-3333-000000000003</string>
+	<key>PayloadOrganization</key>
+	<string>MicroMDM</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>00000000-1111-2222-3333-000000000000</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>
