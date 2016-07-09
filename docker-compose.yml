@@ -1,0 +1,50 @@
+version: '2'
+services:
+  redis:
+    image: redis
+    ports:
+      - 6379
+    env_file:
+      - ./.docker/redis_defaults.env
+      - ./.env
+
+  postgres:
+    image: postgres
+    ports:
+      - 5432
+    env_file:
+      - ./.docker/postgres_defaults.env
+      - ./.env
+
+  scep:
+    image: micromdm/scep:latest
+    ports:
+      - "2016:2016"
+    volumes:
+      - ./.docker/scep/depot:/depot
+    env_file:
+      - ./.docker/scep_defaults.env
+      - ./.env
+
+  mdm:
+    image: micromdm/micromdm:latest
+    links:
+      - "postgres:db"
+      - redis
+    volumes:
+      - ./.docker/micromdm:/files
+    depends_on:
+      - postgres
+      - redis
+      - scep
+    ports:
+      - "6443:8443"
+    env_file:
+      - ./.docker/micromdm_defaults.env
+      - ./.env
+
+  ui:
+    context: .
+    build: Dockerfile
+    depends_on:
+      - mdm
