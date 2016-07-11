@@ -121,6 +121,7 @@ class DevicesToolbar extends Component {
               <MenuItem primaryText='List Certificates' value={MDM.CERTIFICATE_LIST} />
               <MenuItem primaryText='OS Update Status' value={MDM.OS_UPDATE_STATUS} />
               <MenuItem primaryText='Available Updates' value={MDM.AVAILABLE_OS_UPDATES} />
+              <MenuItem primaryText='Installed Applications' value={MDM.INSTALLED_APPLICATION_LIST} />
             </Menu>
           </Popover>
         </ToolbarGroup>

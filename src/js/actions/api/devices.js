@@ -122,3 +122,22 @@ export function assignWorkflow (uuid, workflowUuid) {
     }
   };
 }
+
+export const APPS_INDEX_REQUEST = NS.concat('APPS_INDEX_REQUEST');
+export const APPS_INDEX_SUCCESS = NS.concat('APPS_INDEX_SUCCESS');
+export const APPS_INDEX_FAILURE = NS.concat('APPS_INDEX_FAILURE');
+
+export function appsIndex (uuid) {
+  return {
+    [CALL_API]: {
+      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}/applications`,
+      method: 'GET',
+      types: [
+        APPS_INDEX_REQUEST,
+        APPS_INDEX_SUCCESS,
+        APPS_INDEX_FAILURE
+      ],
+      headers: JSON_HEADERS
+    }
+  };
+}

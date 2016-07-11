@@ -63,6 +63,28 @@ const ALL_QUERIES = [
   'CurrentMNC'
 ];
 
+export function profileList (udid) {
+  return {
+    'request_type': 'ProfileList',
+    'udid': udid
+  };
+}
+
+// TODO: Verify Request Parameters
+export function installProfile (udid) {
+  return {
+    'request_type': 'InstallProfile',
+    'udid': udid
+  };
+}
+
+export function removeProfile (udid, identifier) {
+  return {
+    'request_type': 'RemoveProfile',
+    'identifier': identifier
+  };
+}
+
 export function deviceInformation (udid, queries = []) {
   if (queries.length === 0) {
     queries = ALL_QUERIES;
@@ -75,11 +97,28 @@ export function deviceInformation (udid, queries = []) {
   };
 }
 
-export function profileList (udid) {
+export function certificateList (udid) {
   return {
-    'request_type': 'ProfileList',
+    'request_type': 'CertificateList',
     'udid': udid
   };
+}
+
+export function installedApplicationList (udid, identifiers = [], managedAppsOnly) {
+  const req = {
+    'request_type': 'InstalledApplicationList',
+    'udid': udid
+  };
+
+  if (identifiers.length > 0) {
+    req['identifiers'] = identifiers;
+  }
+
+  if (managedAppsOnly !== undefined) {
+    req['managed_apps_only'] = managedAppsOnly;
+  }
+
+  return req;
 }
 
 export function availableOSUpdates (udid) {
@@ -92,13 +131,6 @@ export function availableOSUpdates (udid) {
 export function securityInfo (udid) {
   return {
     'request_type': 'SecurityInfo',
-    'udid': udid
-  };
-}
-
-export function certificateList (udid) {
-  return {
-    'request_type': 'CertificateList',
     'udid': udid
   };
 }
@@ -126,6 +158,10 @@ export function commandFactory (commandType) {
       return certificateList;
     case MDM.OS_UPDATE_STATUS:
       return OSUpdateStatus;
+    case MDM.INSTALLED_APPLICATION_LIST:
+      return installedApplicationList;
+    case MDM.REMOVE_PROFILE:
+      return removeProfile;
     default:
       return null;
   }
