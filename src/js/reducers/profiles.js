@@ -8,7 +8,7 @@ const initialState = {
   loading: false,
   error: false,
   errorDetails: null,
-  selection: []
+  selection: [] // A collection of currently selected profile row uuid's
 };
 
 export default function profiles (state = initialState, action) {
@@ -48,17 +48,19 @@ export default function profiles (state = initialState, action) {
       });
     case actions.CREATE_SUCCESS:
       return Object.assign({}, state, {
+        loading: false,
         items: state.items.concat(action.payload)
       });
     case actions.CREATE_FAILURE:
       return Object.assign({}, state, {
+        loading: false,
         error: true,
         errorDetails: action.payload
       });
 
     case uiActions.CHANGE_SELECTION:
       return Object.assign({}, state, {
-        selection: action.payload.map((item) => { return item.payload_identifier; })
+        selection: action.payload.map((item) => { return item.profile_uuid; })
       });
 
     default:

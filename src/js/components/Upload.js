@@ -72,12 +72,12 @@ class Upload extends Component {
       'DropTargetOver': isOver
     });
 
-    let fileList = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      fileList.push(<li key={file.name}>{file.name}</li>);
-    }
+    // let fileList = [];
+    //
+    // for (let i = 0; i < files.length; i++) {
+    //   const file = files[i];
+    //   fileList.push(<li key={file.name}>{file.name}</li>);
+    // }
 
     return (
       <form className='Upload'>
@@ -85,14 +85,13 @@ class Upload extends Component {
           <div
             className={dropTargetClassnames}
             onDragOver={this.handleDragOver}
+            onDragEnter={this.handleDragOver}
             onDrop={this.handleDrop}
             onDragLeave={this.handleDragLeave}
+            onDragExit={this.handleDragLeave}
           >Drop your .mobileConfig file(s) here
           </div>
         </Paper>
-        <ul>
-          {fileList}
-        </ul>
       </form>
     );
   }
