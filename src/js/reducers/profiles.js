@@ -32,7 +32,8 @@ export default function profiles (state = initialState, action) {
         loading: false,
         items: profiles,
         error: false,
-        errorDetails: null
+        errorDetails: null,
+        selection: []
       });
 
     case actions.INDEX_FAILURE:

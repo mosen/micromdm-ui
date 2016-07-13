@@ -13,14 +13,14 @@ export default class ProfileDrawer extends Component {
   constructor (props) {
     super(props);
 
-    this.handleTouchTapItem = this.handleTouchTapItem.bind(this);
+    this.createTouchTapHandler = this.createTouchTapHandler.bind(this);
   }
 
-  handleTouchTapItem (evt) {
-    evt.preventDefault();
-    const profileItem = evt.currentTarget.value;
-
-    this.props.onClickAdd(profileItem);
+  createTouchTapHandler (item) {
+    return (evt) => {
+      evt.preventDefault();
+      this.props.onClickAdd(item);
+    };
   }
 
   render () {
@@ -41,7 +41,7 @@ export default class ProfileDrawer extends Component {
               primaryText={item.payload_identifier}
               secondaryText={item.profile_uuid}
               leftIcon={<Add />}
-              onTouchTap={this.handleTouchTapItem}
+              onTouchTap={this.createTouchTapHandler(item)}
               value={item}
             />;
           })}

@@ -60,7 +60,6 @@ class ProfileList extends Component {
         {!loading &&
           <Table
             fixedHeader
-            fixedFooter
             selectable={items.length > 0}
             multiSelectable
             onRowSelection={this.handleRowSelection}
@@ -79,7 +78,7 @@ class ProfileList extends Component {
 
             <TableBody
               displayRowCheckbox
-              deselectOnClickaway
+              deselectOnClickaway={false}
               showRowHover
               stripedRows={false}
             >
@@ -89,7 +88,7 @@ class ProfileList extends Component {
                 </TableRow>
               }
               {items.map((row, index) => (
-                <TableRow key={index} selected={selection.indexOf(row.payload_identifier) !== -1}>
+                <TableRow key={index} selected={selection.indexOf(row.profile_uuid) !== -1}>
                   <TableRowColumn>{row.payload_identifier}</TableRowColumn>
                   <TableRowColumn>{row.profile_uuid}</TableRowColumn>
                   <TableRowColumn className='ActionColumn'><FlatButton label='Download' labelPosition='before' primary icon={<GetApp />} /></TableRowColumn>

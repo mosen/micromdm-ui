@@ -87,15 +87,14 @@ class DeviceList extends Component {
         {loading && <CircularProgress />}
         <Table
           fixedHeader
-          fixedFooter
-          selectable
+          selectable={items.length > 0}
           multiSelectable
           onRowSelection={this.handleRowSelection}
         >
           <TableHeader
             displaySelectAll
             adjustForCheckbox
-            enableSelectAll
+            enableSelectAll={items.length > 0}
           >
             <TableRow>
               <TableHeaderColumn className='DeviceColumnHeader'>Device</TableHeaderColumn>
@@ -131,14 +130,6 @@ class DeviceList extends Component {
               </TableRow>
             ))}
           </TableBody>
-
-          <TableFooter>
-            <TableRow>
-              <TableRowColumn colSpan='5'>
-                Devices
-              </TableRowColumn>
-            </TableRow>
-          </TableFooter>
         </Table>
       </div>
     );

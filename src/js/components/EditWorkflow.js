@@ -53,7 +53,7 @@ class EditWorkflow extends Component {
     this.handleProfilesItemTouchTap = this.handleProfilesItemTouchTap.bind(this);
     this.handleIncludedItemTouchTap = this.handleIncludedItemTouchTap.bind(this);
     this.handleCloseDrawerTouchTap = this.handleCloseDrawerTouchTap.bind(this);
-    this.handleRemoveProfile = this.handleRemoveProfile.bind(this);
+    this.removeProfile = this.removeProfile.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
   }
@@ -82,13 +82,13 @@ class EditWorkflow extends Component {
     this.props.ui.drawerVisible(false);
   }
 
-  handleRemoveProfile (evt) {
-    evt.preventDefault();
-    const removeButton = evt.currentTarget;
-    const profileIdentifier = removeButton.value;
-
-    this.props.ui.removeProfile(profileIdentifier);
-  }
+  removeProfile (item) {
+    return (evt) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      this.props.ui.removeProfile(item.profile_uuid);
+    };
+  };
 
   handleSave (evt) {
     evt.preventDefault();
@@ -156,7 +156,8 @@ class EditWorkflow extends Component {
             </ListItem>
             <Subheader>Profiles</Subheader>
             {workflow.profiles.length > 0 && workflow.profiles.map((item) => {
-              return <ProfileListItem key={item.payload_identifier} item={item} onRemove={this.handleRemoveProfile} />;
+              if (!item) return null;
+              return <ProfileListItem key={item.profile_uuid} item={item} onRemove={this.removeProfile(item)} />;
             })}
             <ListItem
               primaryText='Add a profile'

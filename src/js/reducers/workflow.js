@@ -38,20 +38,23 @@ export default function workflow (state = initialState, action) {
       return Object.assign({}, state, {
         drawerOpen: action.payload
       });
+
+    // Profiles
     case actions.ADD_PROFILE:
       return Object.assign({}, state, {
         profiles: state.profiles.concat([action.payload])
       });
     case actions.REMOVE_PROFILE:
-      const payloadIdentifier = action.payload;
+      const profileUuid = action.payload;
 
       const profiles = state.profiles.filter((item) => {
-        return item.payload_identifier !== payloadIdentifier;
+        return item.profile_uuid !== profileUuid;
       });
 
       return Object.assign({}, state, {
         profiles
       });
+
     case actions.CHANGE_NAME_INPUT:
       return Object.assign({}, state, {
         name: action.payload
