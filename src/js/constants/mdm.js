@@ -9,3 +9,8 @@ export const OS_UPDATE_STATUS = Symbol('OSUpdateStatus');
 export const AVAILABLE_OS_UPDATES = Symbol('AvailableOSUpdates');
 export const INSTALLED_APPLICATION_LIST = Symbol('InstalledApplicationList');
 export const REMOVE_PROFILE = Symbol('RemoveProfile');
+
+// Payload or command compatibility conditions
+export const IOS_GREATERTHAN = Symbol('IOS_GREATERTHAN');
+export const OSX_GREATERTHAN = Symbol('OSX_GREATERTHAN');
+
