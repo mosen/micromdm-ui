@@ -24,13 +24,13 @@ import Profiles from './containers/Profiles';
 import Workflows from './containers/Workflows';
 import EditWorkflow from './containers/EditWorkflow';
 import DevicePage from './containers/DevicePage';
-import Login from './containers/Login';
+import LoginDialog from './containers/LoginDialog';
 
 render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
-        <Route path='/login' component={Login} />
+        <Route path='/login' component={LoginDialog} />
         <Route path='/devices' component={Devices} />
         <Route path='/devices/:uuid' component={DevicePage} />
         <Route path='/applications' component={Applications} />

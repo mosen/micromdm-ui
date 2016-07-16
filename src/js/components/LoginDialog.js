@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import LoginForm from '../forms/LoginForm';
 import Dialog from 'material-ui/Dialog';
 
-class Login extends Component {
+class LoginDialog extends Component {
 
   static propTypes = {
     open: PropTypes.bool.isRequired,
@@ -17,7 +17,7 @@ class Login extends Component {
     this.props.ui.setLoginDialogVisible(false);
   };
 
-  handleSubmit = (values) => {
+  handleSubmit (values) {
     this.props.setEndpoint(values.endpoint);
   };
 
@@ -35,4 +35,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default LoginDialog;

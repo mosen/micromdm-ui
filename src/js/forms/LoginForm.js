@@ -18,11 +18,17 @@ const validate = (values) => {
 
 class LoginForm extends Component {
 
-  static propTypes = {};
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired
+  };
 
   render () {
+    const {
+      handleSubmit
+    } = this.props;
+
     return (
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <Field name='endpoint' component={TextField} hintText='https://localhost:8443/' />
           <FlatButton label='Connect' type='submit' />

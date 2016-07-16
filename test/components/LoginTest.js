@@ -16,7 +16,7 @@ chai.use(chaiEnzyme());
 const mockStore = configureStore();
 
 /*global describe it*/
-describe('<Login />', () => {
+describe('<LoginDialog />', () => {
   'use strict';
 
   it('should not be visible if passed prop open=false', () => {
