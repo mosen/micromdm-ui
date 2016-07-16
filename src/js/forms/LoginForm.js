@@ -1,6 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import TextField from 'material-ui/TextField';
+import {reduxForm, Field} from 'redux-form';
 import FlatButton from 'material-ui/FlatButton';
+import {
+  TextField
+} from 'redux-form-material-ui';
 
 const validate = (values) => {
   'use strict';
@@ -15,36 +18,23 @@ const validate = (values) => {
 
 class LoginForm extends Component {
 
-  static propTypes = {
-    fields: PropTypes.shape({
-      endpoint: PropTypes.string
-    }).isRequired,
-    onSubmit: PropTypes.func.isRequired
-  };
-
-  onChangeEndpoint = (evt) => {
-    this.setState({ endpoint: evt.currentTarget.value });
-  };
-
-  handleSubmit = (evt) => {
-    evt.preventDefault();
-    const values = this.state;
-    this.props.onSubmit(values);
-  };
+  static propTypes = {};
 
   render () {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <div>
-          <TextField
-            onChange={this.onChangeEndpoint}
-            hintText='https://localhost:8443/'
-          />
-          <FlatButton label='Connect' onClick={this.handleSubmit} />
+          <Field name='endpoint' component={TextField} hintText='https://localhost:8443/' />
+          <FlatButton label='Connect' type='submit' />
         </div>
       </form>
     );
   }
 }
 
-export default LoginForm;
+const LoginReduxForm = reduxForm({
+  form: 'login',
+  validate
+})(LoginForm);
+
+export default LoginReduxForm;

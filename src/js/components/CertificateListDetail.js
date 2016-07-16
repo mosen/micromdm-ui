@@ -1,24 +1,33 @@
 'use strict';
-
 import React, {Component, PropTypes} from 'react';
+import moment from 'moment';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
-import Avatar from 'material-ui/Avatar';
 import Https from 'material-ui/svg-icons/action/https';
+import Person from 'material-ui/svg-icons/social/person';
 
 class CertificateListDetail extends Component {
 
   static propTypes = {
-    certificates: PropTypes.array,
-    lastUpdated: PropTypes.string,
+    items: PropTypes.array,
+    lastUpdated: PropTypes.object, // Expected to be `moment` object in UTC.
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    errorDetails: PropTypes.object,
+    expanded: PropTypes.bool,
 
     // Handlers
-    onRefresh: PropTypes.func.isRequired
+    onRefresh: PropTypes.func.isRequired,
+    onExpandChange: PropTypes.func.isRequired
   };
 
   static defaultProps = {
-    lastUpdated: '...'
+    items: [],
+    loading: false,
+    error: false,
+    errorDetails: {},
+    expanded: false
   };
 
   constructor (props) {
@@ -36,24 +45,38 @@ class CertificateListDetail extends Component {
 
   render () {
     const {
+      items,
       lastUpdated,
-      certificates
+      loading,
+      error,
+      errorDetails,
+      expanded
     } = this.props;
 
+    let lastUpdatedTitle = 'Never received update from device(s)';
+
+    if (moment.isMoment(lastUpdated)) {
+      const localMoment = lastUpdated.local();
+      lastUpdatedTitle = `Last updated ${localMoment.fromNow()}`;
+    }
+
     return (
-      <Card>
+      <Card
+        expanded={expanded}
+        onExpandChange={this.props.onExpandChange}
+      >
         <CardHeader
           title='Certificates'
-          subtitle={lastUpdated}
-          avatar={<Avatar icon={<Https />} />}
+          subtitle={lastUpdatedTitle}
           actAsExpander
           showExpandableButton
         />
         <CardText expandable>
           <List>
-            {!certificates &&
-              <ListItem disabled>There are no certificates on this device.</ListItem>
-            }
+            {items.length > 0 && items.map((cert) => {
+              const icon = cert.is_identity ? <Person /> : <Https />;
+              return <ListItem leftIcon={icon}>{cert.common_name}</ListItem>;
+            })}
           </List>
         </CardText>
         <CardActions>

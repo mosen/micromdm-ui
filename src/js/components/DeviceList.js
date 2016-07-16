@@ -82,57 +82,66 @@ class DeviceList extends Component {
       selection
     } = this.props;
 
-    return (
-      <div className='DeviceList'>
-        {loading && <CircularProgress />}
-        <Table
-          fixedHeader
-          selectable={items.length > 0}
-          multiSelectable
-          onRowSelection={this.handleRowSelection}
-        >
-          <TableHeader
-            displaySelectAll
-            adjustForCheckbox
-            enableSelectAll={items.length > 0}
-          >
-            <TableRow>
-              <TableHeaderColumn className='DeviceColumnHeader'>Device</TableHeaderColumn>
-              <TableHeaderColumn>Serial</TableHeaderColumn>
-              <TableHeaderColumn>OS</TableHeaderColumn>
-              <TableHeaderColumn>Last Seen</TableHeaderColumn>
-              <TableHeaderColumn>Detail</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
+    if (loading) {
+      return (
+        <div className='inline-center'>
+          <CircularProgress />
+        </div>
+      );
+    } else {
+      return (
+        <div className='DeviceList'>
 
-          <TableBody
-            displayRowCheckbox
-            deselectOnClickaway={false}
-            showRowHover
-            stripedRows={false}
+          <Table
+            fixedHeader
+            selectable={items.length > 0}
+            multiSelectable
+            onRowSelection={this.handleRowSelection}
           >
-            {items.map((row, index) => (
-              <TableRow key={index} selected={selection.indexOf(row.uuid) !== -1}>
-                <TableRowColumn className='DeviceColumn'><ProductIcon name={row.product_name} /></TableRowColumn>
-                <TableRowColumn>{row.serial_number}</TableRowColumn>
-                <TableRowColumn>{row.os_version}</TableRowColumn>
-                <TableRowColumn>{row.last_checkin && moment(row.last_checkin).local().fromNow()}</TableRowColumn>
-                <TableRowColumn>
-                  <FlatButton
-                    hoverColor={cyan500}
-                    icon={<KeyboardArrowRight />}
-                    style={detailButtonStyle}
-                    href={`/devices/${row.uuid}`}
-                    linkButton
-                    onClick={this.makeShowDetailHandler(row.uuid)}
-                    />
-                </TableRowColumn>
+            <TableHeader
+              displaySelectAll
+              adjustForCheckbox
+              enableSelectAll={items.length > 0}
+            >
+              <TableRow>
+                <TableHeaderColumn style={{'width': '50px', 'textAlign': 'center'}}>Device</TableHeaderColumn>
+                <TableHeaderColumn>Name</TableHeaderColumn>
+                <TableHeaderColumn>Serial</TableHeaderColumn>
+                <TableHeaderColumn>Last Seen</TableHeaderColumn>
+                <TableHeaderColumn>Detail</TableHeaderColumn>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    );
+            </TableHeader>
+
+            <TableBody
+              displayRowCheckbox
+              deselectOnClickaway={false}
+              showRowHover
+              stripedRows={false}
+            >
+              {items.map((row, index) => (
+                <TableRow key={index} selected={selection.indexOf(row.uuid) !== -1}>
+                  <TableRowColumn style={{'width': '50px', 'textAlign': 'center'}}><ProductIcon
+                    name={row.product_name}/></TableRowColumn>
+                  <TableRowColumn>{row.device_name}</TableRowColumn>
+                  <TableRowColumn>{row.serial_number}</TableRowColumn>
+                  <TableRowColumn>{row.last_checkin && moment(row.last_checkin).local().fromNow()}</TableRowColumn>
+                  <TableRowColumn>
+                    <FlatButton
+                      hoverColor={cyan500}
+                      icon={<KeyboardArrowRight />}
+                      style={detailButtonStyle}
+                      href={`/devices/${row.uuid}`}
+                      linkButton
+                      onClick={this.makeShowDetailHandler(row.uuid)}
+                    />
+                  </TableRowColumn>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      );
+    }
   }
 
 }

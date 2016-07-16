@@ -2,16 +2,18 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import Device from '../components/Device';
-import * as actions from '../actions/api/devices';
+import DevicePage from '../components/DevicePage';
+import * as apiActions from '../actions/api/devices';
 import * as snackbarActions from '../actions/ui/snackbar';
 import * as cmdActions from '../actions/api/commands';
+import * as uiActions from '../actions/ui/device';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    api: bindActionCreators(actions, dispatch),
+    api: bindActionCreators(apiActions, dispatch),
     snackbar: bindActionCreators(snackbarActions, dispatch),
-    cmd: bindActionCreators(cmdActions, dispatch)
+    cmd: bindActionCreators(cmdActions, dispatch),
+    ui: bindActionCreators(uiActions, dispatch)
   };
 };
 
@@ -21,7 +23,7 @@ function mapStateToProps (state) {
   };
 }
 
-const routedDevice = withRouter(Device);
+const routedDevice = withRouter(DevicePage);
 
 export default connect(
   mapStateToProps,

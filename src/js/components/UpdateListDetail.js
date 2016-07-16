@@ -1,6 +1,6 @@
 'use strict';
-
 import React, {Component, PropTypes} from 'react';
+import moment from 'moment';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
@@ -11,8 +11,10 @@ import Update from 'material-ui/svg-icons/action/update';
 class UpdateListDetail extends Component {
 
   static propTypes = {
-    updates: PropTypes.array,
-    lastUpdated: PropTypes.string
+    items: PropTypes.array,
+    lastUpdated: PropTypes.string,
+    expanded: PropTypes.bool,
+    onExpandChange: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -21,24 +23,34 @@ class UpdateListDetail extends Component {
 
   render () {
     const {
-      updates,
-      lastUpdated
+      items,
+      lastUpdated,
+      expanded
     } = this.props;
 
+    let lastUpdatedTitle = 'Never received update from device(s)';
+
+    if (moment.isMoment(lastUpdated)) {
+      const localMoment = lastUpdated.local();
+      lastUpdatedTitle = `Last updated ${localMoment.fromNow()}`;
+    }
+
     return (
-      <Card>
+      <Card
+        expanded={expanded}
+        onExpandChange={this.props.onExpandChange}
+      >
         <CardHeader
           title='Updates'
-          subtitle={lastUpdated}
-          avatar={<Avatar icon={<Update />} />}
+          subtitle={lastUpdatedTitle}
           actAsExpander
           showExpandableButton
         />
         <CardText expandable>
           <List>
-            {!updates &&
-              <ListItem disabled>There are no pending operating system updates for this device.</ListItem>
-            }
+            {items.length > 0 && items.map((update) => {
+              return <ListItem></ListItem>;
+            })}
           </List>
         </CardText>
         <CardActions>
