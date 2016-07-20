@@ -31,7 +31,7 @@ class LoginForm extends Component {
       <form onSubmit={handleSubmit}>
         <div>
           <Field name='endpoint' component={TextField} hintText='https://localhost:8443/' />
-          <FlatButton label='Connect' type='submit' />
+          <FlatButton label='OK' type='submit' />
         </div>
       </form>
     );

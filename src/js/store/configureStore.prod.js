@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import {apiMiddleware} from 'redux-api-middleware';
 import timeoutScheduler from '../middleware/timeout';
 import persistState from 'redux-localstorage';
+import {routerMiddleware} from 'react-router-redux';
 
 import rootReducer from '../reducers';
 

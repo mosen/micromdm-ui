@@ -4,18 +4,20 @@ import thunk from 'redux-thunk';
 import {apiMiddleware} from 'redux-api-middleware';
 import timeoutScheduler from '../middleware/timeout';
 import persistState from 'redux-localstorage';
+import {routerMiddleware} from 'react-router-redux';
 
 import rootReducer from '../reducers';
 
 const debouncer = createDebounce({ simple: 300 });
 
-export default function configureStore (initialState) {
+export default function configureStore (initialState, ...middlewares) {
   const enhancer = compose(
     applyMiddleware(
       debouncer,
       timeoutScheduler,
       thunk,
-      apiMiddleware
+      apiMiddleware,
+      ...middlewares
     ),
     persistState('connection', { key: 'micromdm' }),
     window.devToolsExtension ? window.devToolsExtension() : (f) => f

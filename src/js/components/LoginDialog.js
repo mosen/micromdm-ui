@@ -13,12 +13,20 @@ class LoginDialog extends Component {
     })
   };
 
+  constructor (props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   handleClose = () => {
     this.props.ui.setLoginDialogVisible(false);
   };
 
   handleSubmit (values) {
     this.props.setEndpoint(values.endpoint);
+    this.handleClose();
+    this.props.push('/');
   };
 
   render () {

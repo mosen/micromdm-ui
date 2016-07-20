@@ -3,7 +3,8 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router, Route, browserHistory} from 'react-router';
-import {syncHistoryWithStore} from 'react-router-redux';
+import {syncHistoryWithStore, routerActions, routerMiddleware} from 'react-router-redux';
+import {UserAuthWrapper} from 'redux-auth-wrapper';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import configureStore from './store/configureStore';
@@ -13,8 +14,15 @@ import configureStore from './store/configureStore';
 injectTapEventPlugin();
 
 const initialState = {};
-const store = configureStore(initialState);
+
+const router = routerMiddleware(browserHistory);
+const store = configureStore(initialState, router);
 const history = syncHistoryWithStore(browserHistory, store);
+const UserIsAuthenticated = UserAuthWrapper({
+  authSelector: (state) => state.connection.endpoint,
+  redirectActions: routerActions.replace,
+  wrapperDisplayName: 'UserIsAuthenticated'
+});
 
 import App from './containers/App';
 
@@ -31,13 +39,13 @@ render(
     <Router history={history}>
       <Route path='/' component={App}>
         <Route path='/login' component={LoginDialog} />
-        <Route path='/devices' component={Devices} />
-        <Route path='/devices/:uuid' component={DevicePage} />
-        <Route path='/applications' component={Applications} />
-        <Route path='/profiles' component={Profiles} />
-        <Route path='/workflows' component={Workflows} />
-        <Route path='/workflows/add' component={EditWorkflow} />
-        <Route path='/workflows/edit/:uuid' component={EditWorkflow} />
+        <Route path='/devices' component={UserIsAuthenticated(Devices)} />
+        <Route path='/devices/:uuid' component={UserIsAuthenticated(DevicePage)} />
+        <Route path='/applications' component={UserIsAuthenticated(Applications)} />
+        <Route path='/profiles' component={UserIsAuthenticated(Profiles)} />
+        <Route path='/workflows' component={UserIsAuthenticated(Workflows)} />
+        <Route path='/workflows/add' component={UserIsAuthenticated(EditWorkflow)} />
+        <Route path='/workflows/edit/:uuid' component={UserIsAuthenticated(EditWorkflow)} />
       </Route>
     </Router>
   </Provider>,
