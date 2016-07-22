@@ -16,11 +16,12 @@ export default class WorkflowDrawer extends Component {
     this.handleTouchTapItem = this.handleTouchTapItem.bind(this);
   }
 
-  handleTouchTapItem (evt) {
+  handleTouchTapItem (evt, item) {
     evt.preventDefault();
+
     const workflowItem = evt.currentTarget.value;
 
-    this.props.onClickAdd(workflowItem);
+    this.props.onClickAdd(item);
   }
 
   render () {
@@ -37,11 +38,11 @@ export default class WorkflowDrawer extends Component {
           }
           {items.length > 0 && items.map((item) => {
             return <ListItem
-              key={item.payload_identifier}
-              primaryText={item.payload_identifier}
-              secondaryText={item.profile_uuid}
+              key={item.uuid}
+              primaryText={item.name}
+              secondaryText={item.uuid}
               leftIcon={<Add />}
-              onTouchTap={this.handleTouchTapItem}
+              onTouchTap={(evt) => this.handleTouchTapItem(evt, item)}
               value={item}
             />;
           })}

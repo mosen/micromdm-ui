@@ -46,3 +46,7 @@ ca.key
 ca.pem
 *.p12
 *.cer
+
+# IntelliJ
+.idea
+*.iml

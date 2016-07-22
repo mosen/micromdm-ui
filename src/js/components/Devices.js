@@ -4,6 +4,10 @@ import React, {Component, PropTypes} from 'react';
 import DeviceList from './DeviceList';
 import DevicesToolbar from './DevicesToolbar';
 import ErrorDialog from './ErrorDialog';
+import Drawer from 'material-ui/Drawer';
+import IconButton from 'material-ui/IconButton';
+import Clear from 'material-ui/svg-icons/content/clear';
+import WorkflowDrawer from './drawers/WorkflowDrawer';
 
 import { commandFactory } from '../actions/util/command';
 
@@ -28,11 +32,13 @@ class Devices extends Component {
     }),
     devices: PropTypes.object.isRequired,
     commands: PropTypes.object.isRequired,
+    workflows: PropTypes.object.isRequired,
     selectionMenuVisible: PropTypes.bool.isRequired,
     selectionMenuAnchor: PropTypes.element,
     error: PropTypes.bool.isRequired,
     errorDetails: PropTypes.object,
-    errorDialogOpen: PropTypes.bool
+    errorDialogOpen: PropTypes.bool,
+    workflowDrawerOpen: PropTypes.bool
   };
 
   static defaultProps = {
@@ -54,10 +60,14 @@ class Devices extends Component {
     this.hideActionMenu = this.hideActionMenu.bind(this);
     this.showActionMenu = this.showActionMenu.bind(this);
     this.handleCloseError = this.handleCloseError.bind(this);
+    this.handleCloseDrawerTouchTap = this.handleCloseDrawerTouchTap.bind(this);
+    this.handleAssignAction = this.handleAssignAction.bind(this);
+    this.handleAssignWorkflow = this.handleAssignWorkflow.bind(this);
   }
 
   componentWillMount () {
     this.props.api.index();
+    this.props.wfApi.index();
   }
 
   handleSelectionChange (selection) {
@@ -137,10 +147,31 @@ class Devices extends Component {
     this.props.ui.setErrorDialogVisible(false);
   }
 
+  handleCloseDrawerTouchTap (evt) {
+    evt.preventDefault();
+    this.props.ui.drawerVisible(false);
+  }
+
+  handleAssignAction () {
+    this.props.ui.drawerVisible();
+  }
+
+  handleAssignWorkflow (workflow) {
+    console.dir(workflow);
+    const devices = this.getSelectedDevices();
+
+    devices.forEach((device) => {
+      this.props.api.assignWorkflow(device.uuid, workflow.uuid);
+    });
+    this.props.snackbar.showSnackbar(`Assigned workflow to ${devices.length} device(s).`);
+  }
+
   render () {
     const {
       devices,
+      workflows,
       selectionMenuVisible,
+      workflowDrawerOpen,
       error,
       errorDetails,
       errorDialogOpen
@@ -171,6 +202,7 @@ class Devices extends Component {
           onQueryAction={this.handleQueryAction}
           onDeleteAction={this.handleDeleteAction}
           onFetchDEPAction={this.handleFetchDEPAction}
+          onAssignAction={this.handleAssignAction}
         />
         {!error && <DeviceList
           loading={devices.loading}
@@ -178,6 +210,10 @@ class Devices extends Component {
           selection={devices.selection}
           onSelectionChange={this.handleSelectionChange}
         />}
+        <Drawer width={400} openSecondary open={workflowDrawerOpen}>
+          <IconButton onClick={this.handleCloseDrawerTouchTap}><Clear /></IconButton>
+          <WorkflowDrawer items={workflows.items} onClickAdd={this.handleAssignWorkflow} />
+        </Drawer>
         {errorDialog}
       </div>
     );

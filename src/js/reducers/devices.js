@@ -11,7 +11,8 @@ const initialState = {
   errorDialogOpen: false,
   selection: [],
   selectionMenuVisible: false,
-  selectionMenuAnchor: null
+  selectionMenuAnchor: null,
+  workflowDrawerOpen: false
 };
 
 export default function devices (state = initialState, action) {
@@ -81,6 +82,11 @@ export default function devices (state = initialState, action) {
     case uiActions.ERROR_DIALOG_VISIBLE:
       return Object.assign({}, state, {
         errorDialogOpen: action.isVisible
+      });
+
+    case uiActions.PICK_WORKFLOWS_VISIBLE:
+      return Object.assign({}, state, {
+        workflowDrawerOpen: action.payload
       });
 
     default:

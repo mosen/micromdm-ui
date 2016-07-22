@@ -34,3 +34,12 @@ export function setErrorDialogVisible (isVisible = true) {
     }
   };
 }
+
+export const PICK_WORKFLOWS_VISIBLE = NS.concat('PICK_WORKFLOWS_VISIBLE');
+
+export function drawerVisible (visible = true) {
+  return {
+    type: PICK_WORKFLOWS_VISIBLE,
+    payload: visible
+  };
+}

@@ -8,6 +8,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
+import Add from 'material-ui/svg-icons/content/add';
 import CloudUpload from 'material-ui/svg-icons/file/cloud-upload';
 import CloudDownload from 'material-ui/svg-icons/file/cloud-download';
 import CheckBox from 'material-ui/svg-icons/toggle/check-box';
@@ -23,7 +24,8 @@ class DevicesToolbar extends Component {
     onDeleteAction: PropTypes.func.isRequired,
     onFetchDEPAction: PropTypes.func.isRequired,
     selection: PropTypes.array.isRequired,
-    selectionMenuVisible: PropTypes.bool
+    selectionMenuVisible: PropTypes.bool,
+    onAssignAction: PropTypes.func.isRequired
   };
 
   constructor (props) {
@@ -39,6 +41,7 @@ class DevicesToolbar extends Component {
     this.handleSelectionMenuClose = this.handleSelectionMenuClose.bind(this);
     this.handleTouchTapQueryMenuItem = this.handleTouchTapQueryMenuItem.bind(this);
     this.handleTouchTapFetchDEP = this.handleTouchTapFetchDEP.bind(this);
+    this.handleTouchTapAssignMenu = this.handleTouchTapAssignMenu.bind(this);
   }
 
   handleTouchTapSelectionMenu (evt) {
@@ -76,6 +79,11 @@ class DevicesToolbar extends Component {
     this.props.onFetchDEPAction(evt);
   }
 
+  handleTouchTapAssignMenu (evt) {
+    evt.preventDefault();
+    this.props.onAssignAction(evt);
+  }
+
   render () {
     const {
       selection,
@@ -95,6 +103,12 @@ class DevicesToolbar extends Component {
           />
         </ToolbarGroup>
         <ToolbarGroup>
+          <RaisedButton
+            disabled={!isItemsSelected}
+            onTouchTap={this.handleTouchTapAssignMenu}
+            label='Workflow'
+            icon={<Add />}
+            />
           <RaisedButton
             disabled={!isItemsSelected}
             onTouchTap={this.handleTouchTapSelectionMenu}
