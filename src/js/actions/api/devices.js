@@ -141,3 +141,22 @@ export function appsIndex (uuid) {
     }
   };
 }
+
+export const CERTS_INDEX_REQUEST = NS.concat('CERTS_INDEX_REQUEST');
+export const CERTS_INDEX_SUCCESS = NS.concat('CERTS_INDEX_SUCCESS');
+export const CERTS_INDEX_FAILURE = NS.concat('CERTS_INDEX_FAILURE');
+
+export function certsIndex (uuid) {
+  return {
+    [CALL_API]: {
+      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}/certificates`,
+      method: 'GET',
+      types: [
+        CERTS_INDEX_REQUEST,
+        CERTS_INDEX_SUCCESS,
+        CERTS_INDEX_FAILURE
+      ],
+      headers: JSON_HEADERS
+    }
+  };
+}

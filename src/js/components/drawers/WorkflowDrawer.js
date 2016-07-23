@@ -18,14 +18,13 @@ export default class WorkflowDrawer extends Component {
 
   handleTouchTapItem (evt, item) {
     evt.preventDefault();
-
-    const workflowItem = evt.currentTarget.value;
-
     this.props.onClickAdd(item);
   }
 
   render () {
     const {items} = this.props;
+
+    const onTouchTap = (item) => (e) => this.handleTouchTapItem(e, item);
 
     return (
       <div>
@@ -42,7 +41,7 @@ export default class WorkflowDrawer extends Component {
               primaryText={item.name}
               secondaryText={item.uuid}
               leftIcon={<Add />}
-              onTouchTap={(evt) => this.handleTouchTapItem(evt, item)}
+              onTouchTap={onTouchTap(item)}
               value={item}
             />;
           })}

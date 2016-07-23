@@ -16,7 +16,8 @@ class DevicePage extends Component {
 
   static propTypes = {
     api: PropTypes.shape({
-      read: PropTypes.func.isRequired
+      read: PropTypes.func.isRequired,
+      certsIndex: PropTypes.func.isRequired
     }),
     params: PropTypes.shape({
       uuid: PropTypes.string.isRequired
@@ -64,6 +65,9 @@ class DevicePage extends Component {
 
   handleCertificateListExpand () {
     this.props.ui.setCertListExpanded(!this.props.certificates.expanded);
+
+    const uuid = this.props.device.attributes.uuid;
+    this.props.api.certsIndex(uuid);
   }
 
   handleProfileListExpand () {
@@ -84,7 +88,10 @@ class DevicePage extends Component {
 
       certificates,
       profiles,
-      updates
+      updates,
+      api: {
+        certsIndex
+      }
     } = this.props;
 
     return (
