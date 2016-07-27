@@ -2,7 +2,7 @@
 
 import {CALL_API} from 'redux-api-middleware';
 import {REDUX_NS, JSON_HEADERS} from '../constants';
-import {ENDPOINT} from '../../config';
+import {endpoint, jwtHeaders} from '../util/connection';
 
 const NS = REDUX_NS.concat('devices/');
 
@@ -13,14 +13,14 @@ export const INDEX_FAILURE = NS.concat('INDEX_FAILURE');
 export function index () {
   return {
     [CALL_API]: {
-      endpoint: `${ENDPOINT}/management/v1/devices`,
+      endpoint: endpoint('/management/v1/devices'),
       method: 'GET',
       types: [
         INDEX_REQUEST,
         INDEX_SUCCESS,
         INDEX_FAILURE
       ],
-      headers: JSON_HEADERS
+      headers: jwtHeaders(JSON_HEADERS)
     }
   };
 }
@@ -32,14 +32,14 @@ export const READ_FAILURE = NS.concat('READ_FAILURE');
 export function read (uuid) {
   return {
     [CALL_API]: {
-      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}`,
+      endpoint: endpoint(`/management/v1/devices/${uuid}`),
       method: 'GET',
       types: [
         READ_REQUEST,
         READ_SUCCESS,
         READ_FAILURE
       ],
-      headers: JSON_HEADERS
+      headers: jwtHeaders(JSON_HEADERS)
     }
   };
 }
@@ -51,14 +51,14 @@ export const DESTROY_FAILURE = NS.concat('DESTROY_FAILURE');
 export function destroy (uuid) {
   return {
     [CALL_API]: {
-      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}`,
+      endpoint: endpoint(`/management/v1/devices/${uuid}`),
       method: 'DELETE',
       types: [
         DESTROY_REQUEST,
         DESTROY_SUCCESS,
         DESTROY_FAILURE
       ],
-      headers: JSON_HEADERS
+      headers: jwtHeaders(JSON_HEADERS)
     }
   };
 }
@@ -70,14 +70,14 @@ export const PUSH_FAILURE = NS.concat('PUSH_FAILURE');
 export function push (udid) {
   return {
     [CALL_API]: {
-      endpoint: `${ENDPOINT}/management/v1/devices/${udid}/push`,
+      endpoint: endpoint(`/management/v1/devices/${udid}/push`),
       method: 'POST',
       types: [
         PUSH_REQUEST,
         PUSH_SUCCESS,
         PUSH_FAILURE
       ],
-      headers: JSON_HEADERS
+      headers: jwtHeaders(JSON_HEADERS)
     }
   };
 }
@@ -89,14 +89,14 @@ export const DEP_FETCH_FAILURE = NS.concat('DEP_FETCH_FAILURE');
 export function depFetch () {
   return {
     [CALL_API]: {
-      endpoint: `${ENDPOINT}/management/v1/devices/fetch`,
+      endpoint: endpoint('/management/v1/devices/fetch'),
       method: 'POST',
       types: [
         DEP_FETCH_REQUEST,
         DEP_FETCH_SUCCESS,
         DEP_FETCH_FAILURE
       ],
-      headers: JSON_HEADERS
+      headers: jwtHeaders(JSON_HEADERS)
     }
   };
 }
@@ -108,14 +108,14 @@ export const ASSIGN_WORKFLOW_FAILURE = NS.concat('ASSIGN_WORKFLOW_FAILURE');
 export function assignWorkflow (uuid, workflowUuid) {
   return {
     [CALL_API]: {
-      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}`,
+      endpoint: endpoint(`/management/v1/devices/${uuid}`),
       method: 'PATCH',
       types: [
         ASSIGN_WORKFLOW_REQUEST,
         ASSIGN_WORKFLOW_SUCCESS,
         ASSIGN_WORKFLOW_FAILURE
       ],
-      headers: JSON_HEADERS,
+      headers: jwtHeaders(JSON_HEADERS),
       body: JSON.stringify({
         'workflow_uuid': workflowUuid
       })
@@ -130,14 +130,14 @@ export const APPS_INDEX_FAILURE = NS.concat('APPS_INDEX_FAILURE');
 export function appsIndex (uuid) {
   return {
     [CALL_API]: {
-      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}/applications`,
+      endpoint: endpoint(`/management/v1/devices/${uuid}/applications`),
       method: 'GET',
       types: [
         APPS_INDEX_REQUEST,
         APPS_INDEX_SUCCESS,
         APPS_INDEX_FAILURE
       ],
-      headers: JSON_HEADERS
+      headers: jwtHeaders(JSON_HEADERS)
     }
   };
 }
@@ -149,14 +149,14 @@ export const CERTS_INDEX_FAILURE = NS.concat('CERTS_INDEX_FAILURE');
 export function certsIndex (uuid) {
   return {
     [CALL_API]: {
-      endpoint: `${ENDPOINT}/management/v1/devices/${uuid}/certificates`,
+      endpoint: endpoint(`/management/v1/devices/${uuid}/certificates`),
       method: 'GET',
       types: [
         CERTS_INDEX_REQUEST,
         CERTS_INDEX_SUCCESS,
         CERTS_INDEX_FAILURE
       ],
-      headers: JSON_HEADERS
+      headers: jwtHeaders(JSON_HEADERS)
     }
   };
 }
