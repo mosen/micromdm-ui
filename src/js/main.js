@@ -19,7 +19,7 @@ const router = routerMiddleware(browserHistory);
 const store = configureStore(initialState, router);
 const history = syncHistoryWithStore(browserHistory, store);
 const UserIsAuthenticated = UserAuthWrapper({
-  authSelector: (state) => state.connection.endpoint,
+  authSelector: (state) => state.login.endpoint,
   redirectActions: routerActions.replace,
   wrapperDisplayName: 'UserIsAuthenticated'
 });

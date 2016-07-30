@@ -3,12 +3,22 @@ import createDebounce from 'redux-debounce';
 import thunk from 'redux-thunk';
 import {apiMiddleware} from 'redux-api-middleware';
 import timeoutScheduler from '../middleware/timeout';
-import persistState from 'redux-localstorage';
+import persistState, {mergePersistedState} from 'redux-localstorage';
+import adapter from 'redux-localstorage/lib/adapters/localStorage';
+import filter from 'redux-localstorage-filter';
 import rootReducer from '../reducers';
 
 const debouncer = createDebounce({ simple: 300 });
 
 export default function configureStore (initialState, ...middlewares) {
+  // const reducer = compose(
+  //   mergePersistedState()
+  // )(rootReducer);
+
+  const storage = compose(
+    filter('login')
+  )(adapter(window.sessionStorage));
+
   const enhancer = compose(
     applyMiddleware(
       debouncer,
@@ -17,7 +27,7 @@ export default function configureStore (initialState, ...middlewares) {
       apiMiddleware,
       ...middlewares
     ),
-    persistState('connection', { key: 'micromdm' }),
+    persistState(storage, { key: 'micromdm', slicer: (paths) => (state) => state.login }),
     window.devToolsExtension ? window.devToolsExtension() : (f) => f
   );
 

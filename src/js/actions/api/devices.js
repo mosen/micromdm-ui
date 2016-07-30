@@ -2,7 +2,7 @@
 
 import {CALL_API} from 'redux-api-middleware';
 import {REDUX_NS, JSON_HEADERS} from '../constants';
-import {endpoint, jwtHeaders} from '../util/connection';
+import {endpoint, jwtHeaders} from '../util/login';
 
 const NS = REDUX_NS.concat('devices/');
 

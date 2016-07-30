@@ -19,7 +19,7 @@ const validate = (values) => {
 class LoginForm extends Component {
 
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
   };
 
   render () {
@@ -29,10 +29,7 @@ class LoginForm extends Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <div>
-          <Field name='endpoint' component={TextField} hintText='https://localhost:8443/' />
-          <FlatButton label='OK' type='submit' />
-        </div>
+        <Field name='endpoint' component={TextField} hintText='https://localhost:8443/' />
       </form>
     );
   }

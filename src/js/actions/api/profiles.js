@@ -5,7 +5,7 @@ import {REDUX_NS, JSON_HEADERS} from '../constants';
 import base64js from 'base64-js';
 
 const NS = REDUX_NS.concat('profiles/');
-import {endpoint, jwtHeaders} from '../util/connection';
+import {endpoint, jwtHeaders} from '../util/login';
 
 export const INDEX_REQUEST = NS.concat('INDEX_REQUEST');
 export const INDEX_SUCCESS = NS.concat('INDEX_SUCCESS');
