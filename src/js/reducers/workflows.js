@@ -1,6 +1,7 @@
 'use strict';
 
 import * as actions from '../actions/api/workflows';
+import * as uiActions from '../actions/ui/workflows';
 
 const initialState = {
   items: [],
@@ -39,6 +40,11 @@ export default function workflows (state = initialState, action) {
         loading: false,
         error: true,
         errorDetails: action.payload
+      });
+
+    case uiActions.CHANGE_SELECTION:
+      return Object.assign({}, state, {
+        selection: action.payload.map((item) => { return item.uuid; })
       });
     default:
       return state;

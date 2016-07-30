@@ -8,7 +8,12 @@ import WorkflowsToolbar from './WorkflowsToolbar';
 class Workflows extends Component {
 
   static propTypes = {
-    index: PropTypes.func.isRequired,
+    api: PropTypes.shape({
+      index: PropTypes.func.isRequired
+    }),
+    ui: PropTypes.shape({
+      changeSelection: PropTypes.func.isRequired
+    }),
     workflows: PropTypes.object.isRequired
   };
 
@@ -20,7 +25,7 @@ class Workflows extends Component {
   }
 
   componentWillMount () {
-    this.props.index();
+    this.props.api.index();
   }
 
   handleAddAction (evt) {
@@ -31,9 +36,9 @@ class Workflows extends Component {
 
   }
 
-  handleSelectionChange (selection) {
-    //this.props.ui.changeSelection(selection);
-  }
+  handleSelectionChange = (selection) => {
+    this.props.ui.changeSelection(selection);
+  };
 
   render () {
     const {

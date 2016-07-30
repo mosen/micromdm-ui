@@ -71,9 +71,7 @@ class WorkflowList extends Component {
               <TableRow>
                 <TableHeaderColumn>UUID</TableHeaderColumn>
                 <TableHeaderColumn>name</TableHeaderColumn>
-                <TableHeaderColumn>Profiles</TableHeaderColumn>
-                <TableHeaderColumn>Apps</TableHeaderColumn>
-                <TableHeaderColumn>Workflows</TableHeaderColumn>
+                <TableHeaderColumn>contains</TableHeaderColumn>
               </TableRow>
             </TableHeader>
 
@@ -84,12 +82,10 @@ class WorkflowList extends Component {
               stripedRows={false}
             >
               {items.map((row, index) => (
-                <TableRow key={index} selected={selection.indexOf(row.payload_identifier) !== -1}>
+                <TableRow key={index} selected={selection.indexOf(row.uuid) !== -1}>
                   <TableRowColumn>{row.uuid}</TableRowColumn>
                   <TableRowColumn>{row.name}</TableRowColumn>
-                  <TableRowColumn>{row.profiles.length}</TableRowColumn>
-                  <TableRowColumn>{row.applications && row.applications.length}</TableRowColumn>
-                  <TableRowColumn>{row.included_workflows && row.included_workflows.length}</TableRowColumn>
+                  <TableRowColumn></TableRowColumn>
                 </TableRow>
               ))}
             </TableBody>

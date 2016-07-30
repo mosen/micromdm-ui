@@ -44,3 +44,41 @@ export function index () {
     }
   };
 }
+
+export const DESTROY_REQUEST = NS.concat('DESTROY_REQUEST');
+export const DESTROY_SUCCESS = NS.concat('DESTROY_SUCCESS');
+export const DESTROY_FAILURE = NS.concat('DESTROY_FAILURE');
+
+export function destroy (uuid) {
+  return {
+    [CALL_API]: {
+      endpoint: endpoint(`/management/v1/workflows/${uuid}`),
+      method: 'DELETE',
+      types: [
+        DESTROY_REQUEST,
+        DESTROY_SUCCESS,
+        DESTROY_FAILURE
+      ],
+      headers: jwtHeaders(JSON_HEADERS)
+    }
+  };
+}
+
+export const UPDATE_REQUEST = NS.concat('UPDATE_REQUEST');
+export const UPDATE_SUCCESS = NS.concat('UPDATE_SUCCESS');
+export const UPDATE_FAILURE = NS.concat('UPDATE_FAILURE');
+
+export function update (uuid) {
+  return {
+    [CALL_API]: {
+      endpoint: endpoint(`/management/v1/workflows/${uuid}`),
+      method: 'PATCH',
+      types: [
+        UPDATE_REQUEST,
+        UPDATE_SUCCESS,
+        UPDATE_FAILURE
+      ],
+      headers: jwtHeaders(JSON_HEADERS)
+    }
+  };
+}

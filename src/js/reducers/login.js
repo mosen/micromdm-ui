@@ -3,7 +3,7 @@
 import * as actions from '../actions/connection';
 
 const initialState = {
-  endpoint: 'https://localhost:8443/',
+  endpoint: '',
   jwt_token: ''
 };
 
