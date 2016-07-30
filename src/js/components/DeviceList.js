@@ -130,8 +130,6 @@ class DeviceList extends Component {
                       hoverColor={cyan500}
                       icon={<KeyboardArrowRight />}
                       style={detailButtonStyle}
-                      href={`/devices/${row.uuid}`}
-                      linkButton
                       onClick={this.makeShowDetailHandler(row.uuid)}
                     />
                   </TableRowColumn>

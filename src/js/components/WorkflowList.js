@@ -107,8 +107,6 @@ class WorkflowList extends Component {
                       hoverColor={cyan500}
                       icon={<KeyboardArrowRight />}
                       style={detailButtonStyle}
-                      href={`/workflows/edit/${row.uuid}`}
-                      linkButton
                       onClick={this.makeShowDetailHandler(row.uuid)}
                     />
                   </TableRowColumn>

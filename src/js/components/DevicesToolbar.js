@@ -87,7 +87,8 @@ class DevicesToolbar extends Component {
   render () {
     const {
       selection,
-      selectionMenuVisible
+      selectionMenuVisible,
+      loading
     } = this.props;
 
     const isItemsSelected = selection.length > 0;
@@ -120,6 +121,10 @@ class DevicesToolbar extends Component {
             label='Push'
             icon={<CloudUpload />}
           />
+          <FlatButton
+            disabled={loading}
+            icon={<AutoRenew />}
+            />
           <Popover
             open={selectionMenuVisible}
             anchorEl={this.state.anchorEl}
