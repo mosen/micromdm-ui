@@ -30,7 +30,7 @@ import Applications from './containers/Applications';
 import Devices from './containers/Devices';
 import Profiles from './containers/Profiles';
 import Workflows from './containers/Workflows';
-import EditWorkflow from './containers/EditWorkflow';
+import WorkflowPage from './containers/WorkflowPage';
 import DevicePage from './containers/DevicePage';
 import LoginDialog from './containers/LoginDialog';
 
@@ -44,8 +44,8 @@ render(
         <Route path='/applications' component={UserIsAuthenticated(Applications)} />
         <Route path='/profiles' component={UserIsAuthenticated(Profiles)} />
         <Route path='/workflows' component={UserIsAuthenticated(Workflows)} />
-        <Route path='/workflows/add' component={UserIsAuthenticated(EditWorkflow)} />
-        <Route path='/workflows/edit/:uuid' component={UserIsAuthenticated(EditWorkflow)} />
+        <Route path='/workflows/add' component={UserIsAuthenticated(WorkflowPage)} />
+        <Route path='/workflows/edit/:uuid' component={UserIsAuthenticated(WorkflowPage)} />
       </Route>
     </Router>
   </Provider>,

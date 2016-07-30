@@ -28,7 +28,9 @@ class EditWorkflow extends Component {
 
   static propTypes = {
     api: PropTypes.shape({
-      create: PropTypes.func.isRequired
+      read: PropTypes.func.isRequired,
+      create: PropTypes.func.isRequired,
+      update: PropTypes.func.isRequired
     }),
     ui: PropTypes.shape({
       pickApplicationsVisible: PropTypes.func,
@@ -59,7 +61,9 @@ class EditWorkflow extends Component {
   }
 
   componentWillMount () {
-    // this.props.api.read();
+    if (this.props.params.uuid) {
+      this.props.api.read(this.props.params.uuid);
+    }
   }
 
   handleProfilesItemTouchTap (evt) {
@@ -100,7 +104,11 @@ class EditWorkflow extends Component {
       'included_workflows': this.props.workflow.workflows
     };
 
-    this.props.api.create(workflow);
+    if (this.props.workflow.uuid) {
+      this.props.api.update(this.props.workflow.uuid, workflow);
+    } else {
+      this.props.api.create(workflow);
+    }
   }
 
   handleNameChange (evt) {

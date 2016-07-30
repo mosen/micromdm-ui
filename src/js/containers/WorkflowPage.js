@@ -1,7 +1,7 @@
 'use strict';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import EditWorkflow from '../components/EditWorkflow';
+import WorkflowPage from '../components/WorkflowPage';
 import * as uiActions from '../actions/ui/workflow';
 import * as actions from '../actions/api/workflows';
 
@@ -24,4 +24,4 @@ function mapStateToProps (state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EditWorkflow);
+)(WorkflowPage);

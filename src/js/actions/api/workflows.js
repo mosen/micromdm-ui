@@ -45,6 +45,43 @@ export function index () {
   };
 }
 
+export const READ_REQUEST = NS.concat('READ_REQUEST');
+export const READ_SUCCESS = NS.concat('READ_SUCCESS');
+export const READ_FAILURE = NS.concat('READ_FAILURE');
+
+export function read (uuid) {
+  return (dispatch, getState) => {
+    const { workflows } = getState();
+
+    workflows.items.forEach((workflow) => {
+      if (uuid === workflow.uuid) {
+        return dispatch({
+          type: READ_SUCCESS,
+          payload: workflow
+        });
+      }
+    });
+
+    return dispatch({
+      type: READ_FAILURE,
+      error: true
+    })
+  };
+
+  // return {
+  //   [CALL_API]: {
+  //     endpoint: endpoint(`/management/v1/workflows/${uuid}`),
+  //     method: 'GET',
+  //     types: [
+  //       READ_REQUEST,
+  //       READ_SUCCESS,
+  //       READ_FAILURE
+  //     ],
+  //     headers: jwtHeaders(JSON_HEADERS)
+  //   }
+  // };
+}
+
 export const DESTROY_REQUEST = NS.concat('DESTROY_REQUEST');
 export const DESTROY_SUCCESS = NS.concat('DESTROY_SUCCESS');
 export const DESTROY_FAILURE = NS.concat('DESTROY_FAILURE');
@@ -68,7 +105,7 @@ export const UPDATE_REQUEST = NS.concat('UPDATE_REQUEST');
 export const UPDATE_SUCCESS = NS.concat('UPDATE_SUCCESS');
 export const UPDATE_FAILURE = NS.concat('UPDATE_FAILURE');
 
-export function update (uuid) {
+export function update (uuid, values) {
   return {
     [CALL_API]: {
       endpoint: endpoint(`/management/v1/workflows/${uuid}`),
@@ -78,6 +115,7 @@ export function update (uuid) {
         UPDATE_SUCCESS,
         UPDATE_FAILURE
       ],
+      body: JSON.stringify(values),
       headers: jwtHeaders(JSON_HEADERS)
     }
   };

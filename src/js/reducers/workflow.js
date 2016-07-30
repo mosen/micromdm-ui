@@ -73,6 +73,11 @@ export default function workflow (state = initialState, action) {
         error: true,
         errorDetails: action.payload
       });
+    case apiActions.READ_SUCCESS:
+      return {
+        ...state,
+        ...action.payload
+      };
 
     default:
       return state;
