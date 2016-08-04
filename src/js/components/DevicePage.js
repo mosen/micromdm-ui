@@ -59,7 +59,7 @@ class DevicePage extends Component {
     this.props.api.read(this.props.params.uuid);
   }
 
-  handleClickBack (evt) {
+  handleClickBack () {
     this.props.router.goBack();
   }
 

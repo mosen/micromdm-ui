@@ -1,4 +1,6 @@
 'use strict';
+
+import {withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import WorkflowPage from '../components/WorkflowPage';
@@ -21,7 +23,9 @@ function mapStateToProps (state) {
   };
 }
 
+const routedWorkflow = withRouter(WorkflowPage);
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WorkflowPage);
+)(routedWorkflow);

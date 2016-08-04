@@ -1,4 +1,5 @@
 'use strict';
+
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import {List, ListItem} from 'material-ui/List';
@@ -10,19 +11,11 @@ import Add from 'material-ui/svg-icons/content/add';
 import Clear from 'material-ui/svg-icons/content/clear';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardHeader} from 'material-ui/Card';
 import ProfileListItem from './list_items/ProfileListItem';
 import ProfileDrawer from './drawers/ProfileDrawer';
 import ApplicationDrawer from './drawers/ApplicationDrawer';
 import WorkflowDrawer from './drawers/WorkflowDrawer';
-
-import {
-  cyan50
-} from 'material-ui/styles/colors';
-
-const actionStyle = {
-  backgroundColor: cyan50
-};
 
 class EditWorkflow extends Component {
 
@@ -41,6 +34,7 @@ class EditWorkflow extends Component {
       removeProfile: PropTypes.func,
       changeNameInput: PropTypes.func
     }),
+    router: PropTypes.object,
     name: PropTypes.string,
     workflow: PropTypes.object,
     profiles: PropTypes.array.isRequired,
@@ -115,6 +109,10 @@ class EditWorkflow extends Component {
     this.props.ui.changeNameInput(evt.currentTarget.value);
   }
 
+  handleClickBack = () => {
+    this.props.router.goBack();
+  };
+
   render () {
     const {
       workflow,
@@ -127,13 +125,6 @@ class EditWorkflow extends Component {
         addWorkflow
       }
     } = this.props;
-
-    const onTouchTapProfileItem = (item) => {
-      return (evt) => {
-        evt.preventDefault();
-        this.props.ui.addProfile(item);
-      };
-    };
 
     let drawerContent = '';
     switch (workflow.drawerType) {
@@ -150,6 +141,7 @@ class EditWorkflow extends Component {
 
     return (
       <div className='EditWorkflow'>
+        <FlatButton label='Back' onClick={this.handleClickBack}/>
         <Card>
           <CardHeader
             title='New Workflow'
