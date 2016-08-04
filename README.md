@@ -1,5 +1,7 @@
 # MicroMDM UI
 
+[![Build Status](https://travis-ci.org/micromdm/micromdm-ui.svg?branch=master)](https://travis-ci.org/micromdm/micromdm-ui)
+
 **MicroMDM UI** Is a Web UI front end for [MicroMDM](https://micromdm.io), [Source](https://github.com/micromdm/micromdm)
 
 Overview
