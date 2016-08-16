@@ -7,6 +7,7 @@ import DeviceMainDetail from './DeviceMainDetail';
 import CertificateListDetail from './CertificateListDetail';
 import ProfileListDetail from './ProfileListDetail';
 import UpdateListDetail from './UpdateListDetail';
+import CommandListDetail from './CommandListDetail';
 
 import { commandFactory } from '../actions/util/command';
 import * as MDM from '../constants/mdm';
@@ -19,6 +20,9 @@ class DevicePage extends Component {
       read: PropTypes.func.isRequired,
       certsIndex: PropTypes.func.isRequired
     }),
+    commandsApi: PropTypes.shape({
+      index: PropTypes.func.isRequired
+    }),
     params: PropTypes.shape({
       uuid: PropTypes.string.isRequired
     }),
@@ -28,7 +32,8 @@ class DevicePage extends Component {
     ui: PropTypes.shape({
       setCertListExpanded: PropTypes.func,
       setProfileListExpanded: PropTypes.func,
-      setUpdateListExpanded: PropTypes.func
+      setUpdateListExpanded: PropTypes.func,
+      setCommandListExpanded: PropTypes.func
     }),
     router: PropTypes.object,
     certificates: PropTypes.shape({
@@ -42,6 +47,10 @@ class DevicePage extends Component {
     updates: PropTypes.shape({
       items: PropTypes.array.isRequired,
       expanded: PropTypes.bool.isRequired
+    }),
+    commands: PropTypes.shape({
+      items: PropTypes.array.isRequired,
+      expanded: PropTypes.bool.isRequired
     })
   };
 
@@ -53,6 +62,7 @@ class DevicePage extends Component {
     this.handleCertificateListExpand = this.handleCertificateListExpand.bind(this);
     this.handleProfileListExpand = this.handleProfileListExpand.bind(this);
     this.handleUpdateListExpand = this.handleUpdateListExpand.bind(this);
+    this.handleCommandListExpand = this.handleCommandListExpand.bind(this);
   }
 
   componentWillMount () {
@@ -78,6 +88,12 @@ class DevicePage extends Component {
     this.props.ui.setUpdateListExpanded(!this.props.updates.expanded);
   }
 
+  handleCommandListExpand () {
+    this.props.ui.setCommandListExpanded(!this.props.commands.expanded);
+    const udid = this.props.device.attributes.udid;
+    this.props.commandsApi.index(udid);
+  }
+
   render () {
     const {
       device: {
@@ -89,6 +105,7 @@ class DevicePage extends Component {
       certificates,
       profiles,
       updates,
+      commands,
       api: {
         certsIndex
       }
@@ -101,6 +118,7 @@ class DevicePage extends Component {
           <CircularProgress />
         }
         <DeviceMainDetail loading={loading} attributes={attributes} />
+        <CommandListDetail onExpandChange={this.handleCommandListExpand} {...commands} />
         <CertificateListDetail onExpandChange={this.handleCertificateListExpand} {...certificates} />
         <ProfileListDetail onExpandChange={this.handleProfileListExpand} {...profiles} />
         <UpdateListDetail onExpandChange={this.handleUpdateListExpand} {...updates} />

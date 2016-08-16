@@ -1,7 +1,7 @@
 'use strict';
 import moment from 'moment';
 import * as ui from '../../actions/ui/device';
-import * as api from '../../actions/api/devices';
+import * as api from '../../actions/api/commands';
 
 const initialState = {
   lastUpdated: null,
@@ -12,14 +12,14 @@ const initialState = {
   expanded: false
 };
 
-export default function certificates (state = initialState, action) {
+export default function commands (state = initialState, action) {
   switch (action.type) {
-    case ui.SET_CERT_LIST_EXPANDED:
+    case ui.SET_COMMAND_LIST_EXPANDED:
       return {
         ...state,
         expanded: action.payload
       };
-    case api.CERTS_INDEX_REQUEST:
+    case api.INDEX_REQUEST:
       if (action.error) {
         return Object.assign({}, state, {
           error: true,
@@ -30,21 +30,21 @@ export default function certificates (state = initialState, action) {
           loading: true
         });
       }
-    case api.CERTS_INDEX_FAILURE:
+    case api.INDEX_FAILURE:
       return {
         ...state,
         error: true,
         errorDetails: action.payload,
         loading: false
       };
-    case api.CERTS_INDEX_SUCCESS:
+    case api.INDEX_SUCCESS:
       if (action.payload === null) {
         action.payload = [];
       }
       return {
         ...state,
         lastUpdated: moment().utc(),
-        items: action.payload,
+        items: action.payload.commands,
         loading: false
       };
     default:

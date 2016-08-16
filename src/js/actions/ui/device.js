@@ -3,6 +3,15 @@
 import {REDUX_NS} from '../constants';
 const NS = REDUX_NS.concat('ui/device/');
 
+export const SET_COMMAND_LIST_EXPANDED = NS.concat('SET_COMMAND_LIST_EXPANDED');
+
+export function setCommandListExpanded (isExpanded = true) {
+  return {
+    type: SET_COMMAND_LIST_EXPANDED,
+    payload: isExpanded
+  };
+}
+
 export const SET_CERT_LIST_EXPANDED = NS.concat('SET_CERT_LIST_EXPANDED');
 
 export function setCertListExpanded (isExpanded = true) {

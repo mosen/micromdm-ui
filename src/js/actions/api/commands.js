@@ -6,6 +6,25 @@ import {endpoint, jwtHeaders} from '../util/login';
 
 const NS = REDUX_NS.concat('commands/');
 
+export const INDEX_REQUEST = NS.concat('INDEX_REQUEST');
+export const INDEX_SUCCESS = NS.concat('INDEX_SUCCESS');
+export const INDEX_FAILURE = NS.concat('INDEX_FAILURE');
+
+export function index (udid) {
+  return {
+    [CALL_API]: {
+      endpoint: endpoint(`/mdm/commands/${udid}`),
+      method: 'GET',
+      types: [
+        INDEX_REQUEST,
+        INDEX_SUCCESS,
+        INDEX_FAILURE
+      ],
+      headers: jwtHeaders(JSON_HEADERS)
+    }
+  };
+}
+
 export const CREATE_REQUEST = NS.concat('CREATE_REQUEST');
 export const CREATE_SUCCESS = NS.concat('CREATE_SUCCESS');
 export const CREATE_FAILURE = NS.concat('CREATE_FAILURE');

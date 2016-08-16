@@ -36,7 +36,7 @@ class Devices extends Component {
     selectionMenuVisible: PropTypes.bool.isRequired,
     selectionMenuAnchor: PropTypes.element,
     error: PropTypes.bool.isRequired,
-    errorDetails: PropTypes.object,
+    errorDetails: PropTypes.string,
     errorDialogOpen: PropTypes.bool,
     workflowDrawerOpen: PropTypes.bool
   };
