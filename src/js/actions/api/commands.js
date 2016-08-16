@@ -16,8 +16,16 @@ export function index (udid) {
       endpoint: endpoint(`/mdm/commands/${udid}`),
       method: 'GET',
       types: [
-        INDEX_REQUEST,
-        INDEX_SUCCESS,
+        {
+          type: INDEX_REQUEST,
+          payload: (action, state) => ({ udid })
+        },
+        {
+          type: INDEX_SUCCESS,
+          meta: (action, state, res) => {
+            return { udid: udid };
+          }
+        },
         INDEX_FAILURE
       ],
       headers: jwtHeaders(JSON_HEADERS)

@@ -5,7 +5,8 @@ import * as actions from '../actions/api/commands';
 const initialState = {
   command: null,
   success: null,
-  lastUuid: ''
+  lastUuid: '',
+  byDeviceUDID: {}
 };
 
 export default function commands (state = initialState, action) {
@@ -26,6 +27,8 @@ export default function commands (state = initialState, action) {
         success: false,
         errorDetails: action.payload
       });
+    case actions.INDEX_SUCCESS:
+      return state;
     default:
       return state;
   }

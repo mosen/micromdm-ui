@@ -38,7 +38,7 @@ export default function commands (state = initialState, action) {
         loading: false
       };
     case api.INDEX_SUCCESS:
-      if (action.payload === null) {
+      if (!action.payload.commands) {
         action.payload = [];
       }
       return {

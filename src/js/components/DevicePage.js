@@ -2,6 +2,16 @@
 import React, {Component, PropTypes} from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
+import {List, ListItem} from 'material-ui/List';
+// import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+
+import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
+import FormatListBulleted from 'material-ui/svg-icons/editor/format-list-bulleted';
+import Https from 'material-ui/svg-icons/action/https';
+import SettingsApplications from 'material-ui/svg-icons/action/settings-applications';
+import Apps from 'material-ui/svg-icons/navigation/apps';
+import Update from 'material-ui/svg-icons/action/update';
 
 import DeviceMainDetail from './DeviceMainDetail';
 import CertificateListDetail from './CertificateListDetail';
@@ -11,6 +21,8 @@ import CommandListDetail from './CommandListDetail';
 
 import { commandFactory } from '../actions/util/command';
 import * as MDM from '../constants/mdm';
+
+import './DevicePage.scss';
 
 // Device View Page
 class DevicePage extends Component {
@@ -45,10 +57,6 @@ class DevicePage extends Component {
       expanded: PropTypes.bool.isRequired
     }),
     updates: PropTypes.shape({
-      items: PropTypes.array.isRequired,
-      expanded: PropTypes.bool.isRequired
-    }),
-    commands: PropTypes.shape({
       items: PropTypes.array.isRequired,
       expanded: PropTypes.bool.isRequired
     })
@@ -99,29 +107,47 @@ class DevicePage extends Component {
       device: {
         attributes
       },
-      loading,
       error,
-
       certificates,
       profiles,
       updates,
       commands,
       api: {
         certsIndex
-      }
+      },
+      router
     } = this.props;
+
+    const navToCommands = () => {
+      router.push(`/devices/${this.props.params.uuid}/commands`);
+    };
 
     return (
       <div className='Device'>
-        <FlatButton label='Back' onClick={this.handleClickBack}/>
-        {loading &&
-          <CircularProgress />
-        }
-        <DeviceMainDetail loading={loading} attributes={attributes} />
-        <CommandListDetail onExpandChange={this.handleCommandListExpand} {...commands} />
-        <CertificateListDetail onExpandChange={this.handleCertificateListExpand} {...certificates} />
-        <ProfileListDetail onExpandChange={this.handleProfileListExpand} {...profiles} />
-        <UpdateListDetail onExpandChange={this.handleUpdateListExpand} {...updates} />
+        <div className='DeviceMenu'>
+          <List className='Inverse' style={{color: 'white'}}>
+            <ListItem
+              leftIcon={<ChevronLeft />}
+              primaryText='Back'
+              onClick={this.handleClickBack}
+              />
+          </List>
+          <List>
+            <ListItem
+              primaryText={attributes.device_name || attributes.serial_number}
+              secondaryText={attributes.serial_number}
+              />
+          </List>
+          <Divider />
+          <List>
+            <ListItem primaryText="Commands" leftIcon={<FormatListBulleted />} onClick={navToCommands} />
+            <ListItem primaryText="Certificates" leftIcon={<Https />} />
+            <ListItem primaryText="Profiles" leftIcon={<SettingsApplications />} />
+            <ListItem primaryText="Updates" leftIcon={<Update />} />
+            <ListItem primaryText="Applications" leftIcon={<Apps />} />
+          </List>
+        </div>
+        {this.props.children}
       </div>
     );
   }
@@ -129,3 +155,9 @@ class DevicePage extends Component {
 }
 
 export default DevicePage;
+
+// <DeviceMainDetail loading={loading} attributes={attributes} />
+// <CommandListDetail onExpandChange={this.handleCommandListExpand} {...commands} />
+// <CertificateListDetail onExpandChange={this.handleCertificateListExpand} {...certificates} />
+// <ProfileListDetail onExpandChange={this.handleProfileListExpand} {...profiles} />
+// <UpdateListDetail onExpandChange={this.handleUpdateListExpand} {...updates} />
