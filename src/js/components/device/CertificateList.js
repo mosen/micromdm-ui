@@ -1,39 +1,46 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 import moment from 'moment';
+
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
+import CircularProgress from 'material-ui/CircularProgress';
+
 import FlatButton from 'material-ui/FlatButton';
 import Https from 'material-ui/svg-icons/action/https';
 import Person from 'material-ui/svg-icons/social/person';
 
-class CertificateListDetail extends Component {
+class CertificateList extends Component {
 
   static propTypes = {
+    params: PropTypes.shape({
+      uuid: PropTypes.string
+    }),
     items: PropTypes.array,
     lastUpdated: PropTypes.object, // Expected to be `moment` object in UTC.
     loading: PropTypes.bool,
     error: PropTypes.bool,
     errorDetails: PropTypes.object,
-    expanded: PropTypes.bool,
 
     // Handlers
-    onRefresh: PropTypes.func.isRequired,
-    onExpandChange: PropTypes.func.isRequired
+    onRefresh: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     items: [],
     loading: false,
     error: false,
-    errorDetails: {},
-    expanded: false
+    errorDetails: {}
   };
 
   constructor (props) {
     super(props);
 
     this.handleClickRefresh = this.handleClickRefresh.bind(this);
+  }
+
+  componentWillMount () {
+    this.props.api.certsIndex(this.props.params.uuid);
   }
 
   handleClickRefresh (evt) {
@@ -49,9 +56,8 @@ class CertificateListDetail extends Component {
       lastUpdated,
       loading,
       error,
-      errorDetails,
-      expanded
-    } = this.props;
+      errorDetails
+    } = this.props.certificates;
 
     let lastUpdatedTitle = 'Never received update from device(s)';
 
@@ -61,21 +67,20 @@ class CertificateListDetail extends Component {
     }
 
     return (
-      <Card
-        expanded={expanded}
-        onExpandChange={this.props.onExpandChange}
-      >
+      <Card>
         <CardHeader
           title='Certificates'
           subtitle={lastUpdatedTitle}
-          actAsExpander
-          showExpandableButton
         />
-        <CardText expandable>
+        <CardText>
+          {loading && <CircularProgress />}
           <List>
             {items.length > 0 && items.map((cert) => {
               const icon = cert.is_identity ? <Person /> : <Https />;
-              return <ListItem leftIcon={icon}>{cert.common_name}</ListItem>;
+              return <ListItem
+                key={cert.uuid}
+                primaryText={cert.common_name}
+                leftIcon={icon} />;
             })}
           </List>
         </CardText>
@@ -88,4 +93,4 @@ class CertificateListDetail extends Component {
 
 }
 
-export default CertificateListDetail;
+export default CertificateList;

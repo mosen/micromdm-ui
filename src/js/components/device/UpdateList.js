@@ -8,13 +8,11 @@ import Avatar from 'material-ui/Avatar';
 import Update from 'material-ui/svg-icons/action/update';
 
 // Update list shows a list of pending updates (for macOS devices only)
-class UpdateListDetail extends Component {
+class UpdateList extends Component {
 
   static propTypes = {
     items: PropTypes.array,
-    lastUpdated: PropTypes.string,
-    expanded: PropTypes.bool,
-    onExpandChange: PropTypes.func.isRequired
+    lastUpdated: PropTypes.string
   };
 
   static defaultProps = {
@@ -24,8 +22,7 @@ class UpdateListDetail extends Component {
   render () {
     const {
       items,
-      lastUpdated,
-      expanded
+      lastUpdated
     } = this.props;
 
     let lastUpdatedTitle = 'Never received update from device(s)';
@@ -36,17 +33,12 @@ class UpdateListDetail extends Component {
     }
 
     return (
-      <Card
-        expanded={expanded}
-        onExpandChange={this.props.onExpandChange}
-      >
+      <Card>
         <CardHeader
           title='Updates'
           subtitle={lastUpdatedTitle}
-          actAsExpander
-          showExpandableButton
         />
-        <CardText expandable>
+        <CardText>
           <List>
             {items.length > 0 && items.map((update) => {
               return <ListItem></ListItem>;
@@ -62,4 +54,4 @@ class UpdateListDetail extends Component {
 
 }
 
-export default UpdateListDetail;
+export default UpdateList;

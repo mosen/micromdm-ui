@@ -1,3 +1,13 @@
+.Device {
+  clear: both;
+}
+
 .DeviceMenu {
   width: 20%;
+  float: left;
+}
+
+.DeviceContent {
+  width: 79%;
+  margin-left: 20%;
 }

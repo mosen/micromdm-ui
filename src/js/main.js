@@ -35,8 +35,10 @@ import Workflows from './containers/Workflows';
 import WorkflowPage from './containers/WorkflowPage';
 import DevicePage from './containers/DevicePage';
 import LoginDialog from './containers/LoginDialog';
-import DeviceMainDetail from './components/DeviceMainDetail';
+import DeviceMainDetail from './containers/DeviceMainDetail';
 import CommandList from './containers/device/CommandList';
+import CertificateList from './containers/device/CertificateList';
+import ApplicationList from './containers/device/ApplicationList';
 
 render(
   <Provider store={store}>
@@ -46,8 +48,10 @@ render(
         <Route path='login' component={LoginDialog} />
         <Route path='devices' component={UserIsAuthenticated(Devices)} />
         <Route path='devices/:uuid' component={UserIsAuthenticated(DevicePage)}>
-          {/*<IndexRoute component={DeviceMainDetail} />*/}
+          <IndexRoute component={DeviceMainDetail} />
+          <Route path='applications' component={ApplicationList} />
           <Route path='commands' component={CommandList} />
+          <Route path='certificates' component={CertificateList} />
         </Route>
         <Route path='applications' component={UserIsAuthenticated(Applications)} />
         <Route path='profiles' component={UserIsAuthenticated(Profiles)} />
