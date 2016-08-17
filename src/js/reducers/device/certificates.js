@@ -1,6 +1,5 @@
 'use strict';
 import moment from 'moment';
-import * as ui from '../../actions/ui/device';
 import * as api from '../../actions/api/devices';
 
 const initialState = {
@@ -8,17 +7,11 @@ const initialState = {
   loading: false,
   error: false,
   errorDetails: {},
-  items: [],
-  expanded: false
+  items: []
 };
 
 export default function certificates (state = initialState, action) {
   switch (action.type) {
-    case ui.SET_CERT_LIST_EXPANDED:
-      return {
-        ...state,
-        expanded: action.payload
-      };
     case api.CERTS_INDEX_REQUEST:
       if (action.error) {
         return Object.assign({}, state, {

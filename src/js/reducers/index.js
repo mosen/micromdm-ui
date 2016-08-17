@@ -2,7 +2,6 @@ import {reducer as formReducer} from 'redux-form';
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 
-import api from './api';
 import applications from './applications';
 import commands from './commands';
 import device from './device';
@@ -18,7 +17,6 @@ import workflows from './workflows';
 const rootReducer = combineReducers({
   routing: routerReducer,
   form: formReducer,
-  api,
   applications,
   commands,
   device,

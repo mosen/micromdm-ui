@@ -1,6 +1,5 @@
 'use strict';
 import moment from 'moment';
-import * as ui from '../../actions/ui/device';
 import * as api from '../../actions/api/commands';
 
 const initialState = {
@@ -8,17 +7,11 @@ const initialState = {
   loading: false,
   error: false,
   errorDetails: {},
-  items: [],
-  expanded: false
+  items: []
 };
 
 export default function commands (state = initialState, action) {
   switch (action.type) {
-    case ui.SET_COMMAND_LIST_EXPANDED:
-      return {
-        ...state,
-        expanded: action.payload
-      };
     case api.INDEX_REQUEST:
       if (action.error) {
         return Object.assign({}, state, {
