@@ -141,6 +141,8 @@ class DevicesToolbar extends Component {
               <MenuItem primaryText='OS Update Status' value={MDM.OS_UPDATE_STATUS} />
               <MenuItem primaryText='Available Updates' value={MDM.AVAILABLE_OS_UPDATES} />
               <MenuItem primaryText='Installed Applications' value={MDM.INSTALLED_APPLICATION_LIST} />
+              <MenuItem primaryText='Restrictions' value={MDM.RESTRICTIONS} />
+              <MenuItem primaryText='Install Keynote (test)' value={MDM.INSTALL_APPLICATION} />
             </Menu>
           </Popover>
         </ToolbarGroup>

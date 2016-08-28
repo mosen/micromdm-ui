@@ -142,6 +142,25 @@ export function OSUpdateStatus (udid) {
   };
 }
 
+export function restrictions (udid) {
+  return {
+    'request_type': 'Restrictions',
+    'udid': udid
+  }
+}
+
+export function installApplication (udid, iTunesStoreID = 638161122) {
+  return {
+    'request_type': 'InstallApplication',
+    'udid': udid,
+    'itunes_store_id': iTunesStoreID,
+    'options': {
+      'purchase_method': 1,
+      'not_managed': true
+    }
+  }
+}
+
 // Command is an action creator factory which takes a symbol representing an MDM command type and returns
 // an action creator.
 export function commandFactory (commandType) {
@@ -162,6 +181,10 @@ export function commandFactory (commandType) {
       return installedApplicationList;
     case MDM.REMOVE_PROFILE:
       return removeProfile;
+    case MDM.RESTRICTIONS:
+      return restrictions;
+    case MDM.INSTALL_APPLICATION:
+      return installApplication;
     default:
       return null;
   }
