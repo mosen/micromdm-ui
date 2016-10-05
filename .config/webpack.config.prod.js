@@ -4,7 +4,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/js/main.js'
+    app: [
+      './src/js/main.js'
+    ]
   },
   output: {
     path: path.join(__dirname, '..', 'public'),
@@ -13,18 +15,20 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
           cacheDirectory: true,
-          plugins: ['transform-runtime'],
+          plugins: [
+            'transform-runtime',
+            'transform-class-properties',
+            'transform-object-rest-spread'
+          ],
           presets: ['es2015', 'react'],
           env: {
             development: {
               plugins: [
-                'transform-class-properties',
-                'transform-object-rest-spread',
                 ['react-transform', {
                   transforms: [{
                     transform: 'react-transform-hmr',
@@ -37,16 +41,8 @@ module.exports = {
                 }]
               ]
             },
-            test: {
-              plugins: [
-                'transform-class-properties',
-                'transform-object-rest-spread'
-              ]
-            },
             production: {
               plugins: [
-                'transform-class-properties',
-                'transform-object-rest-spread',
                 'transform-react-remove-prop-types',
                 'transform-react-constant-elements'
               ]
