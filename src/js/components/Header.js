@@ -3,7 +3,6 @@ import IconButton from 'material-ui/IconButton';
 import Power from 'material-ui/svg-icons/notification/power';
 
 export default function Header ({ onClickConnection }) {
-  'use strict';
   return (
     <div className='Header'>
       <ul className='HeaderLeft'>
