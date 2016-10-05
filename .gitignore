@@ -50,3 +50,6 @@ ca.pem
 # IntelliJ
 .idea
 *.iml
+
+public/js/*.js
+public/js/*.js.map

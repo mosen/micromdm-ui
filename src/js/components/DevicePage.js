@@ -37,3 +37,4 @@ class DevicePage extends Component {
 }
 
 export default DevicePage;
+
