@@ -7,7 +7,7 @@ import {storiesOf, action} from '@kadira/storybook';
 import {deepOrange500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import ExchangePayloadForm from '../payloads/ExchangePayloadForm';
+import ExchangePayloadForm from '../ExchangePayloadForm';
 
 const store = createStore(
   combineReducers({ form: formReducer }),
@@ -25,7 +25,7 @@ storiesOf('ExchangePayloadForm', module)
     'use strict';
     return (<MuiThemeProvider muiTheme={muiTheme}>
       <Provider store={store}>
-        <div style={{"width": "500px"}}>
+        <div style={{"width": "800px"}}>
           <ExchangePayloadForm />
         </div>
       </Provider>

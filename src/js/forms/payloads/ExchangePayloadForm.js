@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {reduxForm, Field} from 'redux-form';
-import {Divider, List, ListItem} from 'material-ui';
+import {Divider, List, ListItem, MenuItem} from 'material-ui';
+import Paper from 'material-ui/Paper';
+import RadioButton from 'material-ui/RadioButton';
 import {
   Checkbox,
   RadioButtonGroup,
@@ -18,69 +20,119 @@ const validate = (values) => {
 
 class ExchangePayloadForm extends Component {
 
-  static propTypes = {
-    compatIOS: PropTypes.string.isRequired,
-    compatMacOS: PropTypes.string.isRequired
-  };
-
   static defaultProps = {
-    compatIOS: '10.0',
-    compatMacOS: '12.0'
+    compatIOSEnabled: true,
+    compatIOS: '10.0.0',
+    compatMacOSEnabled: true,
+    compatMacOS: '12.0.0'
   };
 
   render () {
     const {
       compatIOS,
-      compatMacOS
+      compatMacOS,
+      handleSubmit
     } = this.props;
 
     // Certificate, CertificateName, CertificatePassword
 
     return (
-      <form>
-        <h4>Server</h4>
-        <Field name='host' component={TextField} hintText='Host' floatingLabelText='Host'/>
-        <br />
-        <Field name='port' component={TextField} hintText='Port' floatingLabelText='Port' type='number' />
-        <br />
-        <Field name='ssl' component={Toggle} label='SSL'/>
-        <br />
+      <Paper zDepth={1} className='mui-padded'>
+        <form onSubmit={handleSubmit}>
+          <h2>Exchange Payload</h2>
 
-        <h4>Identity</h4>
-        <Field name='email' component={TextField} hintText='E-mail address' floatingLabelText='E-mail address'/>
-        <br />
+          <h4>Server</h4>
+          <div>
+            <Field name='host' component={TextField} floatingLabelText='Host' fullWidth />
+          </div>
+          <div>
+            <Field name='ssl' component={Toggle} label='SSL'/>
+          </div>
 
-        <Field name='username' component={TextField} hintText='Username (Blank to prompt)'
-               floatingLabelText='Username'/>
-        <br />
-        <Field name='password' component={TextField} hintText='Password (Blank to prompt)' floatingLabelText='Password'
-               type='password'/>
-        <br />
+          <h4>Server Advanced (macOS)</h4>
+          <div>
+            <Field name='port' component={TextField} floatingLabelText='Port' type='number' fullWidth />
+          </div>
+          <div>
+            <Field name='path' component={TextField} floatingLabelText='Path' fullWidth />
+          </div>
 
-        <h4>Options</h4>
-        <List>
-          <ListItem>
+          <h4>External connection (macOS)</h4>
+          <div>
+            <Field name='externalHost' component={TextField} floatingLabelText='Host' fullWidth />
+          </div>
+          <div>
+            <Field name='externalSsl' component={Toggle} label='SSL'/>
+          </div>
+          <div>
+            <Field name='externalPort' component={TextField} floatingLabelText='Port' type='number' fullWidth />
+          </div>
+          <div>
+            <Field name='externalPath' component={TextField} floatingLabelText='Path' fullWidth />
+          </div>
+
+          <h4>Identity</h4>
+          <div>
+            <Field name='email' component={TextField} floatingLabelText='E-mail address' fullWidth />
+          </div>
+
+          <div>
+            <p>Authentication</p>
+            <Field name='identityOption' component={RadioButtonGroup}>
+              <RadioButton value='payload' label='Certificate Payload' />
+              <RadioButton value='credentials' label='Username and Password' />
+              <RadioButton value='embedded' label='Upload Certificate' />
+            </Field>
+          </div>
+
+          <div>
+            <Field name='username' component={TextField} floatingLabelText='Username (Blank to prompt)' fullWidth />
+          </div>
+          <div>
+            <Field name='password' component={TextField} floatingLabelText='Password (Blank to prompt)' type='password' fullWidth />
+          </div>
+          <div>
+            <Field name='payloadCertificateUUID' component={SelectField} hintText='Use SCEP Payload' fullWidth>
+              <MenuItem value='uuid' primaryText='Selected Certificate Payload' />
+            </Field>
+          </div>
+          <div>
+            <Field name='certificate' component={TextField} floatingLabelText='Certificate (.p12)' fullWidth disabled />
+          </div>
+          <div>
+            <Field name='certificateName' component={TextField} floatingLabelText='Certificate Name' fullWidth />
+          </div>
+          <div>
+            <Field name='certificatePassword' component={TextField} type='password' floatingLabelText='Certificate Password' fullWidth />
+          </div>
+
+          <h4>Restrictions</h4>
+          <div>
             <Field name='preventMove' component={Toggle} label='Prevent moving e-mail'/>
-          </ListItem>
-          <ListItem>
-            <Field name='preventAppSheet' component={Toggle} label='Only allow use from Apple Mail app'/>
-          </ListItem>
-          <ListItem>
-            <Field name='smimeEnabled' component={Toggle} label='S/MIME'/>
-          </ListItem>
-          <ListItem>
-            <Field name='smimeEnablePerMessageSwitch' component={Toggle}
-               label='S/MIME per-message signing and encryption switch'/>
-          </ListItem>
-          <ListItem>
-            <Field name='disableMailRecentsSyncing' component={Toggle} label='Account is excluded from recents syncing'/>
-          </ListItem>
-        </List>
+          </div>
+          <div>
+            <Field name='preventAppSheet' component={Toggle} label='Disallow e-mail from apps other than Mail' />
+          </div>
 
-        <Field name='mailNumberOfPastDaysToSync' component={TextField} type='number' label='Number of days to sync'
-               floatingLabelText='Number of days to sync'/>
-        <br />
-      </form>
+          <h4>Encryption</h4>
+          <div>
+            <Field name='smimeEnabled' component={Toggle} label='S/MIME'/>
+          </div>
+          <div>
+            <Field name='smimeEnablePerMessageSwitch' component={Toggle}
+                   label='S/MIME per-message signing and encryption switch'/>
+          </div>
+
+          <h4>Options</h4>
+          <div>
+            <Field name='disableMailRecentsSyncing' component={Toggle} label='Account is excluded from recents syncing'/>
+          </div>
+          <div>
+            <Field name='mailNumberOfPastDaysToSync' component={TextField} type='number'
+                   floatingLabelText='Number of days to sync' fullWidth />
+          </div>
+        </form>
+      </Paper>
     );
   }
 }
