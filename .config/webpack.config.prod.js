@@ -1,6 +1,7 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -89,6 +90,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new CopyWebpackPlugin([
+      { from: "src/sass/icons", to: "." }
+    ], {
+
+    }),
     new ExtractTextPlugin('css/[name].css', {
       publicPath: '/css/',
       allChunks: true
