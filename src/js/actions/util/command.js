@@ -161,6 +161,14 @@ export function installApplication (udid, iTunesStoreID = 638161122) {
   }
 }
 
+export function eraseDevice (udid, pin) {
+  return {
+    'request_type': 'EraseDevice',
+    'udid': udid,
+    'pin': pin
+  }
+}
+
 // Command is an action creator factory which takes a symbol representing an MDM command type and returns
 // an action creator.
 export function commandFactory (commandType) {
@@ -185,6 +193,8 @@ export function commandFactory (commandType) {
       return restrictions;
     case MDM.INSTALL_APPLICATION:
       return installApplication;
+    case MDM.ERASE_DEVICE:
+      return eraseDevice;
     default:
       return null;
   }

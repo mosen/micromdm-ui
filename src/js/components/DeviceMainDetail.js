@@ -1,6 +1,7 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
+import { eraseDevice } from '../actions/util/command';
 import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
@@ -20,6 +21,10 @@ class DeviceMainDetail extends Component {
 
   static defaultProps = {
     lastUpdated: '...'
+  };
+
+  handleErase = () => {
+    this.props.commandsApi.create(eraseDevice(this.props.attributes.udid, "123456"));
   };
 
   render () {
@@ -68,6 +73,9 @@ class DeviceMainDetail extends Component {
             </dl>
           }
         </CardText>
+        <CardActions>
+          <FlatButton label='Erase' onTouchTap={this.handleErase} />
+        </CardActions>
       </Card>
     );
   }

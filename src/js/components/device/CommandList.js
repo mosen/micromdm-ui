@@ -60,11 +60,11 @@ class CommandList extends Component {
               items.map((command) => {
                 return <ListItem
                   primaryText={command.Command.request_type}
-                  secondaryText={command.command_uuid}
+                  secondaryText={command.CommandUUID}
                   rightIconButton={<IconButton
                     tooltip="remove"
                     tooltipPosition="bottom-left"
-                    onClick={removeItem(this.props.udid, command.command_uuid)}
+                    onClick={removeItem(this.props.udid, command.CommandUUID)}
                   ><Clear /></IconButton>}
                   />;
               })}
