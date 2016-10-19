@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "BABEL_ENV=dev node devServer.js",
-    "test": "mocha --compilers js:babel-register",
-    "storybook": "start-storybook -p 9001 -s ./public --dont-track"
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register",
+    "build": "./node_modules/.bin/webpack",
+    "storybook": "./node_modules/.bin/start-storybook -p 9001 -s ./public --dont-track"
   },
   "author": "",
   "license": "MIT",
