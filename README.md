@@ -46,10 +46,11 @@ Developer Setup
 - Install [NodeJS](https://nodejs.org/en/download/). 
 - Clone this repository.
 - `npm install` in the cloned directory to install dependencies.
-    - _[optional]_ if you want webpack in your `PATH` you will have to install **webpack** and all **-loader** packages globally.
 - `npm run dev` to start the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) on port **4000**.
     - You can modify the port number by editing the `devServer.js` and replacing the server.listen argument.
     - The dev server allows you to modify and see code changes in real time.
+    - Navigate to `localhost:4000` and click the connect icon to get started. MicroMDM must be running at the same time
+    but you may connect to a different host using the UI.
 - `npm run start-storybook` to view individual React components within the [Storybook sandbox](https://getstorybook.io)
     - This is very helpful to see a UI component in isolation either for manual testing or styling.
 - `npm run test` to run the unit tests via [mocha](http://mochajs.org)
